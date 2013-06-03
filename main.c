@@ -25,11 +25,6 @@
 ** 																	**
 **********************************************************************/
 
-<<<<<<< HEAD
-
-int main(void)
-{
-=======
 #include "Automata/Automata.h"
 #include "DPD/DPD.h"
 #include "driverlib/systick.h"
@@ -103,8 +98,6 @@ int main(void){
 		EjecutaAutomata( (TS_AUTOMATA *) &dpd);
 
 	}
->>>>>>> develop_DPD
-
 }
 
 
