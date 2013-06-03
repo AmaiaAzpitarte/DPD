@@ -41,7 +41,6 @@
 #include "Utiles/rit128x96x4.h"
 #include "lm3slib/driverlib/gpio.h"
 
-
 /*********************************************************************
 ** 																	**
 ** DEFINITIONS AND MACROS 											**
