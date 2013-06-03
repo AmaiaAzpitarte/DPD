@@ -44,8 +44,8 @@ typedef struct{
 	int id_pedido;
 	int operario;
 	int cantidad;
-	boolean confirmacion;
-	boolean final;
+	int confirmacion; //en realidad puede ser un booleano
+	int final; // en realidad puede ser un booleano
 }LINEAPEDIDO;
 
 /*****************************************************************************
