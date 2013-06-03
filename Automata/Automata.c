@@ -1,9 +1,9 @@
 /*********************************************************************
 ** 																	**
 ** project : DPD				 									**
-** filename : main.c		 										**
+** filename : Automata.c		 									**
 ** version : 1 														**
-** date : May 28, 2013 												**
+** date : June 3, 2013		 										**
 ** 																	**
 **********************************************************************
 ** 																	**
@@ -15,10 +15,13 @@
 **VERSION HISTORY:													**
 **----------------													**
 **Version : 1														**
-**Date : May 28, 2013												**
+**Date : June 3, 2013												**
 **Revised by : Amaia Azpitarte										**
 **Description : Original version. 									**
 *********************************************************************/
+
+#define _AUTOMATA_C
+
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
@@ -26,9 +29,6 @@
 **********************************************************************/
 
 #include "Automata/Automata.h"
-#include "DPD/DPD.h"
-
-#include "driverlib/systick.h"
 
 /*********************************************************************
 ** 																	**
@@ -50,59 +50,93 @@
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
-/*********************************************************************
-** 																	**
-** GLOBAL VARIABLES 												**
-** 																	**
-**********************************************************************/
 
 extern TS_AUTOMATA dpd;
 
 /*********************************************************************
 ** 																	**
-** EXPORTED FUNCTIONS 												**
+** GLOBAL VARIABLES 												**
 ** 																	**
 **********************************************************************/
 /*********************************************************************
 ** 																	**
-** LOCAL FUNCTIONS 													**
+** EXPORTED FUNCTIONS 												**
 ** 																	**
 **********************************************************************/
 
 /**
-* @brief  Punto de entrada y SuperLoop de la aplicación
-*
-* @return La función nunca finaliza su ejecución
-*
-* Inicializa todos los elementos del sistema y ejecuta las tareas de
-* la máquina de estado constantemente en un bucle infinito
-*
-*/
+ * @brief  Ejecuta el autómata
+ *
+ * @param elAutomata Puntero al autómata
+ *
+ * @return void
+ *
+ * Consulta el estado del autómata y ejecuta cada uno de los estados
+ * que detecta
+ */
 
-int main(void){
+void EjecutaAutomata(TS_AUTOMATA *elAutomata){
 
-	RIT128x96x4Init(1000000);
-	RIT128x96x4Enable(1000000);
-	RIT128x96x4StringDraw("ESTADO - dpd espera",5,10,15);
+	TS_ESTADO **Indx;    /* Valor índice rastreador */
 
-	dpd.estadoActual = DPD_ESPERA; /* El primer estado es DPD_ESPERA */
+	for (Indx = elAutomata->estado; *Indx != NULL; ++Indx){
 
-	/* Se ejecutará la máquina de estado de forma continua */
-	while(1){
+	    if (elAutomata->estadoActual == (*Indx)->id){
 
-		DPD_inicializacion_keypad();
+			EjecutaEstado(*Indx, elAutomata);
 
-		DPD_leer_keypad();
+			return;
 
-		DPD_elegir_tecla();
-
-		EjecutaAutomata( (TS_AUTOMATA *) &dpd);
+	    }
 
 	}
 
 }
 
+/**
+ * @brief  Ejecuta el estado
+ *
+ * @param elEstado Puntero al estado
+ * @param elAutomata Puntero al autómata
+ *
+ * @return void
+ *
+ * Mira en el estado si hay algun evento y si es así, ejecuta la acción
+ * que corresponde a ese evento
+ */
 
+void EjecutaEstado (TS_ESTADO *elEstado, TS_AUTOMATA *elAutomata){
+
+	TS_EVEACC *Indx;   /* Índice de rastreo */
+
+		for (Indx = elEstado->funcion; Indx->evento != NULL; ++Indx){
+
+			if (Indx->evento() == true){
+
+				if (Indx->accion != NULL){
+
+					Indx->accion();
+				}
+
+				if (Indx->id != elAutomata->estadoActual){
+
+					elAutomata->estadoActual = Indx->id;
+
+					return;
+
+				}
+
+			}
+
+		}
+
+}
+
+/*********************************************************************
+** 																	**
+** LOCAL FUNCTIONS 													**
+** 																	**
+**********************************************************************/
 /*********************************************************************
 ** 																	**
 ** EOF 																**
