@@ -1,9 +1,9 @@
 /*********************************************************************
 ** 																	**
 ** project : DPD				 									**
-** filename : main.c		 										**
+** filename : display.c		 										**
 ** version : 1 														**
-** date : May 28, 2013 												**
+** date : June 03, 2013		 										**
 ** 																	**
 **********************************************************************
 ** 																	**
@@ -15,7 +15,7 @@
 **VERSION HISTORY:													**
 **----------------													**
 **Version : 1														**
-**Date : May 28, 2013												**
+**Date : June 03, 2013												**
 **Revised by : Amaia Azpitarte										**
 **Description : Original version. 									**
 *********************************************************************/
@@ -24,26 +24,23 @@
 ** MODULES USED 													**
 ** 																	**
 **********************************************************************/
-#include "Automata/Automata.h"
-#include "DPD/DPD.h"
-#include "driverlib/systick.h"
 
+#include "Utiles/rit128x96x4.h"
+
+#include "Headers/display.h"
+#include "Headers/displayGenerico.h"
+#include "Headers/framebuffer.h"
+
+#include "DPD/DPD.h"
 
 /*********************************************************************
 ** 																	**
 ** DEFINITIONS AND MACROS 											**
 ** 																	**
 **********************************************************************/
-/*********************************************************************
-** 																	**
-** TYPEDEFS AND STRUCTURES 											**
-** 																	**
-**********************************************************************/
-/*********************************************************************
-** 																	**
-** PROTOTYPES OF LOCAL FUNCTIONS 									**
-** 																	**
-*********************************************************************/
+
+#define DISPLAY_C
+
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
@@ -55,13 +52,8 @@
 ** 																	**
 **********************************************************************/
 
-extern TS_AUTOMATA dpd;
+int identificador; /*Variable donde se guardará el id de los elementos creados*/
 
-/*********************************************************************
-** 																	**
-** EXPORTED FUNCTIONS 												**
-** 																	**
-**********************************************************************/
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
@@ -69,38 +61,45 @@ extern TS_AUTOMATA dpd;
 **********************************************************************/
 
 /**
-* @brief  Punto de entrada y SuperLoop de la aplicación
-*
-* @return La función nunca finaliza su ejecución
-*
-* Inicializa todos los elementos del sistema y ejecuta las tareas de
-* la máquina de estado constantemente en un bucle infinito
-*
+ * @brief  Inicializamos y escribimos los tres estados del semáforo
+ * y el círculo en la pantalla.
+ *
+ * @return    -
+ *
+ * Primero se inicializa el buffer, y luego se escribeen el display.
+ *
 */
 
-int main(void){
+void DPD_inicializacion_display(){
 
-	RIT128x96x4Init(1000000);
-	RIT128x96x4Enable(1000000);
-	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
+	//FRAME_BUFFER_delete_row(10);
 
-	dpd.estadoActual = DPD_ESPERA; /* El primer estado es DPD_ESPERA */
+	FRAME_BUFFER_init();
 
-	/* Se ejecutará la máquina de estado de forma continua */
-	while(1){
+	//str = "DPD_ESPERA";
 
-		DPD_inicializacion_keypad();
-
-		DPD_leer_keypad();
-
-		DPD_elegir_tecla();
-
-		EjecutaAutomata( (TS_AUTOMATA *) &dpd);
-
-	}
+	//FRAME_BUFFER_insert_text(str, 5, 10);
 
 }
 
+/**
+ * @brief  Función para escribir en la pantalla.
+ *
+ * @return   void
+ *
+ * Se inserta un texto en el buffer y se vuelca el buffer en el display
+ *
+*/
+
+void DPD_escribir_en_pantalla(unsigned char *puc, int x, int y){
+
+	identificador = FRAME_BUFFER_insert_text(puc, x, y);
+
+	FRAME_BUFFER_write_to_display(); /*Volcamos el buffer en la pantalla*/
+
+	FRAME_BUFFER_delete_element (identificador);
+
+}
 /*********************************************************************
 ** 																	**
 ** EOF 																**

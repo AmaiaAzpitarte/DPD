@@ -1,9 +1,9 @@
 /*********************************************************************
 ** 																	**
 ** project : DPD				 									**
-** filename : received_data.c 										**
+** filename : displayRIT.c		 									**
 ** version : 1 														**
-** date : June 3, 2013		 										**
+** date : June 03, 2013		 										**
 ** 																	**
 **********************************************************************
 ** 																	**
@@ -15,12 +15,12 @@
 **VERSION HISTORY:													**
 **----------------													**
 **Version : 1														**
-**Date : June 3, 2013												**
+**Date : June 03, 2013												**
 **Revised by : Amaia Azpitarte										**
 **Description : Original version. 									**
 *********************************************************************/
 
-#define RECEIVED_DATA_C
+#define DISPLAY_RIT_C
 
 /*********************************************************************
 **																	**
@@ -28,34 +28,61 @@
 ** 																	**
 **********************************************************************/
 
-#include "Headers/data_structs.h"
-#include "Headers/received_data.h"
+#include "Headers/displayGenerico.h"
+#include "Utiles/rit128x96x4.h"
+#include "string.h"
 
-/*********************************************************************
-** 																	**
-** EXPORTED VARIABLES 												**
-** 																	**
-*********************************************************************/
-/*********************************************************************
-** 																	**
-** GLOBAL VARIABLES 												**
-** 																	**
-**********************************************************************/
-
-t_lineapedido lineapedido_1={1,1,"4",0,0};
-
-t_lineapedido lineapedido_2={2,2,"5",0,0};
-
-t_lineapedido lineapedido_3={3,3,"6",0,1};
+#include "DPD/DPD.h"
 
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
 **********************************************************************/
+
+/**
+ * @brief  Función para escribir en pantalla.
+ *
+ * @return  void
+ *
+*/
+
+void DISPLAY_GENERICO_dibuja_string(const char *pcStr, unsigned long ulX,
+		unsigned long ulY, unsigned char ucLevel){
+
+	RIT128x96x4StringDraw(pcStr,ulX,ulY,ucLevel);
+
+}
+
+/**
+ * @brief  Función para dibujar en pantalla.
+ *
+ * @return   void
+ *
+*/
+
+void DISPLAY_GENERICO_dibuja_imagen(unsigned char *pucImage, int ulX,
+		int ulY, int ulWidth,int ulHeight){
+
+	RIT128x96x4ImageDraw(pucImage,ulX,ulY,ulWidth,ulHeight);
+
+}
+
+/**
+ * @brief  Función para inicializar pantalla.
+ *
+ * @return   void
+ *
+*/
+
+void DISPLAY_GENERICO_init(){
+
+	RIT128x96x4Init(1000000);
+
+}
+
 /*********************************************************************
 ** 																	**
 ** EOF 																**
 ** 																	**
 **********************************************************************/
-
