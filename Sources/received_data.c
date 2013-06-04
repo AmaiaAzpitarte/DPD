@@ -42,11 +42,11 @@
 ** 																	**
 **********************************************************************/
 
-t_lineapedido pedido_1={1,1,"4",0,1};
+t_lineapedido lineapedido_1={1,1,"4",0,0};
 
-t_lineapedido pedido_2={2,2,"5",0,1};
+t_lineapedido lineapedido_2={2,2,"5",0,0};
 
-t_lineapedido pedido_3={3,3,"6",0,1};
+t_lineapedido lineapedido_3={3,3,"6",0,1};
 
 /*********************************************************************
 ** 																	**

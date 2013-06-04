@@ -24,13 +24,10 @@
 ** MODULES USED 													**
 ** 																	**
 **********************************************************************/
-
 #include "Automata/Automata.h"
 #include "DPD/DPD.h"
-
 #include "driverlib/systick.h"
 
-//#include "Headers/received_data.h"
 
 /*********************************************************************
 ** 																	**
