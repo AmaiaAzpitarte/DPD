@@ -41,9 +41,8 @@
 #include "Utiles/rit128x96x4.h"
 #include "lm3slib/driverlib/gpio.h"
 
-#include "Headers/data_structs.h"
 #include "Headers/received_data.h"
-//#include "Headers/testeo_datos_linea.h"
+#include "Headers/data_structs.h"
 
 /*********************************************************************
 ** 																	**
@@ -142,12 +141,11 @@ void SEM_ACCION_menu_tercero();
 ** 																	**
 *********************************************************************/
 
-extern t_lineapedido pedido_1;
+extern t_lineapedido lineapedido_1;
 
-extern t_lineapedido pedido_2;
+extern t_lineapedido lineapedido_2;
 
-extern t_lineapedido pedido_3;
-
+extern t_lineapedido lineapedido_3;
 
 /*
  * Definición de los estados de la máquina de estados con sus respectivos eventos
@@ -480,6 +478,7 @@ void SEM_ACCION_dpd_espera(){
 
 	RIT128x96x4Clear();
 
+	RIT128x96x4StringDraw("ESTADO - dpd espera",5,10,15);
 	//Para saber en qué estado estamos en cada momento
 	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
 
@@ -490,6 +489,7 @@ void SEM_ACCION_una_linea(){
 
 	RIT128x96x4Clear();
 
+	RIT128x96x4StringDraw("ESTADO - una linea",5,20,15);
 	DISPLAY_GENERICO_dibuja_string(pedido_1.cantidad,50,20,15);
 
 	if(pedido_1.final==1){
@@ -507,6 +507,7 @@ void SEM_ACCION_confirmacion(){
 
 	RIT128x96x4Clear();
 
+	RIT128x96x4StringDraw("ESTADO - confirmacion",5,30,15);
 	DISPLAY_GENERICO_dibuja_string("Operacion realizada",5,30,15);
 
 	//Para saber en qué estado estamos en cada momento
@@ -520,6 +521,7 @@ void SEM_ACCION_dos_lineas(){
 
 	RIT128x96x4Clear();
 
+	RIT128x96x4StringDraw("ESTADO - dos lineas",5,40,15);
 	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
 	DISPLAY_GENERICO_dibuja_string("Dos Operarios",25,45,15);
 
@@ -534,6 +536,7 @@ void SEM_ACCION_tres_lineas(){
 
 	RIT128x96x4Clear();
 
+	RIT128x96x4StringDraw("ESTADO - tres lineas",5,50,15);
 	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
 	DISPLAY_GENERICO_dibuja_string("Tres Operarios",25,45,15);
 
@@ -548,6 +551,7 @@ void SEM_ACCION_menu_primero(){
 
 	RIT128x96x4Clear();
 
+	RIT128x96x4StringDraw("ESTADO - menu primero",5,60,15);
 	DISPLAY_GENERICO_dibuja_string(pedido_1.cantidad,50,20,15);
 
 	if(pedido_1.final==1){
@@ -566,6 +570,7 @@ void SEM_ACCION_menu_segundo(){
 
 	RIT128x96x4Clear();
 
+	RIT128x96x4StringDraw("ESTADO - menu segundo",5,70,15);
 	DISPLAY_GENERICO_dibuja_string(pedido_2.cantidad,50,20,15);
 
 	if(pedido_2.final==1){
