@@ -28,8 +28,8 @@
 ** 																	**
 **********************************************************************/
 
-#include "data_structs.h"
-#include "received_data.h"
+#include "Headers/data_structs.h"
+#include "Headers/received_data.h"
 
 /*********************************************************************
 ** 																	**
@@ -42,11 +42,11 @@
 ** 																	**
 **********************************************************************/
 
-LINEAPEDIDO linea_pedido_1;
+t_lineapedido lineapedido_1={1,1,"4",0,0};
 
-LINEAPEDIDO linea_pedido_2;
+t_lineapedido lineapedido_2={2,2,"5",0,0};
 
-LINEAPEDIDO linea_pedido_3;
+t_lineapedido lineapedido_3={3,3,"6",0,1};
 
 /*********************************************************************
 ** 																	**

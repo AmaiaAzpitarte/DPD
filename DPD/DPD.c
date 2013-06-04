@@ -41,6 +41,9 @@
 #include "Utiles/rit128x96x4.h"
 #include "lm3slib/driverlib/gpio.h"
 
+#include "Headers/received_data.h"
+#include "Headers/data_structs.h"
+
 /*********************************************************************
 ** 																	**
 ** DEFINITIONS AND MACROS 											**
@@ -138,6 +141,11 @@ void SEM_ACCION_menu_tercero();
 ** 																	**
 *********************************************************************/
 
+extern t_lineapedido lineapedido_1;
+
+extern t_lineapedido lineapedido_2;
+
+extern t_lineapedido lineapedido_3;
 
 /*
  * Definición de los estados de la máquina de estados con sus respectivos eventos
