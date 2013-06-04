@@ -478,7 +478,6 @@ void SEM_ACCION_dpd_espera(){
 
 	RIT128x96x4Clear();
 
-	RIT128x96x4StringDraw("ESTADO - dpd espera",5,10,15);
 	//Para saber en qué estado estamos en cada momento
 	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
 
@@ -489,15 +488,14 @@ void SEM_ACCION_una_linea(){
 
 	RIT128x96x4Clear();
 
-	RIT128x96x4StringDraw("ESTADO - una linea",5,20,15);
-	DISPLAY_GENERICO_dibuja_string(pedido_1.cantidad,50,20,15);
+	DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
 
-	if(pedido_1.final==1){
+	if(lineapedido_1.final==1){
 		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
 	}
 
 	//Para saber en qué estado estamos en cada momento
-	FRAME_BUFFER_delete_row(80);
+	//FRAME_BUFFER_delete_row(80);
 
 	RIT128x96x4StringDraw("ESTADO - una linea",5,80,15);
 
@@ -507,11 +505,10 @@ void SEM_ACCION_confirmacion(){
 
 	RIT128x96x4Clear();
 
-	RIT128x96x4StringDraw("ESTADO - confirmacion",5,30,15);
 	DISPLAY_GENERICO_dibuja_string("Operacion realizada",5,30,15);
 
 	//Para saber en qué estado estamos en cada momento
-	FRAME_BUFFER_delete_row(80);
+	//FRAME_BUFFER_delete_row(80);
 
 	RIT128x96x4StringDraw("ESTADO - confirmacion",5,80,15);
 
@@ -521,12 +518,11 @@ void SEM_ACCION_dos_lineas(){
 
 	RIT128x96x4Clear();
 
-	RIT128x96x4StringDraw("ESTADO - dos lineas",5,40,15);
 	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
 	DISPLAY_GENERICO_dibuja_string("Dos Operarios",25,45,15);
 
 	//Para saber en qué estado estamos en cada momento
-	FRAME_BUFFER_delete_row(80);
+	//FRAME_BUFFER_delete_row(80);
 
 	RIT128x96x4StringDraw("ESTADO - dos lineas",5,80,15);
 
@@ -536,12 +532,11 @@ void SEM_ACCION_tres_lineas(){
 
 	RIT128x96x4Clear();
 
-	RIT128x96x4StringDraw("ESTADO - tres lineas",5,50,15);
 	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
 	DISPLAY_GENERICO_dibuja_string("Tres Operarios",25,45,15);
 
 	//Para saber en qué estado estamos en cada momento
-	FRAME_BUFFER_delete_row(80);
+	//FRAME_BUFFER_delete_row(80);
 
 	RIT128x96x4StringDraw("ESTADO - tres lineas",5,80,15);
 
@@ -551,16 +546,15 @@ void SEM_ACCION_menu_primero(){
 
 	RIT128x96x4Clear();
 
-	RIT128x96x4StringDraw("ESTADO - menu primero",5,60,15);
-	DISPLAY_GENERICO_dibuja_string(pedido_1.cantidad,50,20,15);
+	DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
 
-	if(pedido_1.final==1){
+	if(lineapedido_1.final==1){
 		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
 	}
 
 
 	//Para saber en qué estado estamos en cada momento
-	FRAME_BUFFER_delete_row(80);
+	//FRAME_BUFFER_delete_row(80);
 
 	RIT128x96x4StringDraw("ESTADO - menu primero",5,80,15);
 
@@ -570,16 +564,15 @@ void SEM_ACCION_menu_segundo(){
 
 	RIT128x96x4Clear();
 
-	RIT128x96x4StringDraw("ESTADO - menu segundo",5,70,15);
-	DISPLAY_GENERICO_dibuja_string(pedido_2.cantidad,50,20,15);
+	DISPLAY_GENERICO_dibuja_string(lineapedido_2.cantidad,50,20,15);
 
-	if(pedido_2.final==1){
+	if(lineapedido_2.final==1){
 		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
 	}
 
 
 	//Para saber en qué estado estamos en cada momento
-	FRAME_BUFFER_delete_row(80);
+	//FRAME_BUFFER_delete_row(80);
 
 	RIT128x96x4StringDraw("ESTADO - menu segundo",5,80,15);
 
@@ -589,14 +582,14 @@ void SEM_ACCION_menu_tercero(){
 
 	RIT128x96x4Clear();
 
-	DISPLAY_GENERICO_dibuja_string(pedido_3.cantidad,50,20,15);
+	DISPLAY_GENERICO_dibuja_string(lineapedido_3.cantidad,50,20,15);
 
-	if(pedido_3.final==1){
+	if(lineapedido_3.final==1){
 		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
 	}
 
 	//Para saber en qué estado estamos en cada momento
-	FRAME_BUFFER_delete_row(80);
+	//FRAME_BUFFER_delete_row(80);
 
 	RIT128x96x4StringDraw("ESTADO - menu tercero",5,80,15);
 
