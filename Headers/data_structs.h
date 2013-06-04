@@ -46,7 +46,7 @@ typedef struct{
 	int cantidad;
 	int confirmacion; //en realidad puede ser un booleano
 	int final; // en realidad puede ser un booleano
-}LINEAPEDIDO;
+}t_lineapedido;
 
 /*****************************************************************************
 **                                                                          **
