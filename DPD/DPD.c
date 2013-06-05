@@ -44,6 +44,8 @@
 #include "Headers/received_data.h"
 #include "Headers/data_structs.h"
 
+#include "Headers/conf_systick.h"
+
 /*********************************************************************
 ** 																	**
 ** DEFINITIONS AND MACROS 											**
@@ -141,6 +143,8 @@ void SEM_ACCION_menu_tercero();
 ** 																	**
 *********************************************************************/
 
+extern char pulsada; /* Variable en la que se guarda la tecla pulsada */
+
 extern t_lineapedido lineapedido_1;
 
 extern t_lineapedido lineapedido_2;
@@ -148,6 +152,8 @@ extern t_lineapedido lineapedido_2;
 extern t_lineapedido lineapedido_3;
 
 extern int linea;
+
+extern unsigned char g_ucCounter;
 
 /*
  * Definición de los estados de la máquina de estados con sus respectivos eventos
@@ -219,7 +225,7 @@ FIN_AUTOMATA(dpd,1,NULL)
 ** 																	**
 **********************************************************************/
 
-extern char pulsada; /* Variable en la que se guarda la tecla pulsada */
+unsigned long g_ul_system_clock;
 
 /*********************************************************************
 ** 																	**
@@ -239,7 +245,7 @@ tBoolean SEM_EVENTO_finDPD_ESPERA(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
+	if(linea>=1) ret=true;
 	else ret=false;
 
 }
@@ -248,7 +254,7 @@ tBoolean SEM_EVENTO_finPULSADA(){
 
 	tBoolean ret;
 
-	if (pulsada==DOWN) ret=true;
+	if (pulsada==SELECT) ret=true;
 	else ret=false;
 
 }
@@ -257,7 +263,7 @@ tBoolean SEM_EVENTO_finUNA_LINEA(){
 
 	tBoolean ret;
 
-	if (pulsada==UP) ret=true;
+	if (linea>=2) ret=true;
 	else ret=false;
 
 }
@@ -266,8 +272,10 @@ tBoolean SEM_EVENTO_finCONFIRMACION(){
 
 	tBoolean ret;
 
-	if (pulsada==UP) ret=true;
-	else ret=false;
+	if ((g_ucCounter == 5)&(linea==0)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
@@ -275,8 +283,10 @@ tBoolean SEM_EVENTO_finQUEDA_UNA(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
-	else ret=false;
+	if ((g_ucCounter == 5)&(linea==1)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
@@ -284,34 +294,21 @@ tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 
 	tBoolean ret;
 
-	if (pulsada==LEFT) ret=true;
-	else ret=false;
+	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finQUEDAN_TRES(){
 
-	unsigned long ulValue;
-
-	int i;
-
-	for(i=0;i<2500;i++){
-		i++;
-		i--;
-	}
-
-	// Configure and enable the SysTick counter.
-	SysTickPeriodSet(1000);
-	SysTickEnable();
-
-	// Delay for some time...
-
-	// Read the current SysTick value.
-	ulValue = SysTickValueGet();
-
 	tBoolean ret;
 
-	if(ulValue==1000) ret = true;
+	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
@@ -319,7 +316,7 @@ tBoolean SEM_EVENTO_finMENU(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
+	if (pulsada==UP) ret=true;
 	else ret=false;
 
 }
@@ -328,7 +325,7 @@ tBoolean SEM_EVENTO_finTERCERA(){
 
 	tBoolean ret;
 
-	if (pulsada==DOWN) ret=true;
+	if (linea==3) ret=true;
 	else ret=false;
 
 }
@@ -346,34 +343,19 @@ tBoolean SEM_EVENTO_finCONF_UNO(){
 
 	tBoolean ret;
 
-	if (pulsada==RIGHT) ret=true;
+	if (pulsada==SELECT) ret=true;
 	else ret=false;
 
 }
 
 tBoolean SEM_EVENTO_finDOS(){
 
-	unsigned long ulValue;
-
-	int i;
-
-	for(i=0;i<2500;i++){
-		i++;
-		i--;
-	}
-
-	// Configure and enable the SysTick counter.
-	SysTickPeriodSet(1000);
-	SysTickEnable();
-
-	// Delay for some time...
-
-	// Read the current SysTick value.
-	ulValue = SysTickValueGet();
-
 	tBoolean ret;
 
-	if(ulValue==1000) ret = true;
+	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
@@ -381,30 +363,14 @@ tBoolean SEM_EVENTO_finTRES(){
 
 	tBoolean ret;
 
-	if (pulsada==DOWN) ret=true;
-	else ret=false;
+	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finMENU_DOS(){
-
-	tBoolean ret;
-
-	if (pulsada==LEFT) ret=true;
-	else ret=false;
-
-}
-
-tBoolean SEM_EVENTO_finCONF_DOS(){
-
-	tBoolean ret;
-
-	if (pulsada==RIGHT) ret=true;
-	else ret=false;
-
-}
-
-tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
 	tBoolean ret;
 
@@ -413,16 +379,7 @@ tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
 }
 
-tBoolean SEM_EVENTO_finEXISTEN_TRES(){
-
-	tBoolean ret;
-
-	if (pulsada==DOWN) ret=true;
-	else ret=false;
-
-}
-
-tBoolean SEM_EVENTO_finHAY_DOS(){
+tBoolean SEM_EVENTO_finCONF_DOS(){
 
 	tBoolean ret;
 
@@ -431,14 +388,43 @@ tBoolean SEM_EVENTO_finHAY_DOS(){
 
 }
 
-tBoolean SEM_EVENTO_finHAY_TRES(){
-
-
+tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
 	tBoolean ret;
 
-		if (pulsada==LEFT) ret=true;
-		else ret=false;
+	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	else ret = false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finEXISTEN_TRES(){
+
+	tBoolean ret;
+
+	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	else ret = false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finHAY_DOS(){
+
+	tBoolean ret;
+
+	if ((pulsada==UP)&(linea==2)) ret=true;
+	else ret=false;
+
+}
+
+tBoolean SEM_EVENTO_finHAY_TRES(){
+
+	tBoolean ret;
+
+	if ((pulsada==UP)&(linea==3)) ret=true;
+	else ret=false;
 
 }
 
@@ -446,7 +432,7 @@ tBoolean SEM_EVENTO_finCONF_TRES(){
 
 	tBoolean ret;
 
-	if (pulsada==RIGHT) ret=true;
+	if (pulsada==SELECT) ret=true;
 	else ret=false;
 
 }
@@ -455,7 +441,7 @@ tBoolean SEM_EVENTO_finMENU_UNO(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
+	if (pulsada==UP) ret=true;
 	else ret=false;
 
 }
@@ -464,11 +450,12 @@ tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
 	tBoolean ret;
 
-	if (pulsada==DOWN) ret=true;
-	else ret=false;
+	if (g_ucCounter == 5) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
-
 
 
 
@@ -508,6 +495,8 @@ void SEM_ACCION_confirmacion(){
 	RIT128x96x4Clear();
 
 	DISPLAY_GENERICO_dibuja_string("Operacion realizada",5,30,15);
+
+	linea--;
 
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);

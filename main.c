@@ -31,7 +31,6 @@
 //include para poder cambiar la cantidad de lineas a realizar que hay en el DPD
 #include "Simulacion_linea/simulacion_linea.h"
 
-
 /*********************************************************************
 ** 																	**
 ** DEFINITIONS AND MACROS 											**
@@ -85,9 +84,13 @@ int linea=0; //variable global que indica la cantidad de líneas a realizar en el
 
 int main(void){
 
+	//DPD_inicializacion_clock();
+
 	RIT128x96x4Init(1000000);
 	RIT128x96x4Enable(1000000);
 	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
+
+	initSysTick();
 
 	dpd.estadoActual = DPD_ESPERA; /* El primer estado es DPD_ESPERA */
 

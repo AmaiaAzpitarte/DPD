@@ -40,6 +40,9 @@
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
+
+//extern unsigned char g_ucCounter;
+
 /*********************************************************************
 ** 																	**
 ** GLOBAL VARIABLES 												**
@@ -102,14 +105,21 @@ void DPD_inicializacion_keypad(){
 
 void DPD_leer_keypad(){
 
-	unsigned long ul_pressed_data;
+	//esta función hay que modificarla para poner algo más elegante
+	int i=0;
+	for(i=0;i<500;i++){
+		i++;
+		i--;
+	}
 
-	ul_pressed_data = (GPIOPinRead( GPIO_PORTE_BASE , (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3) )|
-				    	(GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_1) << 3));
+		unsigned long ul_pressed_data;
 
-	g_ul_keypad_switches = ul_pressed_data;
+		ul_pressed_data = (GPIOPinRead( GPIO_PORTE_BASE , (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3) )|
+					    	(GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_1) << 3));
 
-	g_ul_keypad_switches = g_ul_keypad_switches & 0x1f;
+		g_ul_keypad_switches = ul_pressed_data;
+
+		g_ul_keypad_switches = g_ul_keypad_switches & 0x1f;
 
 }
 
@@ -126,29 +136,23 @@ void DPD_elegir_tecla(){
 
 	switch(g_ul_keypad_switches){
 
-		case KEY_UP: pulsada = UP;
+		case KEY_UP:	pulsada = UP;
+						break;
 
-			break;
+		case KEY_DOWN: 	pulsada = DOWN;
+						break;
 
-		case KEY_DOWN: pulsada = DOWN;
-
-			break;
-
-		case KEY_LEFT: pulsada = LEFT;
-
-			break;
+		case KEY_LEFT: 	pulsada = LEFT;
+						break;
 
 		case KEY_RIGHT: pulsada = RIGHT;
+						break;
 
-			break;
+		case KEY_SELECT: 	pulsada = SELECT;
+							break;
 
-		case KEY_SELECT: pulsada = SELECT;
-
-			break;
-
-		default: pulsada = NADA;
-
-			break;
+		default: 	pulsada = NADA;
+					break;
 
 	}
 
