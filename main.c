@@ -28,6 +28,8 @@
 #include "DPD/DPD.h"
 #include "driverlib/systick.h"
 
+#include "Headers/clock.h"
+
 //include para poder cambiar la cantidad de lineas a realizar que hay en el DPD
 #include "Simulacion_linea/simulacion_linea.h"
 
@@ -92,12 +94,16 @@ int main(void){
 
 	initSysTick();
 
+	DPD_inicializacion_pwm();
+
+	DPD_inicializacion_keypad();
+
+	DPD_inicializacion_clock();
+
 	dpd.estadoActual = DPD_ESPERA; /* El primer estado es DPD_ESPERA */
 
 	/* Se ejecutará la máquina de estado de forma continua */
 	while(1){
-
-		DPD_inicializacion_keypad();
 
 		DPD_leer_keypad();
 

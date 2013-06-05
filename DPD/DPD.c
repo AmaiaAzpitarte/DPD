@@ -46,6 +46,8 @@
 
 #include "Headers/conf_systick.h"
 
+#include "Headers/sonido.h"
+
 /*********************************************************************
 ** 																	**
 ** DEFINITIONS AND MACROS 											**
@@ -224,6 +226,8 @@ FIN_AUTOMATA(dpd,1,NULL)
 ** GLOBAL VARIABLES 												**
 ** 																	**
 **********************************************************************/
+
+int estado=0;
 
 unsigned long g_ul_system_clock;
 
@@ -465,6 +469,8 @@ tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
 void SEM_ACCION_dpd_espera(){
 
+	estado=0;
+
 	RIT128x96x4Clear();
 
 	//Para saber en qué estado estamos en cada momento
@@ -474,6 +480,8 @@ void SEM_ACCION_dpd_espera(){
 
 
 void SEM_ACCION_una_linea(){
+
+	estado=1;
 
 	RIT128x96x4Clear();
 
@@ -496,6 +504,16 @@ void SEM_ACCION_confirmacion(){
 
 	DISPLAY_GENERICO_dibuja_string("Operacion realizada",5,30,15);
 
+	switch(estado){
+	case 1: pedido_finalizado(lineapedido_1.final);
+			break;
+	case 2: pedido_finalizado(lineapedido_2.final);
+			break;
+	case 3: pedido_finalizado(lineapedido_3.final);
+			break;
+	default: break;
+	}
+
 	linea--;
 
 	//Para saber en qué estado estamos en cada momento
@@ -506,6 +524,8 @@ void SEM_ACCION_confirmacion(){
 }
 
 void SEM_ACCION_dos_lineas(){
+
+	estado=2;
 
 	RIT128x96x4Clear();
 
@@ -521,6 +541,8 @@ void SEM_ACCION_dos_lineas(){
 
 void SEM_ACCION_tres_lineas(){
 
+	estado=3;
+
 	RIT128x96x4Clear();
 
 	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
@@ -534,6 +556,8 @@ void SEM_ACCION_tres_lineas(){
 }
 
 void SEM_ACCION_menu_primero(){
+
+	estado=1;
 
 	RIT128x96x4Clear();
 
@@ -553,6 +577,8 @@ void SEM_ACCION_menu_primero(){
 
 void SEM_ACCION_menu_segundo(){
 
+	estado=2;
+
 	RIT128x96x4Clear();
 
 	DISPLAY_GENERICO_dibuja_string(lineapedido_2.cantidad,50,20,15);
@@ -571,6 +597,8 @@ void SEM_ACCION_menu_segundo(){
 
 void SEM_ACCION_menu_tercero(){
 
+	estado=3;
+
 	RIT128x96x4Clear();
 
 	DISPLAY_GENERICO_dibuja_string(lineapedido_3.cantidad,50,20,15);
@@ -584,4 +612,29 @@ void SEM_ACCION_menu_tercero(){
 
 	RIT128x96x4StringDraw("ESTADO - menu tercero",5,80,15);
 
+}
+
+/*
+ * Definición de las frecuencias
+ */
+/*
+#define FRECUENCIA_SILENCIO 40000
+#define FRECUENCIA_DO 262
+#define FRECUENCIA_RE 294
+#define FRECUENCIA_MI 330
+#define FRECUENCIA_FA 349
+#define FRECUENCIA_SOL 392
+*/
+void pedido_finalizado(final){
+	if(final==1){
+		DISPLAY_GENERICO_dibuja_string("Pedido Finalizado",10,60,15);
+
+		while(1){
+			DPD_reproducir_nota(262);
+			if(g_ucCounter==4){
+				DPD_reproducir_nota(40000);
+				break;
+			}
+		}
+	}
 }
