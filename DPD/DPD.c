@@ -36,7 +36,7 @@
 
 #include "Automata/Automata.h"
 #include "DPD/DPD.h"
-#include "keypad/keypad.h"
+#include "Headers/keypad.h"
 
 #include "Utiles/rit128x96x4.h"
 #include "lm3slib/driverlib/gpio.h"
@@ -146,6 +146,8 @@ extern t_lineapedido lineapedido_1;
 extern t_lineapedido lineapedido_2;
 
 extern t_lineapedido lineapedido_3;
+
+extern int linea;
 
 /*
  * Definición de los estados de la máquina de estados con sus respectivos eventos

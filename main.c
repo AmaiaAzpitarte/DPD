@@ -28,6 +28,9 @@
 #include "DPD/DPD.h"
 #include "driverlib/systick.h"
 
+//include para poder cambiar la cantidad de lineas a realizar que hay en el DPD
+#include "Simulacion_linea/simulacion_linea.h"
+
 
 /*********************************************************************
 ** 																	**
@@ -56,6 +59,8 @@
 **********************************************************************/
 
 extern TS_AUTOMATA dpd;
+
+int linea=0; //variable global que indica la cantidad de líneas a realizar en el DPD
 
 /*********************************************************************
 ** 																	**
@@ -97,8 +102,9 @@ int main(void){
 
 		EjecutaAutomata( (TS_AUTOMATA *) &dpd);
 
-	}
+		cantidad_linea();
 
+	}
 }
 
 /*********************************************************************

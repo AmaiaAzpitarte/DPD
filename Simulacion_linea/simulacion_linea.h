@@ -1,9 +1,9 @@
 /*****************************************************************************
 **											  								**
 ** project :  DPD							 							  	**
-** filename : keypad.h  					  					    		**
+** filename : simulacion_linea.h  			  					    		**
 ** version : 1 									  							**
-** date :  	2013-06-03		 		 									    **
+** date :  	2013-06-05		 		 									    **
 ** 											  								**
 ******************************************************************************
 ** 											  								**
@@ -15,7 +15,7 @@
 **VERSION HISTORY:									  						**
 **----------------									  						**
 **Version : 1										  						**
-**Date : 2013-06-03									 					    **
+**Date : 2013-06-05									 					    **
 **Revised by : Amaia Azpitarte	          									**
 **Description : Original version.							  				**
 *****************************************************************************/
@@ -25,8 +25,8 @@
 ** 																			**
 ******************************************************************************/
 
-#ifndef KEYPAD_H
-#define KEYPAD_H
+#ifndef SIMULACION_LINEA_H
+#define SIMULACION_LINEA_H
 
 /*****************************************************************************
 ** 																			**
@@ -34,11 +34,7 @@
 ** 																			**
 ******************************************************************************/
 
-void DPD_inicializacion_keypad();
-
-void DPD_leer_keypad();
-
-void DPD_elegir_tecla();
+void cantidad_linea();
 
 /*****************************************************************************
 **	 																		**
@@ -46,10 +42,10 @@ void DPD_elegir_tecla();
 ** 																			**
 *****************************************************************************/
 
-#ifndef KEYPAD_C
-#define PUB_KEYPAD extern
+#ifndef SIMULACION_LINEA_C
+#define PUB_SIMULACION_LINEA extern
 #else
-#define PUB_KEYPAD
+#define PUB_SIMULACION_LINEA
 #endif
 
 /*****************************************************************************
