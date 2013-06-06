@@ -48,6 +48,8 @@
 
 #include "Headers/sonido.h"
 
+#include "Headers/leds.h"
+
 /*********************************************************************
 ** 																	**
 ** DEFINITIONS AND MACROS 											**
@@ -252,6 +254,8 @@ tBoolean SEM_EVENTO_finDPD_ESPERA(){
 	if(linea>=1) ret=true;
 	else ret=false;
 
+	return ret;
+
 }
 
 tBoolean SEM_EVENTO_finPULSADA(){
@@ -261,6 +265,8 @@ tBoolean SEM_EVENTO_finPULSADA(){
 	if (pulsada==SELECT) ret=true;
 	else ret=false;
 
+	return ret;
+
 }
 
 tBoolean SEM_EVENTO_finUNA_LINEA(){
@@ -269,6 +275,8 @@ tBoolean SEM_EVENTO_finUNA_LINEA(){
 
 	if (linea>=2) ret=true;
 	else ret=false;
+
+	return ret;
 
 }
 
@@ -323,6 +331,8 @@ tBoolean SEM_EVENTO_finMENU(){
 	if (pulsada==UP) ret=true;
 	else ret=false;
 
+	return ret;
+
 }
 
 tBoolean SEM_EVENTO_finTERCERA(){
@@ -331,6 +341,8 @@ tBoolean SEM_EVENTO_finTERCERA(){
 
 	if (linea==3) ret=true;
 	else ret=false;
+
+	return ret;
 
 }
 
@@ -341,6 +353,8 @@ tBoolean SEM_EVENTO_finTRES_LINEAS(){
 	if (pulsada==UP) ret=true;
 	else ret=false;
 
+	return ret;
+
 }
 
 tBoolean SEM_EVENTO_finCONF_UNO(){
@@ -349,6 +363,8 @@ tBoolean SEM_EVENTO_finCONF_UNO(){
 
 	if (pulsada==SELECT) ret=true;
 	else ret=false;
+
+	return ret;
 
 }
 
@@ -381,6 +397,8 @@ tBoolean SEM_EVENTO_finMENU_DOS(){
 	if (pulsada==UP) ret=true;
 	else ret=false;
 
+	return ret;
+
 }
 
 tBoolean SEM_EVENTO_finCONF_DOS(){
@@ -389,6 +407,8 @@ tBoolean SEM_EVENTO_finCONF_DOS(){
 
 	if (pulsada==SELECT) ret=true;
 	else ret=false;
+
+	return ret;
 
 }
 
@@ -421,6 +441,8 @@ tBoolean SEM_EVENTO_finHAY_DOS(){
 	if ((pulsada==UP)&(linea==2)) ret=true;
 	else ret=false;
 
+	return ret;
+
 }
 
 tBoolean SEM_EVENTO_finHAY_TRES(){
@@ -429,6 +451,8 @@ tBoolean SEM_EVENTO_finHAY_TRES(){
 
 	if ((pulsada==UP)&(linea==3)) ret=true;
 	else ret=false;
+
+	return ret;
 
 }
 
@@ -439,6 +463,8 @@ tBoolean SEM_EVENTO_finCONF_TRES(){
 	if (pulsada==SELECT) ret=true;
 	else ret=false;
 
+	return ret;
+
 }
 
 tBoolean SEM_EVENTO_finMENU_UNO(){
@@ -447,6 +473,8 @@ tBoolean SEM_EVENTO_finMENU_UNO(){
 
 	if (pulsada==UP) ret=true;
 	else ret=false;
+
+	return ret;
 
 }
 
@@ -473,6 +501,8 @@ void SEM_ACCION_dpd_espera(){
 
 	RIT128x96x4Clear();
 
+	DPD_escoger_leds();
+
 	//Para saber en qué estado estamos en cada momento
 	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
 
@@ -490,6 +520,8 @@ void SEM_ACCION_una_linea(){
 	if(lineapedido_1.final==1){
 		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
 	}
+
+	DPD_escoger_leds();
 
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);
@@ -532,6 +564,8 @@ void SEM_ACCION_dos_lineas(){
 	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
 	DISPLAY_GENERICO_dibuja_string("Dos Operarios",25,45,15);
 
+	DPD_escoger_leds();
+
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);
 
@@ -547,6 +581,8 @@ void SEM_ACCION_tres_lineas(){
 
 	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
 	DISPLAY_GENERICO_dibuja_string("Tres Operarios",25,45,15);
+
+	DPD_escoger_leds();
 
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);
@@ -566,6 +602,8 @@ void SEM_ACCION_menu_primero(){
 	if(lineapedido_1.final==1){
 		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
 	}
+
+	DPD_escoger_leds();
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -587,6 +625,7 @@ void SEM_ACCION_menu_segundo(){
 		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
 	}
 
+	DPD_escoger_leds();
 
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);
@@ -606,6 +645,8 @@ void SEM_ACCION_menu_tercero(){
 	if(lineapedido_3.final==1){
 		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
 	}
+
+	DPD_escoger_leds();
 
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);
