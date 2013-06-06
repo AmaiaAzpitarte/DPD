@@ -83,8 +83,6 @@ int linea=0; //variable global que indica la cantidad de líneas a realizar en el
 
 int main(void){
 
-	//DPD_inicializacion_clock();
-
 	RIT128x96x4Init(1000000);
 	RIT128x96x4Enable(1000000);
 	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
@@ -97,7 +95,7 @@ int main(void){
 
 	DPD_inicializacion_clock();
 
-	DPD_inicializacion_leds();
+	DPD_inicializacion_leds(); //como el puerto utilizado es el de SSI, no funciona correctamente con el display
 
 	dpd.estadoActual = DPD_ESPERA; /* El primer estado es DPD_ESPERA */
 
