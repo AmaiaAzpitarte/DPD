@@ -38,7 +38,11 @@ void DPD_inicializacion_leds();
 
 void DPD_controlar_leds(leds);
 
-void DPD_escoger_leds();
+void DPD_escoger_leds(operario);
+
+void DPD_escoger_leds_dos_lineas();
+
+void DPD_escoger_leds_tres_lineas();
 
 int DPD_consultar_operarios(operario);
 
