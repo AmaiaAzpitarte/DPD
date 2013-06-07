@@ -27,7 +27,7 @@
 
 #include "Automata/Automata.h"
 #include "DPD/DPD.h"
-#include "driverlib/systick.h"
+//#include "driverlib/systick.h"
 
 /*********************************************************************
 ** 																	**

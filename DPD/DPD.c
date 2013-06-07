@@ -643,7 +643,9 @@ void SEM_ACCION_menu_tercero(){
 }
 
 void pedido_finalizado(final){
+
 	if(final==1){
+
 		DISPLAY_GENERICO_dibuja_string("Pedido Finalizado",10,60,15);
 
 		while(1){
@@ -654,4 +656,5 @@ void pedido_finalizado(final){
 			}
 		}
 	}
+
 }
