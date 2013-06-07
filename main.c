@@ -84,7 +84,7 @@ int linea=0; //variable global que indica la cantidad de líneas a realizar en el
 int main(void){
 
 	RIT128x96x4Init(1000000);
-	RIT128x96x4Enable(1000000);
+	//RIT128x96x4Enable(1000000);
 	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
 
 	initSysTick();

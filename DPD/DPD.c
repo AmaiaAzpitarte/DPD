@@ -501,7 +501,7 @@ void SEM_ACCION_dpd_espera(){
 
 	RIT128x96x4Clear();
 
-	DPD_escoger_leds();
+	DPD_escoger_leds(0);
 
 	//Para saber en qué estado estamos en cada momento
 	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
@@ -521,7 +521,7 @@ void SEM_ACCION_una_linea(){
 		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
 	}
 
-	DPD_escoger_leds();
+	DPD_escoger_leds(lineapedido_1.operario);
 
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);
@@ -530,19 +530,21 @@ void SEM_ACCION_una_linea(){
 
 }
 
-void SEM_ACCION_confirmacion(){
+void SEM_ACCION_confirmacion(){ // FUNTZIO HAU ALDATU EIN DOT, LEHEN ESTADO ETA 1, 2, 3 EGON DIE.
 
 	RIT128x96x4Clear();
 
 	DISPLAY_GENERICO_dibuja_string("Operacion realizada",5,30,15);
 
-	switch(estado){
-	case 1: pedido_finalizado(lineapedido_1.final);
-			break;
-	case 2: pedido_finalizado(lineapedido_2.final);
-			break;
-	case 3: pedido_finalizado(lineapedido_3.final);
-			break;
+	switch(dpd.estadoActual){ //estado
+	case UNA_LINEA: pedido_finalizado(lineapedido_1.final); // 1
+					break;
+	case MENU_PRIMERO: pedido_finalizado(lineapedido_1.final); // BORRAU
+					break;
+	case MENU_SEGUNDO: 	pedido_finalizado(lineapedido_2.final); // 2
+						break;
+	case MENU_TERCERO: 	pedido_finalizado(lineapedido_3.final); // 3
+						break;
 	default: break;
 	}
 
@@ -564,7 +566,8 @@ void SEM_ACCION_dos_lineas(){
 	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
 	DISPLAY_GENERICO_dibuja_string("Dos Operarios",25,45,15);
 
-	DPD_escoger_leds();
+	DPD_escoger_leds_dos_lineas();
+	//DPD_escoger_leds(lineapedido_1.operario);
 
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);
@@ -582,7 +585,7 @@ void SEM_ACCION_tres_lineas(){
 	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
 	DISPLAY_GENERICO_dibuja_string("Tres Operarios",25,45,15);
 
-	DPD_escoger_leds();
+	DPD_escoger_leds_tres_lineas();
 
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);
@@ -603,7 +606,7 @@ void SEM_ACCION_menu_primero(){
 		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
 	}
 
-	DPD_escoger_leds();
+	DPD_escoger_leds(lineapedido_1.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -625,7 +628,7 @@ void SEM_ACCION_menu_segundo(){
 		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
 	}
 
-	DPD_escoger_leds();
+	DPD_escoger_leds(lineapedido_2.operario);
 
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);
@@ -646,7 +649,7 @@ void SEM_ACCION_menu_tercero(){
 		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
 	}
 
-	DPD_escoger_leds();
+	DPD_escoger_leds(lineapedido_3.operario);
 
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);
