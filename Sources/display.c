@@ -72,13 +72,7 @@ int identificador; /*Variable donde se guardará el id de los elementos creados*/
 
 void DPD_inicializacion_display(){
 
-	//FRAME_BUFFER_delete_row(10);
-
 	FRAME_BUFFER_init();
-
-	//str = "DPD_ESPERA";
-
-	//FRAME_BUFFER_insert_text(str, 5, 10);
 
 }
 

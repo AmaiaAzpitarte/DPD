@@ -497,8 +497,6 @@ tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
 void SEM_ACCION_dpd_espera(){
 
-	estado=0;
-
 	RIT128x96x4Clear();
 
 	DPD_escoger_leds(0);
@@ -510,8 +508,6 @@ void SEM_ACCION_dpd_espera(){
 
 
 void SEM_ACCION_una_linea(){
-
-	estado=1;
 
 	RIT128x96x4Clear();
 
@@ -530,22 +526,22 @@ void SEM_ACCION_una_linea(){
 
 }
 
-void SEM_ACCION_confirmacion(){ // FUNTZIO HAU ALDATU EIN DOT, LEHEN ESTADO ETA 1, 2, 3 EGON DIE.
+void SEM_ACCION_confirmacion(){
 
 	RIT128x96x4Clear();
 
 	DISPLAY_GENERICO_dibuja_string("Operacion realizada",5,30,15);
 
-	switch(dpd.estadoActual){ //estado
-	case UNA_LINEA: pedido_finalizado(lineapedido_1.final); // 1
-					break;
-	case MENU_PRIMERO: pedido_finalizado(lineapedido_1.final); // BORRAU
-					break;
-	case MENU_SEGUNDO: 	pedido_finalizado(lineapedido_2.final); // 2
+	switch(dpd.estadoActual){
+	case UNA_LINEA: 	pedido_finalizado(lineapedido_1.final);
 						break;
-	case MENU_TERCERO: 	pedido_finalizado(lineapedido_3.final); // 3
+	case MENU_PRIMERO:	pedido_finalizado(lineapedido_1.final);
 						break;
-	default: break;
+	case MENU_SEGUNDO: 	pedido_finalizado(lineapedido_2.final);
+						break;
+	case MENU_TERCERO: 	pedido_finalizado(lineapedido_3.final);
+						break;
+	default:			break;
 	}
 
 	linea--;
@@ -559,15 +555,12 @@ void SEM_ACCION_confirmacion(){ // FUNTZIO HAU ALDATU EIN DOT, LEHEN ESTADO ETA 
 
 void SEM_ACCION_dos_lineas(){
 
-	estado=2;
-
 	RIT128x96x4Clear();
 
 	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
 	DISPLAY_GENERICO_dibuja_string("Dos Operarios",25,45,15);
 
 	DPD_escoger_leds_dos_lineas();
-	//DPD_escoger_leds(lineapedido_1.operario);
 
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);
@@ -577,8 +570,6 @@ void SEM_ACCION_dos_lineas(){
 }
 
 void SEM_ACCION_tres_lineas(){
-
-	estado=3;
 
 	RIT128x96x4Clear();
 
@@ -596,8 +587,6 @@ void SEM_ACCION_tres_lineas(){
 
 void SEM_ACCION_menu_primero(){
 
-	estado=1;
-
 	RIT128x96x4Clear();
 
 	DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
@@ -608,7 +597,6 @@ void SEM_ACCION_menu_primero(){
 
 	DPD_escoger_leds(lineapedido_1.operario);
 
-
 	//Para saber en qué estado estamos en cada momento
 	//FRAME_BUFFER_delete_row(80);
 
@@ -617,8 +605,6 @@ void SEM_ACCION_menu_primero(){
 }
 
 void SEM_ACCION_menu_segundo(){
-
-	estado=2;
 
 	RIT128x96x4Clear();
 
@@ -639,8 +625,6 @@ void SEM_ACCION_menu_segundo(){
 
 void SEM_ACCION_menu_tercero(){
 
-	estado=3;
-
 	RIT128x96x4Clear();
 
 	DISPLAY_GENERICO_dibuja_string(lineapedido_3.cantidad,50,20,15);
@@ -658,23 +642,12 @@ void SEM_ACCION_menu_tercero(){
 
 }
 
-/*
- * Definición de las frecuencias
- */
-/*
-#define FRECUENCIA_SILENCIO 40000
-#define FRECUENCIA_DO 262
-#define FRECUENCIA_RE 294
-#define FRECUENCIA_MI 330
-#define FRECUENCIA_FA 349
-#define FRECUENCIA_SOL 392
-*/
 void pedido_finalizado(final){
 	if(final==1){
 		DISPLAY_GENERICO_dibuja_string("Pedido Finalizado",10,60,15);
 
 		while(1){
-			DPD_reproducir_nota(262);
+			DPD_reproducir_nota(FRECUENCIA_DO);
 			if(g_ucCounter==4){
 				DPD_reproducir_nota(40000);
 				break;

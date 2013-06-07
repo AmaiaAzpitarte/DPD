@@ -1,9 +1,9 @@
 /*********************************************************************
 ** 																	**
 ** project : DPD			 										**
-** filename : clock.c 												**
+** filename : inicializacion.c 										**
 ** version : 1 														**
-** date : June 05, 2013 											**
+** date : June 07, 2013 											**
 ** 																	**
 **********************************************************************
 ** 																	**
@@ -15,44 +15,47 @@
 **VERSION HISTORY:													**
 **----------------													**
 **Version : 1														**
-**Date : June 05, 2013												**
+**Date : June 07, 2013												**
 **Revised by : Amaia Azpitarte										**
 **Description : Original version. 									**
 *********************************************************************/
-#define CLOCK_C
+#define INICIALIZACION_C
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
 **********************************************************************/
-#include "hw_types.h"
-#include "Headers/clock.h"
-#include "driverlib/sysctl.h"
+
+#include "Headers/inicializacion.h"
+
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
-
-extern unsigned long g_ul_system_clock; /*Frecuencia del clock*/
-
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
 **********************************************************************/
-/**
- * @brief  Función para inicializar el clock.
- *
- * @return    -
- *
- *
-*/
-void DPD_inicializacion_clock(){
-	//125ns
-	SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |SYSCTL_XTAL_8MHZ);
-	g_ul_system_clock = SysCtlClockGet();
+
+void DPD_inicializacion(){
+
+	RIT128x96x4Init(1000000);
+	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
+
+	initSysTick();
+
+	DPD_inicializacion_pwm();
+
+	DPD_inicializacion_keypad();
+
+	DPD_inicializacion_clock();
+
+	DPD_inicializacion_leds();
+
 }
+
 /*********************************************************************
 ** 																	**
 ** EOF 																**

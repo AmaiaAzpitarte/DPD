@@ -1,13 +1,13 @@
 /*****************************************************************************
 **											  								**
 ** project :  DPD							 							  	**
-** filename : sonido.h  					  					    		**
+** filename : inicializacion.h  					  			    		**
 ** version : 1 									  							**
-** date :  	2013-06-05		 		 									    **
+** date :  	2013-06-07		 		 									    **
 ** 											  								**
 ******************************************************************************
 ** 											  								**
-** 							                            			  		**
+**                      											  		**
 **  								  					                    **
 ** 											  								**
 ******************************************************************************
@@ -15,8 +15,8 @@
 **VERSION HISTORY:									  						**
 **----------------									  						**
 **Version : 1										  						**
-**Date : 2012-06-05									 					    **
-**Revised by : Amaia Azpitarte					  							**
+**Date : 2013-06-07									 					    **
+**Revised by : Amaia Azpitarte	              	  							**
 **Description : Original version.							  				**
 *****************************************************************************/
 /*****************************************************************************
@@ -24,36 +24,25 @@
 ** DEFINITIONS AND MACROS 													**
 ** 																			**
 ******************************************************************************/
-
-#ifndef SONIDO_H
-#define SONIDO_H
-
-#define FRECUENCIA_SILENCIO 40000
-#define FRECUENCIA_DO 262
-#define FRECUENCIA_RE 294
-#define FRECUENCIA_MI 330
-#define FRECUENCIA_FA 349
-#define FRECUENCIA_SOL 392
-
+#ifndef INICIALIZACION_H
+#define INICIALIZACION_H
 /*****************************************************************************
 ** 																			**
 ** PROTOTYPES OF GLOBAL FUNCTIONS											**
 ** 																			**
 ******************************************************************************/
 
-void DPD_inicializacion_pwm();
-
-void DPD_reproducir_nota();
+void DPD_inicializacion ();
 
 /*****************************************************************************
 **	 																		**
 ** TYPEDEFS AND STRUCTURES 													**
 ** 																			**
 *****************************************************************************/
-#ifndef SONIDO_C
-#define PUB_SONIDO extern
+#ifndef INICIALIZACION_C
+#define PUB_INICIALIZACION extern
 #else
-#define PUB_SONIDO
+#define PUB_INICIALIZACION
 #endif
 /*****************************************************************************
 ** 																			**

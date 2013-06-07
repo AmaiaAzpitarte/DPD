@@ -36,24 +36,6 @@
 **                                                                          **
 ******************************************************************************/
 
-/*
- Definición de las teclas para la varibale pulsada
-#define UP 1
-#define DOWN 2
-#define LEFT 3
-#define RIGHT 4
-#define SELECT 5
-#define NADA 6
-
- Definición de las teclas
-#define KEY_UP 0x1e     //11110
-#define KEY_DOWN 0x1d   //11101
-#define KEY_LEFT 0x1b   //11011
-#define KEY_RIGHT 0x17  //10111
-#define KEY_SELECT 15 //01111
-*/
-
-
 //ESTADOS DE LA MAQUINA DE ESTADOS
 
 typedef enum {DPD_ESPERA, UNA_LINEA, CONFIRMACION, DOS_LINEAS, TRES_LINEAS, MENU_PRIMERO,
@@ -148,6 +130,11 @@ void SEM_ACCION_menu_primero();
 void SEM_ACCION_menu_segundo();
 
 void SEM_ACCION_menu_tercero();
+
+
+//Función que consulta si la operación es la última de un pedido
+
+void pedido_finalizado(final);
 
 /*****************************************************************************
 **                                                                          **

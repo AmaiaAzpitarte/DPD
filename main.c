@@ -24,11 +24,10 @@
 ** MODULES USED 													**
 ** 																	**
 **********************************************************************/
+
 #include "Automata/Automata.h"
 #include "DPD/DPD.h"
 #include "driverlib/systick.h"
-
-//#include "Headers/clock.h"
 
 /*********************************************************************
 ** 																	**
@@ -83,19 +82,7 @@ int linea=0; //variable global que indica la cantidad de líneas a realizar en el
 
 int main(void){
 
-	RIT128x96x4Init(1000000);
-	//RIT128x96x4Enable(1000000);
-	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
-
-	initSysTick();
-
-	DPD_inicializacion_pwm();
-
-	DPD_inicializacion_keypad();
-
-	DPD_inicializacion_clock();
-
-	DPD_inicializacion_leds(); //como el puerto utilizado es el de SSI, no funciona correctamente con el display
+	DPD_inicializacion();
 
 	dpd.estadoActual = DPD_ESPERA; /* El primer estado es DPD_ESPERA */
 
@@ -108,7 +95,7 @@ int main(void){
 
 		EjecutaAutomata( (TS_AUTOMATA *) &dpd);
 
-		cantidad_linea();
+		cantidad_linea(); //solo para el testeo del DPD
 
 	}
 }

@@ -38,7 +38,6 @@
 **                                                                          **
 *****************************************************************************/
 
-
 //Estructura de una linea de pedido o una reposicion
 typedef struct{
 	int id_pedido;
