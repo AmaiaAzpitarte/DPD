@@ -1,9 +1,9 @@
 /*****************************************************************************
 **											  								**
 ** project :  DPD							 							  	**
-** filename : leds.h 	 					  					    		**
+** filename : inicializacion.h  					  			    		**
 ** version : 1 									  							**
-** date :  	2013-06-06		 		 									    **
+** date :  	2013-06-07		 		 									    **
 ** 											  								**
 ******************************************************************************
 ** 											  								**
@@ -15,8 +15,8 @@
 **VERSION HISTORY:									  						**
 **----------------									  						**
 **Version : 1										  						**
-**Date : 2013-06-06									 					    **
-**Revised by : Amaia Azpitarte	          									**
+**Date : 2013-06-07									 					    **
+**Revised by : Amaia Azpitarte	              	  							**
 **Description : Original version.							  				**
 *****************************************************************************/
 /*****************************************************************************
@@ -24,40 +24,26 @@
 ** DEFINITIONS AND MACROS 													**
 ** 																			**
 ******************************************************************************/
-
-#ifndef LEDS_H
-#define LEDS_H
-
+#ifndef INICIALIZACION_H
+#define INICIALIZACION_H
 /*****************************************************************************
 ** 																			**
 ** PROTOTYPES OF GLOBAL FUNCTIONS											**
 ** 																			**
 ******************************************************************************/
 
-void DPD_inicializacion_leds();
-
-void DPD_controlar_leds(leds);
-
-void DPD_escoger_leds(operario);
-
-void DPD_escoger_leds_dos_lineas();
-
-void DPD_escoger_leds_tres_lineas();
-
-int DPD_consultar_operarios(operario);
+void DPD_inicializacion ();
 
 /*****************************************************************************
 **	 																		**
 ** TYPEDEFS AND STRUCTURES 													**
 ** 																			**
 *****************************************************************************/
-
-#ifndef LEDS_C
-#define PUB_LEDS extern
+#ifndef INICIALIZACION_C
+#define PUB_INICIALIZACION extern
 #else
-#define PUB_LEDS
+#define PUB_INICIALIZACION
 #endif
-
 /*****************************************************************************
 ** 																			**
 ** EOF 																		**

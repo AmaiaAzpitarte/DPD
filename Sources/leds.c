@@ -34,13 +34,10 @@
 #include "inc/hw_memmap.h"
 #include "inc/hw_gpio.h"
 #include "driverlib/gpio.h"
-//#include "driverlib/debug.h"
 #include "driverlib/sysctl.h"
 
 #include "Headers/received_data.h"
 #include "Headers/data_structs.h"
-
-#include "Automata/Automata.h"
 
 /*********************************************************************
 ** 																	**
@@ -56,8 +53,6 @@ extern t_lineapedido lineapedido_2;
 
 extern t_lineapedido lineapedido_3;
 
-extern TS_AUTOMATA dpd;
-
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
@@ -67,60 +62,61 @@ extern TS_AUTOMATA dpd;
 void DPD_inicializacion_leds(){
 
 	//
-	// Enable the GPIO port A that is used for the LEDS.
+	// Enable the GPIO port B that is used for the LEDS.
 	//
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
 
 	//
-	// Enable the GPIO pins 2, 3 and 3 for the LEDS.  Set the direction as output, and
+	// Enable the GPIO pins 0, 1 and 2 for the LEDS.  Set the direction as output, and
 	// enable the GPIO pins for digital function.
 	//
-	GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4);
+	GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
 
-	//apagar los leds desde el principio
-	GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4, 0x00000000);
+	// Apagar los leds desde el principio
+	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, 0x00000000);
 }
 
 void DPD_controlar_leds(leds){
 
-	GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4, 0x00000000);
-
 	//
 	// Output leds' values
 	//
-	GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4, leds);
+	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, leds);
 
 }
 
-void DPD_escoger_leds(){
+
+void DPD_escoger_leds(operario){
 
 	int valor_leds = 0x00;
 
 	int led1;
-	int dos_leds;
+	int led2;
 
-	switch(linea){
-	case 0: valor_leds = 0x00;
-			break;
-	case 1: valor_leds = DPD_consultar_operarios(lineapedido_1.operario);
-			break;
-	case 2: led1= DPD_consultar_operarios(lineapedido_1.operario);
-			valor_leds= DPD_consultar_operarios(lineapedido_2.operario);
-			dos_leds = led1 || valor_leds; //esto no funciona correctamente
-			break;
-	case 3: valor_leds = 0x1C;
-			break;
-	default: 	valor_leds = 0x00;
-				break;
-	}
+	if(linea==0) valor_leds = 0x00; // DPD_ESPERA
+	else valor_leds = DPD_consultar_operarios(operario); // UNA_LINEA | MENU_PRIMERO | MENU_SEGUNDO | MENU_TERCERO
 
-	if((linea==2)&&(dpd.estadoActual==DOS_LINEAS)){
-		DPD_controlar_leds(dos_leds);
-	}
-	else{
-		DPD_controlar_leds(valor_leds);
-	}
+	DPD_controlar_leds(valor_leds);
 
+}
+
+void DPD_escoger_leds_dos_lineas(){ // DOS_LINEAS
+
+	int valor_leds = 0x00;
+	int led1=0x00;
+	int led2=0x00;
+
+	led1= DPD_consultar_operarios(lineapedido_1.operario);
+	led2= DPD_consultar_operarios(lineapedido_2.operario);
+	valor_leds = led1 | led2;
+
+	DPD_controlar_leds(valor_leds);
+
+}
+
+void DPD_escoger_leds_tres_lineas(){ // TRES_LINEAS
+
+	DPD_controlar_leds(0x07);
 
 }
 
@@ -129,11 +125,11 @@ int DPD_consultar_operarios(operario){
 	int ret = 0x00;
 
 	switch(operario){
-	case 1: ret = 0x04;
+	case 1: ret = 0x01;
 			break;
-	case 2: ret = 0x08;
+	case 2: ret = 0x02;
 			break;
-	case 3: ret = 0x10;
+	case 3: ret = 0x04;
 			break;
 	default: break;
 	}

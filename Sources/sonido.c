@@ -38,12 +38,12 @@
 ** 																	**
 *********************************************************************/
 extern unsigned long g_ul_system_clock; /*Frecuencia del clock*/
-//extern unsigned long g_us_note_frecuency; /*Frecuencia de las notas*/
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
 **********************************************************************/
+
 /**
  * @brief  Inicializacaión del PWM.
  *
@@ -82,6 +82,7 @@ void DPD_inicializacion_pwm(){
 	//Activamos la salida del pwm
 	PWMOutputState(PWM_BASE, PWM_OUT_1_BIT, true);
 }
+
 /**
  * @brief  Reproducir una nota con el PWM.
  *
@@ -93,6 +94,7 @@ void DPD_reproducir_nota(g_us_note_frecuency){
 	PWMGenPeriodSet(PWM_BASE, PWM_GEN_0,(g_ul_system_clock /(g_us_note_frecuency * 8)));
 	PWMSyncUpdate(PWM_BASE, PWM_GEN_0_BIT);
 }
+
 /*********************************************************************
 ** 																	**
 ** EOF 																**

@@ -24,15 +24,27 @@
 ** DEFINITIONS AND MACROS 													**
 ** 																			**
 ******************************************************************************/
+
 #ifndef SONIDO_H
 #define SONIDO_H
+
+#define FRECUENCIA_SILENCIO 40000
+#define FRECUENCIA_DO 262
+#define FRECUENCIA_RE 294
+#define FRECUENCIA_MI 330
+#define FRECUENCIA_FA 349
+#define FRECUENCIA_SOL 392
+
 /*****************************************************************************
 ** 																			**
 ** PROTOTYPES OF GLOBAL FUNCTIONS											**
 ** 																			**
 ******************************************************************************/
+
 void DPD_inicializacion_pwm();
+
 void DPD_reproducir_nota();
+
 /*****************************************************************************
 **	 																		**
 ** TYPEDEFS AND STRUCTURES 													**
