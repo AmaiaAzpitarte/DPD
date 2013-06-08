@@ -42,6 +42,10 @@
 ** 																	**
 **********************************************************************/
 
+
+//@todo 	Estos en realidad no deben estar creados así. Se les da
+//			valores a los elementos cuando el DPD recibe una línea de
+//			pedido mediante CAN.
 t_lineapedido lineapedido_1={1,1,"4",0,0};
 
 t_lineapedido lineapedido_2={2,2,"5",0,0};
