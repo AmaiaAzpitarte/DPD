@@ -526,6 +526,10 @@ void SEM_ACCION_una_linea(){
 
 }
 
+
+// @todo	Cuando se integre con la comunicación CAN, se debería llamar a una función de envío que envíe la línea
+//			de pedido realizado y que lo borre del DPD, shift-ando otras líneas que puedan quedar, de manera que
+//			las líneas recibidas estén siempre en orden 1, 2, 3.
 void SEM_ACCION_confirmacion(){
 
 	RIT128x96x4Clear();
@@ -534,12 +538,16 @@ void SEM_ACCION_confirmacion(){
 
 	switch(dpd.estadoActual){
 	case UNA_LINEA: 	pedido_finalizado(lineapedido_1.final);
+						lineapedido_1.confirmacion=1;
 						break;
 	case MENU_PRIMERO:	pedido_finalizado(lineapedido_1.final);
+						lineapedido_1.confirmacion=1;
 						break;
 	case MENU_SEGUNDO: 	pedido_finalizado(lineapedido_2.final);
+						lineapedido_2.confirmacion=1;
 						break;
 	case MENU_TERCERO: 	pedido_finalizado(lineapedido_3.final);
+						lineapedido_3.confirmacion=1;
 						break;
 	default:			break;
 	}
