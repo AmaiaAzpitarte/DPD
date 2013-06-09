@@ -55,6 +55,14 @@ extern t_lineapedido lineapedido_3;
 
 /*********************************************************************
 ** 																	**
+** GLOBAL VARIABLES 												**
+** 																	**
+*********************************************************************/
+
+int valor_leds;
+
+/*********************************************************************
+** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
 **********************************************************************/
@@ -88,7 +96,7 @@ void DPD_controlar_leds(leds){
 
 void DPD_escoger_leds(operario){
 
-	int valor_leds = 0x00;
+	valor_leds = 0x00;
 
 	int led1;
 	int led2;
@@ -102,7 +110,7 @@ void DPD_escoger_leds(operario){
 
 void DPD_escoger_leds_dos_lineas(){ // DOS_LINEAS
 
-	int valor_leds = 0x00;
+	valor_leds = 0x00;
 	int led1=0x00;
 	int led2=0x00;
 

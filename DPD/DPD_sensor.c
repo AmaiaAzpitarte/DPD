@@ -1,9 +1,9 @@
 /*********************************************************************
 ** 																	**
 ** project : DPD				 									**
-** filename : DPD.c													**
+** filename : DPD_sensor.c											**
 ** version : 1 														**
-** date : June 3, 2013		 										**
+** date : June 9, 2013		 										**
 ** 																	**
 **********************************************************************
 ** 																	**
@@ -15,12 +15,12 @@
 **VERSION HISTORY:													**
 **----------------													**
 **Version : 1														**
-**Date : June 3, 2013												**
+**Date : June 9, 2013												**
 **Revised by : Amaia Azpitarte										**
 **Description : Original version. 									**
 *********************************************************************/
 
-#define _DPD_C
+#define _DPD_SENSOR_C
 
 /*********************************************************************
 **																	**
@@ -35,10 +35,11 @@
 #include <string.h>
 
 #include "Automata/Automata.h"
-#include "DPD/DPD.h"
+#include "DPD/DPD_sensor.h"
 #include "Headers/keypad.h"
 
 #include "Utiles/rit128x96x4.h"
+
 #include "lm3slib/driverlib/gpio.h"
 
 #include "Headers/received_data.h"
@@ -70,54 +71,83 @@
 //Transiciones desde el estado DPD_ESPERA
 tBoolean SEM_EVENTO_finDPD_ESPERA();
 
+
 //Transiciones desde el estado UNA_LINEA
-tBoolean SEM_EVENTO_finPULSADA();
+tBoolean SEM_EVENTO_finSENSOR();
+
+tBoolean SEM_EVENTO_finPULSADA_INC();
 
 tBoolean SEM_EVENTO_finUNA_LINEA();
 
-//Transiciones desde el estado CONFIRMACION
-tBoolean SEM_EVENTO_finCONFIRMACION();
-
-tBoolean SEM_EVENTO_finQUEDA_UNA();
-
-tBoolean SEM_EVENTO_finQUEDAN_DOS();
-
-tBoolean SEM_EVENTO_finQUEDAN_TRES();
 
 //Transiciones desde el estado DOS_LINEAS
 tBoolean SEM_EVENTO_finMENU();
 
-tBoolean SEM_EVENTO_finTERCERA();
+tBoolean SEM_EVENTO_finDOS_LINEAS();
+
 
 //Transicion desde el estado TRES_LINEAS
-tBoolean SEM_EVENTO_finTRES_LINEAS();
-
-//Transiciones desde el estado MENU_PRIMERO
-tBoolean SEM_EVENTO_finCONF_UNO();
-
-tBoolean SEM_EVENTO_finDOS();
-
-tBoolean SEM_EVENTO_finTRES();
-
 tBoolean SEM_EVENTO_finMENU_DOS();
 
+
+//Transiciones desde el estado MENU_PRIMERO
+tBoolean SEM_EVENTO_finQUEDAN_DOS();
+
+tBoolean SEM_EVENTO_finQUEDAN_TRES();
+
+tBoolean SEM_EVENTO_finMENU_TRES();
+
+tBoolean SEM_EVENTO_finSENSOR_PRIMERO();
+
+tBoolean SEM_EVENTO_finPULSADA_PRIMERO();
+
+
 //Transiciones desde el estado MENUN_SEGUNDO
-tBoolean SEM_EVENTO_finCONF_DOS();
+tBoolean SEM_EVENTO_finMENU_CUATRO();
 
 tBoolean SEM_EVENTO_finEXISTEN_DOS();
 
 tBoolean SEM_EVENTO_finEXISTEN_TRES();
 
-tBoolean SEM_EVENTO_finHAY_DOS();
+tBoolean SEM_EVENTO_finMENU_CINCO();
+
+tBoolean SEM_EVENTO_finSENSOR_SEGUNDO();
+
+tBoolean SEM_EVENTO_finPULSADA_SEGUNDO();
+
+
+//Transiciones desde el estado MENU_TERCERO
+tBoolean SEM_EVENTO_finMENU_SEIS();
 
 tBoolean SEM_EVENTO_finHAY_TRES();
 
-//Transiciones desde el estado MENU_TERCERO
-tBoolean SEM_EVENTO_finCONF_TRES();
+tBoolean SEM_EVENTO_finSENSOR_TERCERO();
 
-tBoolean SEM_EVENTO_finMENU_UNO();
+tBoolean SEM_EVENTO_finPULSADA_TERCERO();
+
+
+//Transiciones desde el estado SENSOR
+tBoolean SEM_EVENTO_finPULSADA_COR();
+
+tBoolean SEM_EVENTO_finINCORRECTO();
+
+
+//Transiciones desde el estado INCORRECTA
+tBoolean SEM_EVENTO_finSIGUE_UNO();
+
+tBoolean SEM_EVENTO_finSIGUEN_DOS();
 
 tBoolean SEM_EVENTO_finSIGUEN_TRES();
+
+
+//Transiciones desde el estado CORRECTA
+tBoolean SEM_EVENTO_finESTA_UNO();
+
+tBoolean SEM_EVENTO_finESTAN_DOS();
+
+tBoolean SEM_EVENTO_finESTAN_TRES();
+
+tBoolean SEM_EVENTO_finREALIZADA();
 
 
 
@@ -126,8 +156,6 @@ tBoolean SEM_EVENTO_finSIGUEN_TRES();
 void SEM_ACCION_dpd_espera();
 
 void SEM_ACCION_una_linea();
-
-void SEM_ACCION_confirmacion();
 
 void SEM_ACCION_dos_lineas();
 
@@ -139,6 +167,11 @@ void SEM_ACCION_menu_segundo();
 
 void SEM_ACCION_menu_tercero();
 
+void SEM_ACCION_sensor();
+
+void SEM_ACCION_incorrecto();
+
+void SEM_ACCION_correcto();
 
 
 /*********************************************************************
@@ -157,7 +190,11 @@ extern t_lineapedido lineapedido_3;
 
 extern int linea;
 
+extern int valor_leds;
+
 extern unsigned char g_ucCounter;
+
+
 
 /*
  * Definición de los estados de la máquina de estados con sus respectivos eventos
@@ -169,57 +206,77 @@ ESTADO(dpd_espera)
 FIN_ESTADO(dpd_espera, DPD_ESPERA, NULL)
 
 ESTADO(una_linea)
-	ITEM_EVAC(CONFIRMACION, SEM_EVENTO_finPULSADA, SEM_ACCION_confirmacion),
+	ITEM_EVAC(SENSOR, SEM_EVENTO_finSENSOR, SEM_ACCION_sensor),
+	ITEM_EVAC(INCORRECTO, SEM_EVENTO_finPULSADA_INC, SEM_ACCION_incorrecto),
 	ITEM_EVAC(DOS_LINEAS, SEM_EVENTO_finUNA_LINEA, SEM_ACCION_dos_lineas)
 FIN_ESTADO(una_linea, UNA_LINEA, NULL)
 
-ESTADO(confirmacion)
-	ITEM_EVAC(DPD_ESPERA, SEM_EVENTO_finCONFIRMACION, SEM_ACCION_dpd_espera),
-	ITEM_EVAC(UNA_LINEA, SEM_EVENTO_finQUEDA_UNA, SEM_ACCION_una_linea),
-	ITEM_EVAC(DOS_LINEAS, SEM_EVENTO_finQUEDAN_DOS, SEM_ACCION_dos_lineas),
-	ITEM_EVAC(TRES_LINEAS, SEM_EVENTO_finQUEDAN_TRES, SEM_ACCION_tres_lineas)
-FIN_ESTADO(confirmacion, CONFIRMACION, NULL)
-
 ESTADO(dos_lineas)
 	ITEM_EVAC(MENU_PRIMERO, SEM_EVENTO_finMENU, SEM_ACCION_menu_primero),
-	ITEM_EVAC(TRES_LINEAS, SEM_EVENTO_finTERCERA, SEM_ACCION_tres_lineas)
+	ITEM_EVAC(TRES_LINEAS, SEM_EVENTO_finDOS_LINEAS, SEM_ACCION_tres_lineas)
 FIN_ESTADO(dos_lineas, DOS_LINEAS, NULL)
 
 ESTADO(tres_lineas)
-	ITEM_EVAC(MENU_PRIMERO, SEM_EVENTO_finTRES_LINEAS, SEM_ACCION_menu_primero)
+	ITEM_EVAC(MENU_PRIMERO, SEM_EVENTO_finMENU_DOS, SEM_ACCION_menu_primero)
 FIN_ESTADO(tres_lineas, TRES_LINEAS, NULL)
 
 ESTADO(menu_primero)
-	ITEM_EVAC(CONFIRMACION, SEM_EVENTO_finCONF_UNO, SEM_ACCION_confirmacion),
-	ITEM_EVAC(DOS_LINEAS, SEM_EVENTO_finDOS, SEM_ACCION_dos_lineas),
-	ITEM_EVAC(TRES_LINEAS, SEM_EVENTO_finTRES, SEM_ACCION_tres_lineas),
-	ITEM_EVAC(MENU_SEGUNDO, SEM_EVENTO_finMENU_DOS, SEM_ACCION_menu_segundo)
+	ITEM_EVAC(DOS_LINEAS, SEM_EVENTO_finQUEDAN_DOS, SEM_ACCION_dos_lineas),
+	ITEM_EVAC(TRES_LINEAS, SEM_EVENTO_finQUEDAN_TRES, SEM_ACCION_tres_lineas),
+	ITEM_EVAC(MENU_SEGUNDO, SEM_EVENTO_finMENU_TRES, SEM_ACCION_menu_segundo),
+	ITEM_EVAC(SENSOR, SEM_EVENTO_finSENSOR_PRIMERO, SEM_ACCION_sensor),
+	ITEM_EVAC(INCORRECTO, SEM_EVENTO_finPULSADA_PRIMERO, SEM_ACCION_incorrecto)
 FIN_ESTADO(menu_primero, MENU_PRIMERO, NULL)
 
 ESTADO(menu_segundo)
-	ITEM_EVAC(CONFIRMACION, SEM_EVENTO_finCONF_DOS, SEM_ACCION_confirmacion),
+	ITEM_EVAC(MENU_PRIMERO, SEM_EVENTO_finMENU_CUATRO, SEM_ACCION_menu_primero),
 	ITEM_EVAC(DOS_LINEAS, SEM_EVENTO_finEXISTEN_DOS, SEM_ACCION_dos_lineas),
 	ITEM_EVAC(TRES_LINEAS, SEM_EVENTO_finEXISTEN_TRES, SEM_ACCION_tres_lineas),
-	ITEM_EVAC(MENU_PRIMERO, SEM_EVENTO_finHAY_DOS, SEM_ACCION_menu_primero),
-	ITEM_EVAC(MENU_TERCERO, SEM_EVENTO_finHAY_TRES, SEM_ACCION_menu_tercero)
+	ITEM_EVAC(MENU_TERCERO, SEM_EVENTO_finMENU_CINCO, SEM_ACCION_menu_tercero),
+	ITEM_EVAC(SENSOR, SEM_EVENTO_finSENSOR_SEGUNDO, SEM_ACCION_sensor),
+	ITEM_EVAC(INCORRECTO, SEM_EVENTO_finPULSADA_SEGUNDO, SEM_ACCION_incorrecto)
 FIN_ESTADO(menu_segundo, MENU_SEGUNDO, NULL)
 
 ESTADO(menu_tercero)
-	ITEM_EVAC(CONFIRMACION, SEM_EVENTO_finCONF_TRES, SEM_ACCION_confirmacion),
-	ITEM_EVAC(MENU_PRIMERO, SEM_EVENTO_finMENU_UNO, SEM_ACCION_menu_primero),
-	ITEM_EVAC(TRES_LINEAS, SEM_EVENTO_finSIGUEN_TRES, SEM_ACCION_tres_lineas)
+	ITEM_EVAC(MENU_PRIMERO, SEM_EVENTO_finMENU_SEIS, SEM_ACCION_menu_primero),
+	ITEM_EVAC(TRES_LINEAS, SEM_EVENTO_finHAY_TRES, SEM_ACCION_tres_lineas),
+	ITEM_EVAC(SENSOR, SEM_EVENTO_finSENSOR_TERCERO, SEM_ACCION_sensor),
+	ITEM_EVAC(INCORRECTO, SEM_EVENTO_finPULSADA_TERCERO, SEM_ACCION_incorrecto)
 FIN_ESTADO(menu_tercero, MENU_TERCERO, NULL)
+
+ESTADO(sensor)
+	ITEM_EVAC(CORRECTO, SEM_EVENTO_finPULSADA_COR, SEM_ACCION_correcto),
+	ITEM_EVAC(INCORRECTO, SEM_EVENTO_finINCORRECTO, SEM_ACCION_incorrecto)
+FIN_ESTADO(sensor, SENSOR, NULL)
+
+ESTADO(incorrecto)
+	ITEM_EVAC(UNA_LINEA, SEM_EVENTO_finSIGUE_UNO, SEM_ACCION_una_linea),
+	ITEM_EVAC(DOS_LINEAS, SEM_EVENTO_finSIGUEN_DOS, SEM_ACCION_dos_lineas),
+	ITEM_EVAC(TRES_LINEAS, SEM_EVENTO_finSIGUEN_TRES, SEM_ACCION_tres_lineas)
+FIN_ESTADO(incorrecto, INCORRECTO, NULL)
+
+ESTADO(correcto)
+	ITEM_EVAC(UNA_LINEA, SEM_EVENTO_finESTA_UNO, SEM_ACCION_una_linea),
+	ITEM_EVAC(DOS_LINEAS, SEM_EVENTO_finESTAN_DOS, SEM_ACCION_dos_lineas),
+	ITEM_EVAC(TRES_LINEAS, SEM_EVENTO_finESTAN_TRES, SEM_ACCION_tres_lineas),
+	ITEM_EVAC(DPD_ESPERA, SEM_EVENTO_finREALIZADA, SEM_ACCION_dpd_espera)
+FIN_ESTADO(correcto, CORRECTO, NULL)
+
+
+
 
 
 AUTOMATA(dpd)
 	&dpd_espera,
 	&una_linea,
-	&confirmacion,
 	&dos_lineas,
 	&tres_lineas,
 	&menu_primero,
 	&menu_segundo,
-	&menu_tercero
+	&menu_tercero,
+	&sensor,
+	&incorrecto,
+	&correcto
 FIN_AUTOMATA(dpd,1,NULL)
 
 
@@ -229,7 +286,7 @@ FIN_AUTOMATA(dpd,1,NULL)
 ** 																	**
 **********************************************************************/
 
-int estado=0;
+//int estado=0;
 
 unsigned long g_ul_system_clock;
 
@@ -258,7 +315,13 @@ tBoolean SEM_EVENTO_finDPD_ESPERA(){
 
 }
 
-tBoolean SEM_EVENTO_finPULSADA(){
+tBoolean SEM_EVENTO_finSENSOR(){ //Este evento debe ser la detección del sensor
+
+
+
+}
+
+tBoolean SEM_EVENTO_finPULSADA_INC(){
 
 	tBoolean ret;
 
@@ -280,23 +343,34 @@ tBoolean SEM_EVENTO_finUNA_LINEA(){
 
 }
 
-tBoolean SEM_EVENTO_finCONFIRMACION(){
+tBoolean SEM_EVENTO_finMENU(){
 
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==0)) ret = true;
-	else ret = false;
+	if (pulsada==UP) ret=true;
+	else ret=false;
 
 	return ret;
 
 }
 
-tBoolean SEM_EVENTO_finQUEDA_UNA(){
+tBoolean SEM_EVENTO_finDOS_LINEAS(){
 
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==1)) ret = true;
-	else ret = false;
+	if (linea==3) ret=true;
+	else ret=false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finMENU_DOS(){
+
+	tBoolean ret;
+
+	if (pulsada==UP) ret=true;
+	else ret=false;
 
 	return ret;
 
@@ -324,7 +398,7 @@ tBoolean SEM_EVENTO_finQUEDAN_TRES(){
 
 }
 
-tBoolean SEM_EVENTO_finMENU(){
+tBoolean SEM_EVENTO_finMENU_TRES(){
 
 	tBoolean ret;
 
@@ -335,29 +409,13 @@ tBoolean SEM_EVENTO_finMENU(){
 
 }
 
-tBoolean SEM_EVENTO_finTERCERA(){
+tBoolean SEM_EVENTO_finSENSOR_PRIMERO(){ //Este evento debe ser la detección del sensor
 
-	tBoolean ret;
 
-	if (linea==3) ret=true;
-	else ret=false;
-
-	return ret;
 
 }
 
-tBoolean SEM_EVENTO_finTRES_LINEAS(){
-
-	tBoolean ret;
-
-	if (pulsada==UP) ret=true;
-	else ret=false;
-
-	return ret;
-
-}
-
-tBoolean SEM_EVENTO_finCONF_UNO(){
+tBoolean SEM_EVENTO_finPULSADA_PRIMERO(){
 
 	tBoolean ret;
 
@@ -368,44 +426,11 @@ tBoolean SEM_EVENTO_finCONF_UNO(){
 
 }
 
-tBoolean SEM_EVENTO_finDOS(){
+tBoolean SEM_EVENTO_finMENU_CUATRO(){
 
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==2)) ret = true;
-	else ret = false;
-
-	return ret;
-
-}
-
-tBoolean SEM_EVENTO_finTRES(){
-
-	tBoolean ret;
-
-	if ((g_ucCounter == 5)&(linea==3)) ret = true;
-	else ret = false;
-
-	return ret;
-
-}
-
-tBoolean SEM_EVENTO_finMENU_DOS(){
-
-	tBoolean ret;
-
-	if (pulsada==UP) ret=true;
-	else ret=false;
-
-	return ret;
-
-}
-
-tBoolean SEM_EVENTO_finCONF_DOS(){
-
-	tBoolean ret;
-
-	if (pulsada==SELECT) ret=true;
+	if ((pulsada==UP)&(linea==2)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -434,18 +459,7 @@ tBoolean SEM_EVENTO_finEXISTEN_TRES(){
 
 }
 
-tBoolean SEM_EVENTO_finHAY_DOS(){
-
-	tBoolean ret;
-
-	if ((pulsada==UP)&(linea==2)) ret=true;
-	else ret=false;
-
-	return ret;
-
-}
-
-tBoolean SEM_EVENTO_finHAY_TRES(){
+tBoolean SEM_EVENTO_finMENU_CINCO(){
 
 	tBoolean ret;
 
@@ -456,7 +470,13 @@ tBoolean SEM_EVENTO_finHAY_TRES(){
 
 }
 
-tBoolean SEM_EVENTO_finCONF_TRES(){
+tBoolean SEM_EVENTO_finSENSOR_SEGUNDO(){ //Este evento debe ser la detección del sensor
+
+
+
+}
+
+tBoolean SEM_EVENTO_finPULSADA_SEGUNDO(){
 
 	tBoolean ret;
 
@@ -467,7 +487,7 @@ tBoolean SEM_EVENTO_finCONF_TRES(){
 
 }
 
-tBoolean SEM_EVENTO_finMENU_UNO(){
+tBoolean SEM_EVENTO_finMENU_SEIS(){
 
 	tBoolean ret;
 
@@ -478,7 +498,7 @@ tBoolean SEM_EVENTO_finMENU_UNO(){
 
 }
 
-tBoolean SEM_EVENTO_finSIGUEN_TRES(){
+tBoolean SEM_EVENTO_finHAY_TRES(){
 
 	tBoolean ret;
 
@@ -488,6 +508,123 @@ tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 	return ret;
 
 }
+
+tBoolean SEM_EVENTO_finSENSOR_TERCERO(){ //Este evento debe ser la detección del sensor
+
+
+
+}
+
+tBoolean SEM_EVENTO_finPULSADA_TERCERO(){
+
+	tBoolean ret;
+
+	if (pulsada==SELECT) ret=true;
+	else ret=false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finPULSADA_COR(){
+
+	tBoolean ret;
+
+	if (pulsada==SELECT) ret=true;
+	else ret=false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finINCORRECTO(){
+
+	tBoolean ret;
+
+	if (g_ucCounter == 5) ret = true;
+	else ret = false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finSIGUE_UNO(){
+
+	tBoolean ret;
+
+	if ((g_ucCounter == 5)&(linea==1)) ret = true;
+	else ret = false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finSIGUEN_DOS(){
+
+	tBoolean ret;
+
+	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	else ret = false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finSIGUEN_TRES(){
+
+	tBoolean ret;
+
+	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	else ret = false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finESTA_UNO(){
+
+	tBoolean ret;
+
+	if ((g_ucCounter == 5)&(linea==1)) ret = true;
+	else ret = false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finESTAN_DOS(){
+
+	tBoolean ret;
+
+	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	else ret = false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finESTAN_TRES(){
+
+	tBoolean ret;
+
+	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	else ret = false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finREALIZADA(){
+
+	tBoolean ret;
+
+	if ((g_ucCounter == 5)&(linea==0)) ret = true;
+	else ret = false;
+
+	return ret;
+
+}
+
 
 
 
@@ -500,7 +637,6 @@ void SEM_ACCION_dpd_espera(){
 	RIT128x96x4Clear();
 
 	DPD_escoger_leds(0);
-
 
 	//Para saber en qué estado estamos en cada momento
 	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
@@ -526,39 +662,6 @@ void SEM_ACCION_una_linea(){
 
 }
 
-
-// @todo	Cuando se integre con la comunicación CAN, se debería llamar a una función de envío que envíe la línea
-//			de pedido realizado y que lo borre del DPD, shift-ando otras líneas que puedan quedar, de manera que
-//			las líneas recibidas estén siempre en orden 1, 2, 3.
-void SEM_ACCION_confirmacion(){
-
-	RIT128x96x4Clear();
-
-	DISPLAY_GENERICO_dibuja_string("Operacion Realizada",5,30,15);
-
-	switch(dpd.estadoActual){
-	case UNA_LINEA: 	pedido_finalizado(lineapedido_1.final);
-						lineapedido_1.confirmacion=1;
-						break;
-	case MENU_PRIMERO:	pedido_finalizado(lineapedido_1.final);
-						lineapedido_1.confirmacion=1;
-						break;
-	case MENU_SEGUNDO: 	pedido_finalizado(lineapedido_2.final);
-						lineapedido_2.confirmacion=1;
-						break;
-	case MENU_TERCERO: 	pedido_finalizado(lineapedido_3.final);
-						lineapedido_3.confirmacion=1;
-						break;
-	default:			break;
-	}
-
-	linea--;
-
-
-	//Para saber en qué estado estamos en cada momento
-	RIT128x96x4StringDraw("ESTADO - confirmacion",5,80,15);
-
-}
 
 void SEM_ACCION_dos_lineas(){
 
@@ -643,6 +746,80 @@ void SEM_ACCION_menu_tercero(){
 	RIT128x96x4StringDraw("ESTADO - menu tercero",5,80,15);
 
 }
+
+
+void SEM_ACCION_sensor(){
+
+	RIT128x96x4Clear();
+
+	switch(dpd.estadoActual){
+		case UNA_LINEA: 	DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
+							break;
+		case MENU_PRIMERO:	DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
+							break;
+		case MENU_SEGUNDO: 	DISPLAY_GENERICO_dibuja_string(lineapedido_2.cantidad,50,20,15);
+							break;
+		case MENU_TERCERO: 	DISPLAY_GENERICO_dibuja_string(lineapedido_3.cantidad,50,20,15);
+							break;
+		default:			break;
+		}
+
+	DISPLAY_GENERICO_dibuja_string("Detectado",20,30,15);
+
+
+	//Para saber en qué estado estamos en cada momento
+	RIT128x96x4StringDraw("ESTADO - sensor",5,80,15);
+
+}
+
+void SEM_ACCION_incorrecto(){
+
+	RIT128x96x4Clear();
+
+	DISPLAY_GENERICO_dibuja_string("Operacion Incorrecta",20,30,15);
+	DISPLAY_GENERICO_dibuja_string("Productos cogidos de otra ubicacion",20,40,15);
+
+	while(1){
+		DPD_reproducir_nota(FRECUENCIA_DO);
+		if(g_ucCounter==4){
+			DPD_reproducir_nota(40000);
+			break;
+		}
+	}
+
+
+	//Para saber en qué estado estamos en cada momento
+	RIT128x96x4StringDraw("ESTADO - incorrecto",5,80,15);
+
+}
+
+void SEM_ACCION_correcto(){
+
+	RIT128x96x4Clear();
+
+	DISPLAY_GENERICO_dibuja_string("Operacion Realizada",5,30,15);
+
+	switch(valor_leds){
+	case 1: 	pedido_finalizado(lineapedido_1.final);
+						lineapedido_1.confirmacion=1;
+						break;
+	case 2: 	pedido_finalizado(lineapedido_2.final);
+						lineapedido_2.confirmacion=1;
+						break;
+	case 4: 	pedido_finalizado(lineapedido_3.final);
+						lineapedido_3.confirmacion=1;
+						break;
+	default:			break;
+	}
+
+	linea--;
+
+
+	//Para saber en qué estado estamos en cada momento
+	RIT128x96x4StringDraw("ESTADO - correcto",5,80,15);
+
+}
+
 
 void pedido_finalizado(final){
 
