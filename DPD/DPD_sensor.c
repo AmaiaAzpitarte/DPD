@@ -187,11 +187,11 @@ extern char pulsada; /* Variable en la que se guarda la tecla pulsada */
 
 extern t_lineapedido lineapedido_2;
 
-extern t_lineapedido lineapedido_3;
+extern t_lineapedido lineapedido_3;*/
 
 extern int linea;
 
-extern unsigned char g_ucCounter;*/
+extern unsigned char g_ucCounter;
 
 
 
@@ -305,181 +305,342 @@ unsigned long g_ul_system_clock;*/
 
 tBoolean SEM_EVENTO_finDPD_ESPERA(){
 
+	tBoolean ret;
 
+	if(linea>=1) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
-tBoolean SEM_EVENTO_finSENSOR(){
+tBoolean SEM_EVENTO_finSENSOR(){ //Este evento debe ser la detección del sensor
 
+	tBoolean ret;
 
+	if (pulsada==DOWN) ret=true;
+	else ret=false;
+
+	return ret;
+
+}
+
+tBoolean SEM_EVENTO_finPULSADA_INC(){
+
+	tBoolean ret;
+
+	if (pulsada==SELECT) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finUNA_LINEA(){
 
+	tBoolean ret;
 
+	if (linea>=2) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finMENU(){
 
+	tBoolean ret;
 
+	if (pulsada==UP) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finDOS_LINEAS(){
 
+	tBoolean ret;
 
+	if (linea==3) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finMENU_DOS(){
 
+	tBoolean ret;
 
+	if (pulsada==UP) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 
+	tBoolean ret;
 
+	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finQUEDAN_TRES(){
 
+	tBoolean ret;
 
+	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finMENU_TRES(){
 
+	tBoolean ret;
 
+	if (pulsada==UP) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
-tBoolean SEM_EVENTO_finSENSOR_PRIMERO(){
+tBoolean SEM_EVENTO_finSENSOR_PRIMERO(){ //Este evento debe ser la detección del sensor
 
+	tBoolean ret;
 
+	if (pulsada==DOWN) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finPULSADA_PRIMERO(){
 
+	tBoolean ret;
 
+	if (pulsada==SELECT) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finMENU_CUATRO(){
 
+	tBoolean ret;
 
+	if ((pulsada==UP)&(linea==2)) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
+	tBoolean ret;
 
+	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finEXISTEN_TRES(){
 
+	tBoolean ret;
 
+	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finMENU_CINCO(){
 
+	tBoolean ret;
 
+	if ((pulsada==UP)&(linea==3)) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
-tBoolean SEM_EVENTO_finSENSOR_SEGUNDO(){
+tBoolean SEM_EVENTO_finSENSOR_SEGUNDO(){ //Este evento debe ser la detección del sensor
 
+	tBoolean ret;
 
+	if (pulsada==DOWN) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finPULSADA_SEGUNDO(){
 
+	tBoolean ret;
 
+	if (pulsada==SELECT) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finMENU_SEIS(){
 
+	tBoolean ret;
 
+	if (pulsada==UP) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finHAY_TRES(){
 
+	tBoolean ret;
 
+	if (g_ucCounter == 5) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
-tBoolean SEM_EVENTO_finSENSOR_TERCERO(){
+tBoolean SEM_EVENTO_finSENSOR_TERCERO(){ //Este evento debe ser la detección del sensor
 
+	tBoolean ret;
 
+	if (pulsada==DOWN) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finPULSADA_TERCERO(){
 
+	tBoolean ret;
 
+	if (pulsada==SELECT) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finPULSADA_COR(){
 
+	tBoolean ret;
 
+	if (pulsada==SELECT) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finINCORRECTO(){
 
+	tBoolean ret;
 
+	if (g_ucCounter == 5) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finSIGUE_UNO(){
 
+	tBoolean ret;
 
+	if ((g_ucCounter == 5)&(linea==1)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finSIGUEN_DOS(){
 
+	tBoolean ret;
 
+	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
+	tBoolean ret;
 
+	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finESTA_UNO(){
 
+	tBoolean ret;
 
+	if ((g_ucCounter == 5)&(linea==1)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finESTAN_DOS(){
 
+	tBoolean ret;
 
+	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finESTAN_TRES(){
 
+	tBoolean ret;
 
+	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
 tBoolean SEM_EVENTO_finREALIZADA(){
 
+	tBoolean ret;
 
+	if ((g_ucCounter == 5)&(linea==0)) ret = true;
+	else ret = false;
+
+	return ret;
 
 }
 
