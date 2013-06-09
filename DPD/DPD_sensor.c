@@ -39,7 +39,7 @@
 #include "Headers/keypad.h"
 
 #include "Utiles/rit128x96x4.h"
-/*
+
 #include "lm3slib/driverlib/gpio.h"
 
 #include "Headers/received_data.h"
@@ -50,7 +50,6 @@
 #include "Headers/sonido.h"
 
 #include "Headers/leds.h"
-*/
 
 /*********************************************************************
 ** 																	**
@@ -183,13 +182,15 @@ void SEM_ACCION_correcto();
 
 extern char pulsada; /* Variable en la que se guarda la tecla pulsada */
 
-/*extern t_lineapedido lineapedido_1;
+extern t_lineapedido lineapedido_1;
 
 extern t_lineapedido lineapedido_2;
 
-extern t_lineapedido lineapedido_3;*/
+extern t_lineapedido lineapedido_3;
 
 extern int linea;
+
+extern int valor_leds;
 
 extern unsigned char g_ucCounter;
 
@@ -285,9 +286,9 @@ FIN_AUTOMATA(dpd,1,NULL)
 ** 																	**
 **********************************************************************/
 
-/*int estado=0;
+//int estado=0;
 
-unsigned long g_ul_system_clock;*/
+unsigned long g_ul_system_clock;
 
 /*********************************************************************
 ** 																	**
@@ -655,7 +656,7 @@ void SEM_ACCION_dpd_espera(){
 
 	RIT128x96x4Clear();
 
-/*	DPD_escoger_leds(0);*/
+	DPD_escoger_leds(0);
 
 	//Para saber en qué estado estamos en cada momento
 	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
@@ -667,17 +668,16 @@ void SEM_ACCION_una_linea(){
 
 	RIT128x96x4Clear();
 
-	/*DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
+	DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
 
 	if(lineapedido_1.final==1){
-		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
+		DISPLAY_GENERICO_dibuja_string("Ultima Operacion",15,40,15);
 	}
 
-	DPD_escoger_leds(lineapedido_1.operario);*/
+	DPD_escoger_leds(lineapedido_1.operario);
+
 
 	//Para saber en qué estado estamos en cada momento
-	//FRAME_BUFFER_delete_row(80);
-
 	RIT128x96x4StringDraw("ESTADO - una linea",5,80,15);
 
 }
@@ -687,14 +687,13 @@ void SEM_ACCION_dos_lineas(){
 
 	RIT128x96x4Clear();
 
-	/*DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
+	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
 	DISPLAY_GENERICO_dibuja_string("Dos Operarios",25,45,15);
 
-	DPD_escoger_leds_dos_lineas();*/
+	DPD_escoger_leds_dos_lineas();
+
 
 	//Para saber en qué estado estamos en cada momento
-	//FRAME_BUFFER_delete_row(80);
-
 	RIT128x96x4StringDraw("ESTADO - dos lineas",5,80,15);
 
 }
@@ -703,14 +702,13 @@ void SEM_ACCION_tres_lineas(){
 
 	RIT128x96x4Clear();
 
-	/*DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
+	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
 	DISPLAY_GENERICO_dibuja_string("Tres Operarios",25,45,15);
 
-	DPD_escoger_leds_tres_lineas();*/
+	DPD_escoger_leds_tres_lineas();
+
 
 	//Para saber en qué estado estamos en cada momento
-	//FRAME_BUFFER_delete_row(80);
-
 	RIT128x96x4StringDraw("ESTADO - tres lineas",5,80,15);
 
 }
@@ -719,17 +717,16 @@ void SEM_ACCION_menu_primero(){
 
 	RIT128x96x4Clear();
 
-	/*DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
+	DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
 
 	if(lineapedido_1.final==1){
-		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
+		DISPLAY_GENERICO_dibuja_string("Ultima Operacion",15,40,15);
 	}
 
-	DPD_escoger_leds(lineapedido_1.operario);*/
+	DPD_escoger_leds(lineapedido_1.operario);
+
 
 	//Para saber en qué estado estamos en cada momento
-	//FRAME_BUFFER_delete_row(80);
-
 	RIT128x96x4StringDraw("ESTADO - menu primero",5,80,15);
 
 }
@@ -738,17 +735,16 @@ void SEM_ACCION_menu_segundo(){
 
 	RIT128x96x4Clear();
 
-	/*DISPLAY_GENERICO_dibuja_string(lineapedido_2.cantidad,50,20,15);
+	DISPLAY_GENERICO_dibuja_string(lineapedido_2.cantidad,50,20,15);
 
 	if(lineapedido_2.final==1){
-		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
+		DISPLAY_GENERICO_dibuja_string("Ultima Operacion",15,40,15);
 	}
 
-	DPD_escoger_leds(lineapedido_2.operario);*/
+	DPD_escoger_leds(lineapedido_2.operario);
+
 
 	//Para saber en qué estado estamos en cada momento
-	//FRAME_BUFFER_delete_row(80);
-
 	RIT128x96x4StringDraw("ESTADO - menu segundo",5,80,15);
 
 }
@@ -757,17 +753,16 @@ void SEM_ACCION_menu_tercero(){
 
 	RIT128x96x4Clear();
 
-	/*DISPLAY_GENERICO_dibuja_string(lineapedido_3.cantidad,50,20,15);
+	DISPLAY_GENERICO_dibuja_string(lineapedido_3.cantidad,50,20,15);
 
 	if(lineapedido_3.final==1){
-		DISPLAY_GENERICO_dibuja_string("Ultima operacion",15,40,15);
+		DISPLAY_GENERICO_dibuja_string("Ultima Operacion",15,40,15);
 	}
 
-	DPD_escoger_leds(lineapedido_3.operario);*/
+	DPD_escoger_leds(lineapedido_3.operario);
+
 
 	//Para saber en qué estado estamos en cada momento
-	//FRAME_BUFFER_delete_row(80);
-
 	RIT128x96x4StringDraw("ESTADO - menu tercero",5,80,15);
 
 }
@@ -777,9 +772,22 @@ void SEM_ACCION_sensor(){
 
 	RIT128x96x4Clear();
 
-	//Para saber en qué estado estamos en cada momento
-	//FRAME_BUFFER_delete_row(80);
+	switch(dpd.estadoActual){
+		case UNA_LINEA: 	DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
+							break;
+		case MENU_PRIMERO:	DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
+							break;
+		case MENU_SEGUNDO: 	DISPLAY_GENERICO_dibuja_string(lineapedido_2.cantidad,50,20,15);
+							break;
+		case MENU_TERCERO: 	DISPLAY_GENERICO_dibuja_string(lineapedido_3.cantidad,50,20,15);
+							break;
+		default:			break;
+		}
 
+	DISPLAY_GENERICO_dibuja_string("Detectado",20,30,15);
+
+
+	//Para saber en qué estado estamos en cada momento
 	RIT128x96x4StringDraw("ESTADO - sensor",5,80,15);
 
 }
@@ -788,9 +796,19 @@ void SEM_ACCION_incorrecto(){
 
 	RIT128x96x4Clear();
 
-	//Para saber en qué estado estamos en cada momento
-	//FRAME_BUFFER_delete_row(80);
+	DISPLAY_GENERICO_dibuja_string("Operacion Incorrecta",20,30,15);
+	DISPLAY_GENERICO_dibuja_string("Productos cogidos de otra ubicacion",20,40,15);
 
+	while(1){
+		DPD_reproducir_nota(FRECUENCIA_DO);
+		if(g_ucCounter==4){
+			DPD_reproducir_nota(40000);
+			break;
+		}
+	}
+
+
+	//Para saber en qué estado estamos en cada momento
 	RIT128x96x4StringDraw("ESTADO - incorrecto",5,80,15);
 
 }
@@ -799,18 +817,33 @@ void SEM_ACCION_correcto(){
 
 	RIT128x96x4Clear();
 
-	//Para saber en qué estado estamos en cada momento
-	//FRAME_BUFFER_delete_row(80);
+	DISPLAY_GENERICO_dibuja_string("Operacion Realizada",5,30,15);
 
+	switch(valor_leds){
+	case 0x01: 	pedido_finalizado(lineapedido_1.final);
+						lineapedido_1.confirmacion=1;
+						break;
+	case 0x01:	pedido_finalizado(lineapedido_1.final);
+						lineapedido_1.confirmacion=1;
+						break;
+	case 0x02: 	pedido_finalizado(lineapedido_2.final);
+						lineapedido_2.confirmacion=1;
+						break;
+	case 0x03: 	pedido_finalizado(lineapedido_3.final);
+						lineapedido_3.confirmacion=1;
+						break;
+	default:			break;
+	}
+
+	linea--;
+
+
+	//Para saber en qué estado estamos en cada momento
 	RIT128x96x4StringDraw("ESTADO - correcto",5,80,15);
 
 }
 
 
-
-
-
-/*
 void pedido_finalizado(final){
 
 	if(final==1){
@@ -827,4 +860,3 @@ void pedido_finalizado(final){
 	}
 
 }
-*/
