@@ -206,7 +206,7 @@ ESTADO(dpd_espera)
 FIN_ESTADO(dpd_espera, DPD_ESPERA, NULL)
 
 ESTADO(una_linea)
-	ITEM_EVAC(SENSOR, SEM_EVENTO_finSENSOR, SEM_ACCION_dos_lineas),
+	ITEM_EVAC(SENSOR, SEM_EVENTO_finSENSOR, SEM_ACCION_sensor),
 	ITEM_EVAC(INCORRECTO, SEM_EVENTO_finPULSADA_INC, SEM_ACCION_incorrecto),
 	ITEM_EVAC(DOS_LINEAS, SEM_EVENTO_finUNA_LINEA, SEM_ACCION_dos_lineas)
 FIN_ESTADO(una_linea, UNA_LINEA, NULL)
@@ -317,12 +317,7 @@ tBoolean SEM_EVENTO_finDPD_ESPERA(){
 
 tBoolean SEM_EVENTO_finSENSOR(){ //Este evento debe ser la detección del sensor
 
-	tBoolean ret;
 
-	if (pulsada==DOWN) ret=true;
-	else ret=false;
-
-	return ret;
 
 }
 
@@ -416,12 +411,7 @@ tBoolean SEM_EVENTO_finMENU_TRES(){
 
 tBoolean SEM_EVENTO_finSENSOR_PRIMERO(){ //Este evento debe ser la detección del sensor
 
-	tBoolean ret;
 
-	if (pulsada==DOWN) ret=true;
-	else ret=false;
-
-	return ret;
 
 }
 
@@ -482,12 +472,7 @@ tBoolean SEM_EVENTO_finMENU_CINCO(){
 
 tBoolean SEM_EVENTO_finSENSOR_SEGUNDO(){ //Este evento debe ser la detección del sensor
 
-	tBoolean ret;
 
-	if (pulsada==DOWN) ret=true;
-	else ret=false;
-
-	return ret;
 
 }
 
@@ -526,12 +511,7 @@ tBoolean SEM_EVENTO_finHAY_TRES(){
 
 tBoolean SEM_EVENTO_finSENSOR_TERCERO(){ //Este evento debe ser la detección del sensor
 
-	tBoolean ret;
 
-	if (pulsada==DOWN) ret=true;
-	else ret=false;
-
-	return ret;
 
 }
 
@@ -820,16 +800,13 @@ void SEM_ACCION_correcto(){
 	DISPLAY_GENERICO_dibuja_string("Operacion Realizada",5,30,15);
 
 	switch(valor_leds){
-	case 0x01: 	pedido_finalizado(lineapedido_1.final);
+	case 1: 	pedido_finalizado(lineapedido_1.final);
 						lineapedido_1.confirmacion=1;
 						break;
-	case 0x01:	pedido_finalizado(lineapedido_1.final);
-						lineapedido_1.confirmacion=1;
-						break;
-	case 0x02: 	pedido_finalizado(lineapedido_2.final);
+	case 2: 	pedido_finalizado(lineapedido_2.final);
 						lineapedido_2.confirmacion=1;
 						break;
-	case 0x03: 	pedido_finalizado(lineapedido_3.final);
+	case 4: 	pedido_finalizado(lineapedido_3.final);
 						lineapedido_3.confirmacion=1;
 						break;
 	default:			break;
