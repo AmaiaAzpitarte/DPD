@@ -32,7 +32,13 @@
 #include "Utiles/rit128x96x4.h"
 #include "string.h"
 
-#include "DPD/DPD.h"
+#include "DPD_Config.h"
+
+#ifdef DPD_SENSOR
+	#include "DPD_sensor/DPD_sensor.h"
+#else
+	#include "DPD/DPD.h"
+#endif
 
 /*********************************************************************
 ** 																	**
