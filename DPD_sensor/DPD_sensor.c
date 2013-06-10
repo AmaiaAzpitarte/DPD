@@ -198,6 +198,8 @@ extern int valor_leds;
 
 extern unsigned char g_ucCounter;
 
+extern int movimiento;
+
 
 
 /*
@@ -319,7 +321,12 @@ tBoolean SEM_EVENTO_finDPD_ESPERA(){
 
 tBoolean SEM_EVENTO_finSENSOR(){ //Este evento debe ser la detección del sensor
 
+	tBoolean ret;
 
+	if (movimiento==1) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
@@ -413,7 +420,12 @@ tBoolean SEM_EVENTO_finMENU_TRES(){
 
 tBoolean SEM_EVENTO_finSENSOR_PRIMERO(){ //Este evento debe ser la detección del sensor
 
+	tBoolean ret;
 
+	if (movimiento==1) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
@@ -474,7 +486,12 @@ tBoolean SEM_EVENTO_finMENU_CINCO(){
 
 tBoolean SEM_EVENTO_finSENSOR_SEGUNDO(){ //Este evento debe ser la detección del sensor
 
+	tBoolean ret;
 
+	if (movimiento==1) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
@@ -513,7 +530,12 @@ tBoolean SEM_EVENTO_finHAY_TRES(){
 
 tBoolean SEM_EVENTO_finSENSOR_TERCERO(){ //Este evento debe ser la detección del sensor
 
+	tBoolean ret;
 
+	if (movimiento==1) ret=true;
+	else ret=false;
+
+	return ret;
 
 }
 
@@ -753,6 +775,8 @@ void SEM_ACCION_menu_tercero(){
 void SEM_ACCION_sensor(){
 
 	RIT128x96x4Clear();
+
+	movimiento = 0;
 
 	switch(dpd.estadoActual){
 		case UNA_LINEA: 	DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
