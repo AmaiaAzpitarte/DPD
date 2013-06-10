@@ -1,13 +1,13 @@
 /*********************************************************************
 ** 																	**
 ** project : DPD			 										**
-** filename : inicializacion.c 										**
+** filename : sensor.c 												**
 ** version : 1 														**
-** date : June 07, 2013 											**
+** date : June 10, 2013 											**
 ** 																	**
 **********************************************************************
 ** 																	**
-** Copyright (c) 2013,		 										**
+** Copyright (c) 2013,					 							**
 ** All rights reserved. 											**
 ** 																	**
 **********************************************************************
@@ -15,52 +15,51 @@
 **VERSION HISTORY:													**
 **----------------													**
 **Version : 1														**
-**Date : June 07, 2013												**
+**Date : June 10, 2013												**
 **Revised by : Amaia Azpitarte										**
 **Description : Original version. 									**
 *********************************************************************/
-#define INICIALIZACION_C
+#define SENSOR_C
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
 **********************************************************************/
 
-#include "Headers/inicializacion.h"
+#include "inc/hw_types.h"
+#include "inc/hw_memmap.h"
+#include "inc/hw_gpio.h"
+#include "driverlib/gpio.h"
+#include "driverlib/debug.h"
+#include "driverlib/sysctl.h"
 
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
+
+int movimiento;
+
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
 **********************************************************************/
 
-void DPD_inicializacion(){
+void DPD_inicializacion_sensor(){
 
-	RIT128x96x4Init(1000000);
-	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
 
-	initSysTick();
-
-	DPD_inicializacion_pwm();
-
-	DPD_inicializacion_keypad();
-
-	DPD_inicializacion_clock();
-
-	DPD_inicializacion_leds();
-
-	DPD_inicializacion_sensor();
+	GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_0);
 
 }
 
+void DPD_detectar_movimiento(){
+	movimiento = GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_0);
+}
 /*********************************************************************
 ** 																	**
 ** EOF 																**
 ** 																	**
 **********************************************************************/
-
