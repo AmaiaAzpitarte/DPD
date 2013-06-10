@@ -20,6 +20,10 @@
 **Description : Original version.							  				**
 *****************************************************************************/
 
+#include "DPD_Config.h"
+
+#ifdef DPD_SENSOR
+
 #define _DPD_SENSOR_H
 
 /*****************************************************************************
@@ -165,12 +169,14 @@ void SEM_ACCION_incorrecto();
 void SEM_ACCION_correcto();
 
 
-/*//Función que consulta si la operación es la última de un pedido
+//Función que consulta si la operación es la última de un pedido
 
-void pedido_finalizado(final);*/
+void pedido_finalizado(final);
 
 /*****************************************************************************
 **                                                                          **
 ** EOF                                                                      **
 **                                                                          **
 ******************************************************************************/
+
+#endif

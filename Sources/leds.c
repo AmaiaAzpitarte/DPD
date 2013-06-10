@@ -28,7 +28,13 @@
 
 #include "Headers/leds.h"
 
-#include "DPD/DPD.h"
+#include "DPD_Config.h"
+
+#ifdef DPD_SENSOR
+	#include "DPD_sensor/DPD_sensor.h"
+#else
+	#include "DPD/DPD.h"
+#endif
 
 #include "inc/hw_types.h"
 #include "inc/hw_memmap.h"
