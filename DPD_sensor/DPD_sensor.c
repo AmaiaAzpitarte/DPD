@@ -20,6 +20,10 @@
 **Description : Original version. 									**
 *********************************************************************/
 
+#include "DPD_Config.h"
+
+#ifdef DPD_SENSOR
+
 #define _DPD_SENSOR_C
 
 /*********************************************************************
@@ -35,7 +39,7 @@
 #include <string.h>
 
 #include "Automata/Automata.h"
-#include "DPD/DPD_sensor.h"
+#include "DPD_sensor/DPD_sensor.h"
 #include "Headers/keypad.h"
 
 #include "Utiles/rit128x96x4.h"
@@ -285,8 +289,6 @@ FIN_AUTOMATA(dpd,1,NULL)
 ** GLOBAL VARIABLES 												**
 ** 																	**
 **********************************************************************/
-
-//int estado=0;
 
 unsigned long g_ul_system_clock;
 
@@ -837,3 +839,5 @@ void pedido_finalizado(final){
 	}
 
 }
+
+#endif

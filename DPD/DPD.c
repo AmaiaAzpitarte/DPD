@@ -20,6 +20,10 @@
 **Description : Original version. 									**
 *********************************************************************/
 
+#include "DPD_Config.h"
+
+#ifndef DPD_SENSOR
+
 #define _DPD_C
 
 /*********************************************************************
@@ -228,8 +232,6 @@ FIN_AUTOMATA(dpd,1,NULL)
 ** GLOBAL VARIABLES 												**
 ** 																	**
 **********************************************************************/
-
-int estado=0;
 
 unsigned long g_ul_system_clock;
 
@@ -660,3 +662,5 @@ void pedido_finalizado(final){
 	}
 
 }
+
+#endif
