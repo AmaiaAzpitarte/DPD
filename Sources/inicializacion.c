@@ -28,6 +28,8 @@
 
 #include "Headers/inicializacion.h"
 
+#include "DPD_Config.h"
+
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
@@ -44,7 +46,7 @@ void DPD_inicializacion(){
 	RIT128x96x4Init(1000000);
 	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
 
-	initSysTick();
+	//initSysTick();
 
 	DPD_inicializacion_pwm();
 
@@ -54,7 +56,11 @@ void DPD_inicializacion(){
 
 	DPD_inicializacion_leds();
 
-	DPD_inicializacion_sensor();
+	#ifdef DPD_SENSOR
+		DPD_inicializacion_sensor();
+	#endif
+
+	init_Timer0(5);
 
 }
 
