@@ -140,6 +140,9 @@ void SEM_ACCION_menu_tercero();
 
 void pedido_finalizado(final);
 
+
+void emitir_sonido();
+
 /*****************************************************************************
 **                                                                          **
 ** EOF                                                                      **

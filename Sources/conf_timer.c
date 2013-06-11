@@ -15,6 +15,8 @@
 
 tBoolean g_timer0_expired = false;
 
+
+
 void init_Timer0(int factor){ //factor= multiplica 1 segundo para conseguir el tiempo que queremos
 
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);

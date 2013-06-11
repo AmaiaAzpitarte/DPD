@@ -293,8 +293,9 @@ tBoolean SEM_EVENTO_finCONFIRMACION(){
 	tBoolean ret;
 
 	if ((g_timer0_expired)&&(linea == 0)){
-		ret = true;
 		g_timer0_expired = false;
+		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+		ret = true;
 	}
 
 	/*if((g_ucCounter== 5)&&(linea==0)){
@@ -313,8 +314,9 @@ tBoolean SEM_EVENTO_finQUEDA_UNA(){
 	tBoolean ret;
 
 	if ((g_timer0_expired)&&(linea == 1)) {
-		ret = true;
 		g_timer0_expired = false;
+		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+		ret = true;
 	}
 
 	return ret;
@@ -328,8 +330,9 @@ tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 	tBoolean ret;
 
 	if ((g_timer0_expired)&&(linea == 2)) {
-		ret = true;
 		g_timer0_expired = false;
+		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+		ret = true;
 	}
 	else ret = false;
 
@@ -344,8 +347,9 @@ tBoolean SEM_EVENTO_finQUEDAN_TRES(){
 	tBoolean ret;
 
 	if ((g_timer0_expired)&&(linea == 3)){
-		ret = true;
 		g_timer0_expired = false;
+		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+		ret = true;
 	}
 	else ret = false;
 
@@ -404,8 +408,8 @@ tBoolean SEM_EVENTO_finDOS(){
 	tBoolean ret;
 
 	if ((g_timer0_expired)&&(linea == 2)) {
-		ret = true;
 		g_timer0_expired = false;
+		ret = true;
 	}
 	else ret = false;
 
@@ -420,8 +424,8 @@ tBoolean SEM_EVENTO_finTRES(){
 	tBoolean ret;
 
 	if ((g_timer0_expired)&&(linea == 3)){
-		ret = true;
 		g_timer0_expired = false;
+		ret = true;
 	}
 	else ret = false;
 
@@ -458,8 +462,8 @@ tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 	tBoolean ret;
 
 	if ((g_timer0_expired)&&(linea == 2)) {
-		ret = true;
 		g_timer0_expired = false;
+		ret = true;
 	}
 	else ret = false;
 
@@ -474,8 +478,8 @@ tBoolean SEM_EVENTO_finEXISTEN_TRES(){
 	tBoolean ret;
 
 	if ((g_timer0_expired)&&(linea == 3)){
-		ret = true;
 		g_timer0_expired = false;
+		ret = true;
 	}
 	else ret = false;
 
@@ -534,8 +538,8 @@ tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 	tBoolean ret;
 
 	if (g_timer0_expired) {
-		ret = true;
 		g_timer0_expired = false;
+		ret = true;
 	}
 	else ret = false;
 
@@ -704,17 +708,13 @@ void pedido_finalizado(final){
 
 		DISPLAY_GENERICO_dibuja_string("Pedido Finalizado",10,60,15);
 
-		enable_Timer_0();
-
-		while(1){
-			DPD_reproducir_nota(FRECUENCIA_DO);
-			if(g_timer0_expired){
-				DPD_reproducir_nota(40000);
-				break;
-			}
-		}
+		emitir_sonido();
 	}
 
+}
+
+void emitir_sonido(){
+	DPD_reproducir_nota(FRECUENCIA_DO);
 }
 
 #endif

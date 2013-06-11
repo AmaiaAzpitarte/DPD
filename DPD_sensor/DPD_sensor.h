@@ -173,6 +173,8 @@ void SEM_ACCION_correcto();
 
 void pedido_finalizado(final);
 
+void emitir_sonido();
+
 /*****************************************************************************
 **                                                                          **
 ** EOF                                                                      **
