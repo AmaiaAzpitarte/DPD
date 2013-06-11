@@ -35,7 +35,7 @@
 #include "inc/hw_types.h"
 #include "inc/hw_memmap.h"
 #include "driverlib/sysctl.h"
-#include "driverlib/systick.h"
+//#include "driverlib/systick.h"
 #include <string.h>
 
 #include "Automata/Automata.h"
@@ -49,11 +49,13 @@
 #include "Headers/received_data.h"
 #include "Headers/data_structs.h"
 
-#include "Headers/conf_systick.h"
+//#include "Headers/conf_systick.h"
 
 #include "Headers/sonido.h"
 
 #include "Headers/leds.h"
+
+#include "Headers/conf_timer.h"
 
 /*********************************************************************
 ** 																	**
@@ -196,7 +198,9 @@ extern int linea;
 
 extern int valor_leds;
 
-extern unsigned char g_ucCounter;
+//extern unsigned char g_ucCounter;
+
+extern tBoolean g_timer0_expired;
 
 extern int movimiento;
 
@@ -387,9 +391,14 @@ tBoolean SEM_EVENTO_finMENU_DOS(){
 
 tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	if ((g_timer0_expired)&&(linea==2)){
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -398,9 +407,14 @@ tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 
 tBoolean SEM_EVENTO_finQUEDAN_TRES(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	if ((g_timer0_expired)&&(linea==3)){
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -444,7 +458,7 @@ tBoolean SEM_EVENTO_finMENU_CUATRO(){
 
 	tBoolean ret;
 
-	if ((pulsada==UP)&(linea==2)) ret=true;
+	if ((pulsada==UP)&&(linea==2)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -453,9 +467,14 @@ tBoolean SEM_EVENTO_finMENU_CUATRO(){
 
 tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	if ((g_timer0_expired)&&(linea==2)) {
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -464,9 +483,14 @@ tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
 tBoolean SEM_EVENTO_finEXISTEN_TRES(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	if ((g_timer0_expired)&&(linea==3)){
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -477,7 +501,7 @@ tBoolean SEM_EVENTO_finMENU_CINCO(){
 
 	tBoolean ret;
 
-	if ((pulsada==UP)&(linea==3)) ret=true;
+	if ((pulsada==UP)&&(linea==3)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -519,9 +543,14 @@ tBoolean SEM_EVENTO_finMENU_SEIS(){
 
 tBoolean SEM_EVENTO_finHAY_TRES(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if (g_ucCounter == 5) ret = true;
+	if (g_timer0_expired){
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -563,9 +592,14 @@ tBoolean SEM_EVENTO_finPULSADA_COR(){
 
 tBoolean SEM_EVENTO_finINCORRECTO(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if (g_ucCounter == 5) ret = true;
+	if (g_timer0_expired){
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -574,9 +608,15 @@ tBoolean SEM_EVENTO_finINCORRECTO(){
 
 tBoolean SEM_EVENTO_finSIGUE_UNO(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==1)) ret = true;
+	if ((g_timer0_expired)&&(linea==1)){
+		ret = true;
+		g_timer0_expired = false;
+		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	}
 	else ret = false;
 
 	return ret;
@@ -585,9 +625,15 @@ tBoolean SEM_EVENTO_finSIGUE_UNO(){
 
 tBoolean SEM_EVENTO_finSIGUEN_DOS(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	if ((g_timer0_expired)&&(linea==2)){
+		ret = true;
+		g_timer0_expired = false;
+		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	}
 	else ret = false;
 
 	return ret;
@@ -596,9 +642,15 @@ tBoolean SEM_EVENTO_finSIGUEN_DOS(){
 
 tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	if ((g_timer0_expired)&&(linea==3)){
+		ret = true;
+		g_timer0_expired = false;
+		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	}
 	else ret = false;
 
 	return ret;
@@ -607,9 +659,14 @@ tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
 tBoolean SEM_EVENTO_finESTA_UNO(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==1)) ret = true;
+	if ((g_timer0_expired)&&(linea==1)){
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -618,9 +675,14 @@ tBoolean SEM_EVENTO_finESTA_UNO(){
 
 tBoolean SEM_EVENTO_finESTAN_DOS(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	if ((g_timer0_expired)&&(linea==2)){
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -629,9 +691,14 @@ tBoolean SEM_EVENTO_finESTAN_DOS(){
 
 tBoolean SEM_EVENTO_finESTAN_TRES(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	if ((g_timer0_expired)&&(linea==3)){
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -640,9 +707,14 @@ tBoolean SEM_EVENTO_finESTAN_TRES(){
 
 tBoolean SEM_EVENTO_finREALIZADA(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==0)) ret = true;
+	if ((g_timer0_expired)&&(linea==0)){
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -805,14 +877,7 @@ void SEM_ACCION_incorrecto(){
 	DISPLAY_GENERICO_dibuja_string("Operacion Incorrecta",20,30,15);
 	DISPLAY_GENERICO_dibuja_string("Productos cogidos de otra ubicacion",20,40,15);
 
-	while(1){
-		DPD_reproducir_nota(FRECUENCIA_DO);
-		if(g_ucCounter==4){
-			DPD_reproducir_nota(40000);
-			break;
-		}
-	}
-
+	accion_incorrecta();
 
 	//Para saber en qué estado estamos en cada momento
 	RIT128x96x4StringDraw("ESTADO - incorrecto",5,80,15);
@@ -827,12 +892,15 @@ void SEM_ACCION_correcto(){
 
 	switch(valor_leds){
 	case 1: 	pedido_finalizado(lineapedido_1.final);
+						DPD_reproducir_nota(FRECUENCIA_SILENCIO);
 						lineapedido_1.confirmacion=1;
 						break;
 	case 2: 	pedido_finalizado(lineapedido_2.final);
+						DPD_reproducir_nota(FRECUENCIA_SILENCIO);
 						lineapedido_2.confirmacion=1;
 						break;
 	case 4: 	pedido_finalizado(lineapedido_3.final);
+						DPD_reproducir_nota(FRECUENCIA_SILENCIO);
 						lineapedido_3.confirmacion=1;
 						break;
 	default:			break;
@@ -853,15 +921,14 @@ void pedido_finalizado(final){
 
 		DISPLAY_GENERICO_dibuja_string("Pedido Finalizado",10,60,15);
 
-		while(1){
-			DPD_reproducir_nota(FRECUENCIA_DO);
-			if(g_ucCounter==4){
-				DPD_reproducir_nota(40000);
-				break;
-			}
-		}
+		accion_incorrecta();
+
 	}
 
+}
+
+void accion_incorrecta(){
+	DPD_reproducir_nota(FRECUENCIA_DO);
 }
 
 #endif

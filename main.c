@@ -26,7 +26,6 @@
 **********************************************************************/
 
 #include "Automata/Automata.h"
-//#include "DPD/DPD.h"
 #include "DPD_Config.h"
 
 #ifdef DPD_SENSOR

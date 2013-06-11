@@ -57,6 +57,8 @@ unsigned long g_ul_keypad_switches = 0x1f; /*Valor leído en los botones*/
 
 char pulsada; /* Variable donde se guarda la tecla pulsada */
 
+unsigned long g_uc_changed_data;
+
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
@@ -109,17 +111,12 @@ void DPD_inicializacion_keypad(){
 
 void DPD_leer_keypad(){
 
-	//esta función hay que modificarla para poner algo más elegante
-	int i=0;
-	for(i=0;i<500;i++){
-		i++;
-		i--;
-	}
-
-		unsigned long ul_pressed_data;
+		unsigned long ul_pressed_data; //Guarda el valor de la tecla pulsada
 
 		ul_pressed_data = (GPIOPinRead( GPIO_PORTE_BASE , (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3) )|
 					    	(GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_1) << 3));
+
+		g_uc_changed_data = g_ul_keypad_switches ^ ul_pressed_data; //para evitar los rebotes
 
 		g_ul_keypad_switches = ul_pressed_data;
 

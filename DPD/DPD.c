@@ -35,7 +35,7 @@
 #include "inc/hw_types.h"
 #include "inc/hw_memmap.h"
 #include "driverlib/sysctl.h"
-#include "driverlib/systick.h"
+//#include "driverlib/systick.h"
 #include <string.h>
 
 #include "Automata/Automata.h"
@@ -48,11 +48,13 @@
 #include "Headers/received_data.h"
 #include "Headers/data_structs.h"
 
-#include "Headers/conf_systick.h"
+//#include "Headers/conf_systick.h"
 
 #include "Headers/sonido.h"
 
 #include "Headers/leds.h"
+
+#include "Headers/conf_timer.h"
 
 /*********************************************************************
 ** 																	**
@@ -161,7 +163,9 @@ extern t_lineapedido lineapedido_3;
 
 extern int linea;
 
-extern unsigned char g_ucCounter;
+//extern unsigned char g_ucCounter;
+
+extern tBoolean g_timer0_expired;
 
 /*
  * Definición de los estados de la máquina de estados con sus respectivos eventos
@@ -253,7 +257,7 @@ tBoolean SEM_EVENTO_finDPD_ESPERA(){
 
 	tBoolean ret;
 
-	if(linea>=1) ret=true;
+	if(linea >= 1) ret=true;
 	else ret=false;
 
 	return ret;
@@ -264,7 +268,7 @@ tBoolean SEM_EVENTO_finPULSADA(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
+	if (pulsada == SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -275,7 +279,7 @@ tBoolean SEM_EVENTO_finUNA_LINEA(){
 
 	tBoolean ret;
 
-	if (linea>=2) ret=true;
+	if (linea >= 2) ret=true;
 	else ret=false;
 
 	return ret;
@@ -284,9 +288,18 @@ tBoolean SEM_EVENTO_finUNA_LINEA(){
 
 tBoolean SEM_EVENTO_finCONFIRMACION(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==0)) ret = true;
+	if ((g_timer0_expired)&&(linea == 0)){
+		ret = true;
+		g_timer0_expired = false;
+	}
+
+	/*if((g_ucCounter== 5)&&(linea==0)){
+		ret=true;
+	}*/
 	else ret = false;
 
 	return ret;
@@ -295,10 +308,14 @@ tBoolean SEM_EVENTO_finCONFIRMACION(){
 
 tBoolean SEM_EVENTO_finQUEDA_UNA(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==1)) ret = true;
-	else ret = false;
+	if ((g_timer0_expired)&&(linea == 1)) {
+		ret = true;
+		g_timer0_expired = false;
+	}
 
 	return ret;
 
@@ -306,9 +323,14 @@ tBoolean SEM_EVENTO_finQUEDA_UNA(){
 
 tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	if ((g_timer0_expired)&&(linea == 2)) {
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -317,9 +339,14 @@ tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 
 tBoolean SEM_EVENTO_finQUEDAN_TRES(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	if ((g_timer0_expired)&&(linea == 3)){
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -330,7 +357,7 @@ tBoolean SEM_EVENTO_finMENU(){
 
 	tBoolean ret;
 
-	if (pulsada==UP) ret=true;
+	if (pulsada == UP) ret=true;
 	else ret=false;
 
 	return ret;
@@ -341,7 +368,7 @@ tBoolean SEM_EVENTO_finTERCERA(){
 
 	tBoolean ret;
 
-	if (linea==3) ret=true;
+	if (linea == 3) ret=true;
 	else ret=false;
 
 	return ret;
@@ -352,7 +379,7 @@ tBoolean SEM_EVENTO_finTRES_LINEAS(){
 
 	tBoolean ret;
 
-	if (pulsada==UP) ret=true;
+	if (pulsada == UP) ret=true;
 	else ret=false;
 
 	return ret;
@@ -363,7 +390,7 @@ tBoolean SEM_EVENTO_finCONF_UNO(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
+	if (pulsada == SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -372,9 +399,14 @@ tBoolean SEM_EVENTO_finCONF_UNO(){
 
 tBoolean SEM_EVENTO_finDOS(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	if ((g_timer0_expired)&&(linea == 2)) {
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -383,9 +415,14 @@ tBoolean SEM_EVENTO_finDOS(){
 
 tBoolean SEM_EVENTO_finTRES(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	if ((g_timer0_expired)&&(linea == 3)){
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -396,7 +433,7 @@ tBoolean SEM_EVENTO_finMENU_DOS(){
 
 	tBoolean ret;
 
-	if (pulsada==UP) ret=true;
+	if (pulsada == UP) ret=true;
 	else ret=false;
 
 	return ret;
@@ -407,7 +444,7 @@ tBoolean SEM_EVENTO_finCONF_DOS(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
+	if (pulsada == SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -416,9 +453,14 @@ tBoolean SEM_EVENTO_finCONF_DOS(){
 
 tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==2)) ret = true;
+	if ((g_timer0_expired)&&(linea == 2)) {
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -427,9 +469,14 @@ tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
 tBoolean SEM_EVENTO_finEXISTEN_TRES(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if ((g_ucCounter == 5)&(linea==3)) ret = true;
+	if ((g_timer0_expired)&&(linea == 3)){
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -440,7 +487,7 @@ tBoolean SEM_EVENTO_finHAY_DOS(){
 
 	tBoolean ret;
 
-	if ((pulsada==UP)&(linea==2)) ret=true;
+	if ((pulsada == UP)&&(linea == 2)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -451,7 +498,7 @@ tBoolean SEM_EVENTO_finHAY_TRES(){
 
 	tBoolean ret;
 
-	if ((pulsada==UP)&(linea==3)) ret=true;
+	if ((pulsada == UP)&&(linea == 3)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -462,7 +509,7 @@ tBoolean SEM_EVENTO_finCONF_TRES(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
+	if (pulsada == SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -473,7 +520,7 @@ tBoolean SEM_EVENTO_finMENU_UNO(){
 
 	tBoolean ret;
 
-	if (pulsada==UP) ret=true;
+	if (pulsada == UP) ret=true;
 	else ret=false;
 
 	return ret;
@@ -482,9 +529,14 @@ tBoolean SEM_EVENTO_finMENU_UNO(){
 
 tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
+	enable_Timer_0();
+
 	tBoolean ret;
 
-	if (g_ucCounter == 5) ret = true;
+	if (g_timer0_expired) {
+		ret = true;
+		g_timer0_expired = false;
+	}
 	else ret = false;
 
 	return ret;
@@ -652,9 +704,11 @@ void pedido_finalizado(final){
 
 		DISPLAY_GENERICO_dibuja_string("Pedido Finalizado",10,60,15);
 
+		enable_Timer_0();
+
 		while(1){
 			DPD_reproducir_nota(FRECUENCIA_DO);
-			if(g_ucCounter==4){
+			if(g_timer0_expired){
 				DPD_reproducir_nota(40000);
 				break;
 			}
