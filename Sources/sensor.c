@@ -39,7 +39,7 @@
 ** 																	**
 *********************************************************************/
 
-int movimiento;
+int g_movimiento;
 
 /*********************************************************************
 ** 																	**
@@ -47,7 +47,7 @@ int movimiento;
 ** 																	**
 **********************************************************************/
 
-void DPD_inicializacion_sensor(){
+void SENSOR_init(){
 
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
 
@@ -55,8 +55,8 @@ void DPD_inicializacion_sensor(){
 
 }
 
-void DPD_detectar_movimiento(){
-	movimiento = GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_0);
+void SENSOR_detectar_movimiento(){
+	g_movimiento = GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_0);
 }
 /*********************************************************************
 ** 																	**

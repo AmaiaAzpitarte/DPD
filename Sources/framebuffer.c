@@ -50,7 +50,7 @@ DISPLAY_ELEMENT g_display_elements[MAX_ELEMS];
 
 int g_display_element_kop = 0; /*Num. de elementos que hay en el buffer*/
 
-const unsigned char g_pucNada[32]  =  {
+const unsigned char g_puc_nada[32]  =  {
 
 		0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00,
@@ -304,7 +304,7 @@ void FRAME_BUFFER_write_to_display(void){
 
 			}else { /*Es una imagen*/
 
-				DISPLAY_GENERICO_dibuja_imagen(g_pucNada, g_display_elements[i].xOld, g_display_elements[i].yOld,
+				DISPLAY_GENERICO_dibuja_imagen(g_puc_nada, g_display_elements[i].xOld, g_display_elements[i].yOld,
 						g_display_elements[i].width, g_display_elements[i].height);
 
 				DISPLAY_GENERICO_dibuja_imagen(g_display_elements[i].picture_or_text, g_display_elements[i].x,
@@ -342,7 +342,7 @@ void FRAME_BUFFER_delete_row(int y){
 
 	}
 
-	DPD_escribir_en_pantalla(str, 0, y);
+	DISPLAY_escribir_en_pantalla(str, 0, y);
 
 }
 

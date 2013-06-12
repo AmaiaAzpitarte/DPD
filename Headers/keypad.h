@@ -49,11 +49,11 @@
 ** 																			**
 ******************************************************************************/
 
-void DPD_inicializacion_keypad();
+void KEYPAD_init();
 
-void DPD_leer_keypad();
+void KEYPAD_leer_keypad();
 
-void DPD_elegir_tecla();
+void KEYPAD_elegir_tecla();
 
 /*****************************************************************************
 **	 																		**

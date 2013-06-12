@@ -39,6 +39,8 @@
 	#include "DPD/DPD.h"
 #endif
 
+#include "Headers/inicializacion.h"
+
 /*********************************************************************
 ** 																	**
 ** DEFINITIONS AND MACROS 											**
@@ -57,9 +59,6 @@
 ** GLOBAL VARIABLES 												**
 ** 																	**
 **********************************************************************/
-
-int identificador; /*Variable donde se guardará el id de los elementos creados*/
-
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
@@ -76,7 +75,7 @@ int identificador; /*Variable donde se guardará el id de los elementos creados*/
  *
 */
 
-void DPD_inicializacion_display(){
+void DISPLAY_inicializacion_display(){
 
 	FRAME_BUFFER_init();
 
@@ -91,7 +90,9 @@ void DPD_inicializacion_display(){
  *
 */
 
-void DPD_escribir_en_pantalla(unsigned char *puc, int x, int y){
+void DISPLAY_escribir_en_pantalla(unsigned char *puc, int x, int y){
+
+	int identificador; /*Variable donde se guardará el id de los elementos creados*/
 
 	identificador = FRAME_BUFFER_insert_text(puc, x, y);
 

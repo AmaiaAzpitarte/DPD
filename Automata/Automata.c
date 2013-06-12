@@ -75,7 +75,7 @@ extern TS_AUTOMATA dpd;
  * que detecta
  */
 
-void EjecutaAutomata(TS_AUTOMATA *elAutomata){
+void AUTOMATA_ejecuta_automata(TS_AUTOMATA *elAutomata){
 
 	TS_ESTADO **Indx;    /* Valor índice rastreador */
 
@@ -83,7 +83,7 @@ void EjecutaAutomata(TS_AUTOMATA *elAutomata){
 
 	    if (elAutomata->estadoActual == (*Indx)->id){
 
-			EjecutaEstado(*Indx, elAutomata);
+			AUTOMATA_ejecuta_estado(*Indx, elAutomata);
 
 			return;
 
@@ -105,7 +105,7 @@ void EjecutaAutomata(TS_AUTOMATA *elAutomata){
  * que corresponde a ese evento
  */
 
-void EjecutaEstado (TS_ESTADO *elEstado, TS_AUTOMATA *elAutomata){
+void AUTOMATA_ejecuta_estado (TS_ESTADO *elEstado, TS_AUTOMATA *elAutomata){
 
 	TS_EVEACC *Indx;   /* Índice de rastreo */
 

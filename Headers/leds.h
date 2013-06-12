@@ -34,17 +34,17 @@
 ** 																			**
 ******************************************************************************/
 
-void DPD_inicializacion_leds();
+void LEDS_init();
 
-void DPD_controlar_leds(leds);
+void LEDS_controlar_leds(int leds);
 
-void DPD_escoger_leds(operario);
+void LEDS_escoger_leds(int operario);
 
-void DPD_escoger_leds_dos_lineas();
+void LEDS_escoger_leds_dos_lineas();
 
-void DPD_escoger_leds_tres_lineas();
+void LEDS_escoger_leds_tres_lineas();
 
-int DPD_consultar_operarios(operario);
+//int LEDS_consultar_operarios(int operario);
 
 /*****************************************************************************
 **	 																		**

@@ -62,7 +62,7 @@ typedef enum {DPD_ESPERA, UNA_LINEA, CONFIRMACION, DOS_LINEAS, TRES_LINEAS, MENU
 **                                                                          **
 ******************************************************************************/
 
-//Transiciones desde el estado DPD_ESPERA
+/*//Transiciones desde el estado DPD_ESPERA
 tBoolean SEM_EVENTO_finDPD_ESPERA();
 
 //Transiciones desde el estado UNA_LINEA
@@ -138,10 +138,10 @@ void SEM_ACCION_menu_tercero();
 
 //Función que consulta si la operación es la última de un pedido
 
-void pedido_finalizado(final);
+void DPD_pedido_finalizado(int final);
 
 
-void emitir_sonido();
+void DPD_emitir_sonido();*/
 
 /*****************************************************************************
 **                                                                          **

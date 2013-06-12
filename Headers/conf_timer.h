@@ -11,15 +11,9 @@
 #include "driverlib/sysctl.h"
 #include "driverlib/timer.h"
 
-void init_Timer0(int);
-void enable_Timer_0(void);
-void disable_Timer0(void);
-
-//void init_Timer3(int);
-//void enable_Timer_3(void);
-//void disable_Timer3(void);
-
-//void init_Timer2(int);
-//void enable_Timer_2(void);
+void TIMER_init_timer0(int);
+void TIMER_enable_timer0(void);
+//void TIMER_disable_timer0(void);
+//void TIMER_timer0_int_handler(void);
 
 #endif

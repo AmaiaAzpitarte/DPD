@@ -69,13 +69,18 @@ t_lineapedido lineapedido_2={2,2,"5",0,0};
 
 t_lineapedido lineapedido_3={3,3,"6",1,1};
 
-t_lineapedido lineapedido_changed;
+/*********************************************************************
+** 																	**
+** LOCAL FUNCTIONS 													**
+** 																	**
+**********************************************************************/
 
+void RECEIVED_DATA_modificar_posiciones(){
 
-void DPD_modificar_posiciones(){
-
+	t_lineapedido lineapedido_changed;
 
 #ifdef DPD_SENSOR
+
 	if(g_estado_confirmado == 1){
 
 		lineapedido_changed = lineapedido_1;
@@ -109,7 +114,7 @@ void DPD_modificar_posiciones(){
 		lineapedido_3 = lineapedido_changed;
 
 	}
-	else if(dpd.estadoActual == DOS_LINEAS){
+	else if(dpd.estadoActual == MENU_SEGUNDO){
 
 		lineapedido_changed = lineapedido_2;
 
@@ -122,11 +127,6 @@ void DPD_modificar_posiciones(){
 
 }
 
-/*********************************************************************
-** 																	**
-** LOCAL FUNCTIONS 													**
-** 																	**
-**********************************************************************/
 /*********************************************************************
 ** 																	**
 ** EOF 																**

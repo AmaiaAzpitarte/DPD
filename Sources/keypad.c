@@ -53,13 +53,13 @@
 ** 																	**
 **********************************************************************/
 
-unsigned long g_ul_keypad_switches = 0x1f; /*Valor leído en los botones*/
+unsigned long g_keypad = 0x1f; /*Valor leído en los botones*/
 
 char g_pulsada; /* Variable donde se guarda la tecla pulsada */
 
-unsigned long g_uc_changed_data;
+unsigned long g_dato_cambiado;
 
-unsigned long g_uc_dato_anterior; //solo para este fichero
+unsigned long g_dato_anterior; //solo para este fichero
 
 /*********************************************************************
 ** 																	**
@@ -74,7 +74,7 @@ unsigned long g_uc_dato_anterior; //solo para este fichero
  *
 */
 
-void DPD_inicializacion_keypad(){
+void KEYPAD_init(){
 
 	//Activamos pines del puerto F (botón select)
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
@@ -111,18 +111,18 @@ void DPD_inicializacion_keypad(){
  *
 */
 
-void DPD_leer_keypad(){
+void KEYPAD_leer_keypad(){
 
-		unsigned long ul_pressed_data; //Guarda el valor de la tecla pulsada
+		unsigned long dato_pulsado; //Guarda el valor de la tecla pulsada
 
-		ul_pressed_data = (GPIOPinRead( GPIO_PORTE_BASE , (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3) )|
+		dato_pulsado = (GPIOPinRead( GPIO_PORTE_BASE , (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3) )|
 					    	(GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_1) << 3));
 
-		g_uc_changed_data = g_ul_keypad_switches ^ ul_pressed_data; //para evitar los rebotes
+		g_dato_cambiado = g_keypad ^ dato_pulsado; //para evitar los rebotes
 
-		g_ul_keypad_switches = ul_pressed_data;
+		g_keypad = dato_pulsado;
 
-		g_ul_keypad_switches = g_ul_keypad_switches & 0x1f;
+		g_keypad = g_keypad & 0x1f;
 
 }
 
@@ -135,11 +135,11 @@ void DPD_leer_keypad(){
  * se haya seleccionado.
 */
 
-void DPD_elegir_tecla(){
+void KEYPAD_elegir_tecla(){
 
-	if(g_uc_changed_data != g_uc_dato_anterior){
+	if(g_dato_cambiado != g_dato_anterior){
 
-		switch(g_ul_keypad_switches){
+		switch(g_keypad){
 
 			case KEY_UP:	g_pulsada = UP;
 							break;
@@ -164,7 +164,7 @@ void DPD_elegir_tecla(){
 	}
 	else g_pulsada = NADA;
 
-	g_uc_dato_anterior = g_uc_changed_data;
+	g_dato_anterior = g_dato_cambiado;
 }
 
 /*********************************************************************

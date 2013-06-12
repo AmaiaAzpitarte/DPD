@@ -35,9 +35,9 @@
 ** 																			**
 ******************************************************************************/
 
-void DPD_inicializacion_display();
+void DISPLAY_inicializacion_display();
 
-void DPD_escribir_en_pantalla(unsigned char *puc, int x, int y);
+void DISPLAY_escribir_en_pantalla(unsigned char *puc, int x, int y);
 
 /*****************************************************************************
 **	 																		**

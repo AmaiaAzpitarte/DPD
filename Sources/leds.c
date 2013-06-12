@@ -45,13 +45,15 @@
 #include "Headers/received_data.h"
 #include "Headers/data_structs.h"
 
+#include "Headers/inicializacion.h"
+
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
 
-extern int linea;
+extern int g_linea;
 
 extern t_lineapedido lineapedido_1;
 
@@ -65,7 +67,7 @@ extern t_lineapedido lineapedido_3;
 ** 																	**
 *********************************************************************/
 
-int valor_leds;
+int g_valor_leds;
 
 /*********************************************************************
 ** 																	**
@@ -73,7 +75,7 @@ int valor_leds;
 ** 																	**
 **********************************************************************/
 
-void DPD_inicializacion_leds(){
+void LEDS_init(){
 
 	//
 	// Enable the GPIO port B that is used for the LEDS.
@@ -90,7 +92,7 @@ void DPD_inicializacion_leds(){
 	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, 0x00000000);
 }
 
-void DPD_controlar_leds(leds){
+void LEDS_controlar_leds(int leds){
 
 	//
 	// Output leds' values
@@ -100,41 +102,39 @@ void DPD_controlar_leds(leds){
 }
 
 
-void DPD_escoger_leds(operario){
+void LEDS_escoger_leds(int operario){
 
-	valor_leds = 0x00;
+	g_valor_leds = 0x00;
 
-	int led1;
-	int led2;
+	if(g_linea == 0) g_valor_leds = 0x00; // DPD_ESPERA
+	else g_valor_leds = LEDS_consultar_operarios(operario); // UNA_LINEA | MENU_PRIMERO | MENU_SEGUNDO | MENU_TERCERO
 
-	if(linea==0) valor_leds = 0x00; // DPD_ESPERA
-	else valor_leds = DPD_consultar_operarios(operario); // UNA_LINEA | MENU_PRIMERO | MENU_SEGUNDO | MENU_TERCERO
-
-	DPD_controlar_leds(valor_leds);
+	LEDS_controlar_leds(g_valor_leds);
 
 }
 
-void DPD_escoger_leds_dos_lineas(){ // DOS_LINEAS
+void LEDS_escoger_leds_dos_lineas(){ // DOS_LINEAS
 
-	valor_leds = 0x00;
+	g_valor_leds = 0x00;
+
 	int led1=0x00;
 	int led2=0x00;
 
-	led1= DPD_consultar_operarios(lineapedido_1.operario);
-	led2= DPD_consultar_operarios(lineapedido_2.operario);
-	valor_leds = led1 | led2;
+	led1= LEDS_consultar_operarios(lineapedido_1.operario);
+	led2= LEDS_consultar_operarios(lineapedido_2.operario);
+	g_valor_leds = led1 | led2;
 
-	DPD_controlar_leds(valor_leds);
-
-}
-
-void DPD_escoger_leds_tres_lineas(){ // TRES_LINEAS
-
-	DPD_controlar_leds(0x07);
+	LEDS_controlar_leds(g_valor_leds);
 
 }
 
-int DPD_consultar_operarios(operario){
+void LEDS_escoger_leds_tres_lineas(){ // TRES_LINEAS
+
+	LEDS_controlar_leds(0x07);
+
+}
+
+int LEDS_consultar_operarios(int operario){
 
 	int ret = 0x00;
 

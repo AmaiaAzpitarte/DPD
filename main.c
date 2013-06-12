@@ -62,7 +62,7 @@
 
 extern TS_AUTOMATA dpd;
 
-int linea=0; //variable global que indica la cantidad de líneas a realizar en el DPD
+int g_linea=0; //variable global que indica la cantidad de líneas a realizar en el DPD
 
 /*********************************************************************
 ** 																	**
@@ -87,24 +87,24 @@ int linea=0; //variable global que indica la cantidad de líneas a realizar en el
 
 int main(void){
 
-	DPD_inicializacion();
+	INICIALIZACION_init();
 
 	dpd.estadoActual = DPD_ESPERA; /* El primer estado es DPD_ESPERA */
 
 	/* Se ejecutará la máquina de estado de forma continua */
 	while(1){
 
-		DPD_leer_keypad();
+		KEYPAD_leer_keypad();
 
-		DPD_elegir_tecla();
+		KEYPAD_elegir_tecla();
 
 		#ifdef DPD_SENSOR
-				DPD_detectar_movimiento();
+				SENSOR_detectar_movimiento();
 		#endif
 
-		EjecutaAutomata( (TS_AUTOMATA *) &dpd);
+		AUTOMATA_ejecuta_automata( (TS_AUTOMATA *) &dpd);
 
-		cantidad_linea(); //solo para el testeo del DPD
+		SIMULACION_cantidad_linea(); //solo para el testeo del DPD
 
 	}
 }

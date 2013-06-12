@@ -34,9 +34,9 @@
 ** 																			**
 ******************************************************************************/
 
-void DPD_inicializacion_sensor();
+void SENSOR_init();
 
-void DPD_detectar_movimiento();
+void SENSOR_detectar_movimiento();
 
 /*****************************************************************************
 **	 																		**

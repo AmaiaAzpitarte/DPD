@@ -44,7 +44,7 @@
 
 extern char g_pulsada;
 
-extern int linea;
+extern int g_linea;
 
 /*********************************************************************
 ** 																	**
@@ -52,14 +52,14 @@ extern int linea;
 ** 																	**
 **********************************************************************/
 
-void cantidad_linea(){
+void SIMULACION_cantidad_linea(){
 
 	switch(g_pulsada){
-	case RIGHT: linea=1;
+	case RIGHT: g_linea=1;
 				break;
-	case LEFT: 	linea=2;
+	case LEFT: 	g_linea=2;
 				break;
-	case DOWN:	linea=3;
+	case DOWN:	g_linea=3;
 				break;
 	}
 

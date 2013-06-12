@@ -158,9 +158,9 @@ extern t_lineapedido lineapedido_2;
 
 extern t_lineapedido lineapedido_3;
 
-extern int linea;
+extern int g_linea;
 
-extern tBoolean g_timer0_expired;
+extern tBoolean g_timer_finished;
 
 /*
  * Definición de los estados de la máquina de estados con sus respectivos eventos
@@ -232,7 +232,7 @@ FIN_AUTOMATA(dpd,1,NULL)
 ** 																	**
 **********************************************************************/
 
-unsigned long g_ul_system_clock;
+unsigned long g_system_clock;
 
 char *str;
 /*********************************************************************
@@ -253,7 +253,7 @@ tBoolean SEM_EVENTO_finDPD_ESPERA(){
 
 	tBoolean ret;
 
-	if(linea >= 1) ret=true;
+	if(g_linea >= 1) ret=true;
 	else ret=false;
 
 	return ret;
@@ -275,7 +275,7 @@ tBoolean SEM_EVENTO_finUNA_LINEA(){
 
 	tBoolean ret;
 
-	if (linea >= 2) ret=true;
+	if (g_linea >= 2) ret=true;
 	else ret=false;
 
 	return ret;
@@ -284,13 +284,13 @@ tBoolean SEM_EVENTO_finUNA_LINEA(){
 
 tBoolean SEM_EVENTO_finCONFIRMACION(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea == 0)){
-		g_timer0_expired = false;
-		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	if ((g_timer_finished)&&(g_linea == 0)){
+		g_timer_finished = false;
+		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
 	}
 	else ret = false;
@@ -301,13 +301,13 @@ tBoolean SEM_EVENTO_finCONFIRMACION(){
 
 tBoolean SEM_EVENTO_finQUEDA_UNA(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea == 1)) {
-		g_timer0_expired = false;
-		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	if ((g_timer_finished)&&(g_linea == 1)) {
+		g_timer_finished = false;
+		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
 	}
 
@@ -317,13 +317,13 @@ tBoolean SEM_EVENTO_finQUEDA_UNA(){
 
 tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea == 2)) {
-		g_timer0_expired = false;
-		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	if ((g_timer_finished)&&(g_linea == 2)) {
+		g_timer_finished = false;
+		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
 	}
 	else ret = false;
@@ -334,13 +334,13 @@ tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 
 tBoolean SEM_EVENTO_finQUEDAN_TRES(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea == 3)){
-		g_timer0_expired = false;
-		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	if ((g_timer_finished)&&(g_linea == 3)){
+		g_timer_finished = false;
+		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
 	}
 	else ret = false;
@@ -364,7 +364,7 @@ tBoolean SEM_EVENTO_finTERCERA(){
 
 	tBoolean ret;
 
-	if (linea == 3) ret=true;
+	if (g_linea == 3) ret=true;
 	else ret=false;
 
 	return ret;
@@ -395,12 +395,12 @@ tBoolean SEM_EVENTO_finCONF_UNO(){
 
 tBoolean SEM_EVENTO_finDOS(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea == 2)) {
-		g_timer0_expired = false;
+	if ((g_timer_finished)&&(g_linea == 2)) {
+		g_timer_finished = false;
 		ret = true;
 	}
 	else ret = false;
@@ -411,12 +411,12 @@ tBoolean SEM_EVENTO_finDOS(){
 
 tBoolean SEM_EVENTO_finTRES(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea == 3)){
-		g_timer0_expired = false;
+	if ((g_timer_finished)&&(g_linea == 3)){
+		g_timer_finished = false;
 		ret = true;
 	}
 	else ret = false;
@@ -449,12 +449,12 @@ tBoolean SEM_EVENTO_finCONF_DOS(){
 
 tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea == 2)) {
-		g_timer0_expired = false;
+	if ((g_timer_finished)&&(g_linea == 2)) {
+		g_timer_finished = false;
 		ret = true;
 	}
 	else ret = false;
@@ -465,12 +465,12 @@ tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
 tBoolean SEM_EVENTO_finEXISTEN_TRES(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea == 3)){
-		g_timer0_expired = false;
+	if ((g_timer_finished)&&(g_linea == 3)){
+		g_timer_finished = false;
 		ret = true;
 	}
 	else ret = false;
@@ -483,7 +483,7 @@ tBoolean SEM_EVENTO_finHAY_DOS(){
 
 	tBoolean ret;
 
-	if ((g_pulsada == UP)&&(linea == 2)) ret=true;
+	if ((g_pulsada == UP)&&(g_linea == 2)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -494,7 +494,7 @@ tBoolean SEM_EVENTO_finHAY_TRES(){
 
 	tBoolean ret;
 
-	if ((g_pulsada == UP)&&(linea == 3)) ret=true;
+	if ((g_pulsada == UP)&&(g_linea == 3)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -525,12 +525,12 @@ tBoolean SEM_EVENTO_finMENU_UNO(){
 
 tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if (g_timer0_expired) {
-		g_timer0_expired = false;
+	if (g_timer_finished) {
+		g_timer_finished = false;
 		ret = true;
 	}
 	else ret = false;
@@ -551,7 +551,7 @@ void SEM_ACCION_dpd_espera(){
 
 	FRAME_BUFFER_delete_row(50);
 
-	DPD_escoger_leds(0);
+	LEDS_escoger_leds(0);
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -567,17 +567,17 @@ void SEM_ACCION_una_linea(){
 
 	FRAME_BUFFER_delete_row(50);
 
-	DPD_escribir_en_pantalla(lineapedido_1.cantidad,50,30);
+	DISPLAY_escribir_en_pantalla(lineapedido_1.cantidad,50,30);
 
 	if(lineapedido_1.final == 1){
 
 		str = "Ultima Operacion";
 
-		DPD_escribir_en_pantalla(str,15,50);
+		DISPLAY_escribir_en_pantalla(str,15,50);
 
 	}
 
-	DPD_escoger_leds(lineapedido_1.operario);
+	LEDS_escoger_leds(lineapedido_1.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -598,27 +598,27 @@ void SEM_ACCION_confirmacion(){
 
 	str = "Operacion Realizada";
 
-	DPD_escribir_en_pantalla(str,5,30);
+	DISPLAY_escribir_en_pantalla(str,5,30);
 
 	switch(dpd.estadoActual){
-	case UNA_LINEA: 	pedido_finalizado(lineapedido_1.final);
+	case UNA_LINEA: 	DPD_pedido_finalizado(lineapedido_1.final);
 						lineapedido_1.confirmacion=1;
 						break;
-	case MENU_PRIMERO:	pedido_finalizado(lineapedido_1.final);
+	case MENU_PRIMERO:	DPD_pedido_finalizado(lineapedido_1.final);
 						lineapedido_1.confirmacion=1;
 						break;
-	case MENU_SEGUNDO: 	pedido_finalizado(lineapedido_2.final);
+	case MENU_SEGUNDO: 	DPD_pedido_finalizado(lineapedido_2.final);
 						lineapedido_2.confirmacion=1;
 						break;
-	case MENU_TERCERO: 	pedido_finalizado(lineapedido_3.final);
+	case MENU_TERCERO: 	DPD_pedido_finalizado(lineapedido_3.final);
 						lineapedido_3.confirmacion=1;
 						break;
 	default:			break;
 	}
 
-	linea--;
+	g_linea--;
 
-	DPD_modificar_posiciones();
+	RECEIVED_DATA_modificar_posiciones();
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -635,13 +635,13 @@ void SEM_ACCION_dos_lineas(){
 
 	str = "Varias Operaciones";
 
-	DPD_escribir_en_pantalla(str,10,30);
+	DISPLAY_escribir_en_pantalla(str,10,30);
 
 	str = "Dos Operarios";
 
-	DPD_escribir_en_pantalla(str,25,50);
+	DISPLAY_escribir_en_pantalla(str,25,50);
 
-	DPD_escoger_leds_dos_lineas();
+	LEDS_escoger_leds_dos_lineas();
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -658,13 +658,13 @@ void SEM_ACCION_tres_lineas(){
 
 	str = "Varias Operaciones";
 
-	DPD_escribir_en_pantalla(str,10,30);
+	DISPLAY_escribir_en_pantalla(str,10,30);
 
 	str = "Tres Operarios";
 
-	DPD_escribir_en_pantalla(str,25,50);
+	DISPLAY_escribir_en_pantalla(str,25,50);
 
-	DPD_escoger_leds_tres_lineas();
+	LEDS_escoger_leds_tres_lineas();
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -679,17 +679,17 @@ void SEM_ACCION_menu_primero(){
 
 	FRAME_BUFFER_delete_row(50);
 
-	DPD_escribir_en_pantalla(lineapedido_1.cantidad,50,30);
+	DISPLAY_escribir_en_pantalla(lineapedido_1.cantidad,50,30);
 
 	if(lineapedido_1.final==1){
 
 		str = "Ultima Operacion";
 
-		DPD_escribir_en_pantalla(str,15,50);
+		DISPLAY_escribir_en_pantalla(str,15,50);
 
 	}
 
-	DPD_escoger_leds(lineapedido_1.operario);
+	LEDS_escoger_leds(lineapedido_1.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -704,17 +704,17 @@ void SEM_ACCION_menu_segundo(){
 
 	FRAME_BUFFER_delete_row(50);
 
-	DPD_escribir_en_pantalla(lineapedido_2.cantidad,50,30);
+	DISPLAY_escribir_en_pantalla(lineapedido_2.cantidad,50,30);
 
 	if(lineapedido_2.final==1){
 
 		str = "Ultima Operacion";
 
-		DPD_escribir_en_pantalla(str,15,50);
+		DISPLAY_escribir_en_pantalla(str,15,50);
 
 	}
 
-	DPD_escoger_leds(lineapedido_2.operario);
+	LEDS_escoger_leds(lineapedido_2.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -729,17 +729,17 @@ void SEM_ACCION_menu_tercero(){
 
 	FRAME_BUFFER_delete_row(50);
 
-	DPD_escribir_en_pantalla(lineapedido_3.cantidad,50,30);
+	DISPLAY_escribir_en_pantalla(lineapedido_3.cantidad,50,30);
 
 	if(lineapedido_3.final==1){
 
 		str = "Ultima Operacion";
 
-		DPD_escribir_en_pantalla(str,15,50);
+		DISPLAY_escribir_en_pantalla(str,15,50);
 
 	}
 
-	DPD_escoger_leds(lineapedido_3.operario);
+	LEDS_escoger_leds(lineapedido_3.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -748,21 +748,21 @@ void SEM_ACCION_menu_tercero(){
 
 }
 
-void pedido_finalizado(final){
+void DPD_pedido_finalizado(int final){
 
 	if(final==1){
 
 		str = "Pedido Finalizado";
 
-		DPD_escribir_en_pantalla(str,10,50);
+		DISPLAY_escribir_en_pantalla(str,10,50);
 
-		emitir_sonido();
+		DPD_emitir_sonido();
 	}
 
 }
 
-void emitir_sonido(){
-	DPD_reproducir_nota(FRECUENCIA_DO);
+void DPD_emitir_sonido(){
+	SONIDO_reproducir_nota(FRECUENCIA_DO);
 }
 
 #endif

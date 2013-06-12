@@ -37,7 +37,7 @@
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
-extern unsigned long g_ul_system_clock; /*Frecuencia del clock*/
+extern unsigned long g_system_clock; /*Frecuencia del clock*/
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
@@ -53,7 +53,7 @@ extern unsigned long g_ul_system_clock; /*Frecuencia del clock*/
  * Se apaga el generador para configurar su contador, y se vuelve a encender.
  * Se especifica el volumen y se activa la salida del PWM.
 */
-void DPD_inicializacion_pwm(){
+void SONIDO_init(){
 
 	//clock pwm
 	SysCtlPWMClockSet(SYSCTL_PWMDIV_8);
@@ -90,8 +90,8 @@ void DPD_inicializacion_pwm(){
  *
  * Se activa el PWM con la frecuencia seleccionada.
 */
-void DPD_reproducir_nota(g_us_note_frecuency){
-	PWMGenPeriodSet(PWM_BASE, PWM_GEN_0,(g_ul_system_clock /(g_us_note_frecuency * 8)));
+void SONIDO_reproducir_nota(note_frecuency){
+	PWMGenPeriodSet(PWM_BASE, PWM_GEN_0,(g_system_clock /(note_frecuency * 8)));
 	PWMSyncUpdate(PWM_BASE, PWM_GEN_0_BIT);
 }
 

@@ -41,26 +41,27 @@
 ** 																	**
 **********************************************************************/
 
-void DPD_inicializacion(){
+void INICIALIZACION_init(){
 
-	RIT128x96x4Init(1000000);
-	RIT128x96x4StringDraw("ESTADO - dpd espera",5,87,15);
+	DISPLAY_inicializacion_display();
 
-	//initSysTick();
+	//Las siguientes dos lineas tengo que quitarlas
+	char* str = "Estado - dpd espera";
+	DISPLAY_escribir_en_pantalla(str,5,87);
 
-	DPD_inicializacion_pwm();
+	SONIDO_init();
 
-	DPD_inicializacion_keypad();
+	KEYPAD_init();
 
-	DPD_inicializacion_clock();
+	CLOCK_inicializacion_clock();
 
-	DPD_inicializacion_leds();
+	LEDS_init();
 
 	#ifdef DPD_SENSOR
-		DPD_inicializacion_sensor();
+		SENSOR_init();
 	#endif
 
-	init_Timer0(5);
+	TIMER_init_timer0(5);
 
 }
 

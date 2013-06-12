@@ -119,7 +119,7 @@ typedef struct {
  * @return void
  */
 
-void EjecutaAutomata( TS_AUTOMATA *elAutomata);
+void AUTOMATA_ejecuta_automata( TS_AUTOMATA *elAutomata);
 
 /**
  * @brief  Ejecuta el estado
@@ -130,7 +130,7 @@ void EjecutaAutomata( TS_AUTOMATA *elAutomata);
  * @return void
  */
 
-void EjecutaEstado  ( TS_ESTADO *elEstado, TS_AUTOMATA *elAutomata);
+//void AUTOMATA_ejecuta_estado  ( TS_ESTADO *elEstado, TS_AUTOMATA *elAutomata);
 
 /*****************************************************************************
 **                                                                          **

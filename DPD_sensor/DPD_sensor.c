@@ -190,15 +190,11 @@ extern t_lineapedido lineapedido_2;
 
 extern t_lineapedido lineapedido_3;
 
-extern int linea;
+extern int g_linea;
 
-extern int valor_leds;
+extern tBoolean g_timer_finished;
 
-//extern unsigned char g_ucCounter;
-
-extern tBoolean g_timer0_expired;
-
-extern int movimiento;
+extern int g_movimiento;
 
 
 
@@ -292,7 +288,7 @@ FIN_AUTOMATA(dpd,1,NULL)
 ** 																	**
 **********************************************************************/
 
-unsigned long g_ul_system_clock;
+unsigned long g_system_clock;
 
 char *str;
 
@@ -316,7 +312,7 @@ tBoolean SEM_EVENTO_finDPD_ESPERA(){
 
 	tBoolean ret;
 
-	if(linea>=1) ret=true;
+	if(g_linea>=1) ret=true;
 	else ret=false;
 
 	return ret;
@@ -327,7 +323,7 @@ tBoolean SEM_EVENTO_finSENSOR(){ //Este evento debe ser la detección del sensor
 
 	tBoolean ret;
 
-	if (movimiento==1) ret=true;
+	if (g_movimiento==1) ret=true;
 	else ret=false;
 
 	return ret;
@@ -349,7 +345,7 @@ tBoolean SEM_EVENTO_finUNA_LINEA(){
 
 	tBoolean ret;
 
-	if (linea>=2) ret=true;
+	if (g_linea>=2) ret=true;
 	else ret=false;
 
 	return ret;
@@ -371,7 +367,7 @@ tBoolean SEM_EVENTO_finDOS_LINEAS(){
 
 	tBoolean ret;
 
-	if (linea==3) ret=true;
+	if (g_linea==3) ret=true;
 	else ret=false;
 
 	return ret;
@@ -391,12 +387,12 @@ tBoolean SEM_EVENTO_finMENU_DOS(){
 
 tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea==2)){
-		g_timer0_expired = false;
+	if ((g_timer_finished)&&(g_linea==2)){
+		g_timer_finished = false;
 		ret = true;
 	}
 	else ret = false;
@@ -407,12 +403,12 @@ tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 
 tBoolean SEM_EVENTO_finQUEDAN_TRES(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea==3)){
-		g_timer0_expired = false;
+	if ((g_timer_finished)&&(g_linea==3)){
+		g_timer_finished = false;
 		ret = true;
 	}
 	else ret = false;
@@ -436,7 +432,7 @@ tBoolean SEM_EVENTO_finSENSOR_PRIMERO(){ //Este evento debe ser la detección del
 
 	tBoolean ret;
 
-	if (movimiento==1) ret=true;
+	if (g_movimiento==1) ret=true;
 	else ret=false;
 
 	return ret;
@@ -458,7 +454,7 @@ tBoolean SEM_EVENTO_finMENU_CUATRO(){
 
 	tBoolean ret;
 
-	if ((g_pulsada==UP)&&(linea==2)) ret=true;
+	if ((g_pulsada==UP)&&(g_linea==2)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -467,12 +463,12 @@ tBoolean SEM_EVENTO_finMENU_CUATRO(){
 
 tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea==2)) {
-		g_timer0_expired = false;
+	if ((g_timer_finished)&&(g_linea==2)) {
+		g_timer_finished = false;
 		ret = true;
 	}
 	else ret = false;
@@ -483,12 +479,12 @@ tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
 tBoolean SEM_EVENTO_finEXISTEN_TRES(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea==3)){
-		g_timer0_expired = false;
+	if ((g_timer_finished)&&(g_linea==3)){
+		g_timer_finished = false;
 		ret = true;
 	}
 	else ret = false;
@@ -501,7 +497,7 @@ tBoolean SEM_EVENTO_finMENU_CINCO(){
 
 	tBoolean ret;
 
-	if ((g_pulsada==UP)&&(linea==3)) ret=true;
+	if ((g_pulsada==UP)&&(g_linea==3)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -512,7 +508,7 @@ tBoolean SEM_EVENTO_finSENSOR_SEGUNDO(){ //Este evento debe ser la detección del
 
 	tBoolean ret;
 
-	if (movimiento==1) ret=true;
+	if (g_movimiento==1) ret=true;
 	else ret=false;
 
 	return ret;
@@ -543,12 +539,12 @@ tBoolean SEM_EVENTO_finMENU_SEIS(){
 
 tBoolean SEM_EVENTO_finHAY_TRES(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if (g_timer0_expired){
-		g_timer0_expired = false;
+	if (g_timer_finished){
+		g_timer_finished = false;
 		ret = true;
 	}
 	else ret = false;
@@ -561,7 +557,7 @@ tBoolean SEM_EVENTO_finSENSOR_TERCERO(){ //Este evento debe ser la detección del
 
 	tBoolean ret;
 
-	if (movimiento==1) ret=true;
+	if (g_movimiento==1) ret=true;
 	else ret=false;
 
 	return ret;
@@ -592,12 +588,12 @@ tBoolean SEM_EVENTO_finPULSADA_COR(){
 
 tBoolean SEM_EVENTO_finINCORRECTO(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if (g_timer0_expired){
-		g_timer0_expired = false;
+	if (g_timer_finished){
+		g_timer_finished = false;
 		ret = true;
 	}
 	else ret = false;
@@ -608,13 +604,13 @@ tBoolean SEM_EVENTO_finINCORRECTO(){
 
 tBoolean SEM_EVENTO_finSIGUE_UNO(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea==1)){
-		g_timer0_expired = false;
-		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	if ((g_timer_finished)&&(g_linea==1)){
+		g_timer_finished = false;
+		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
 	}
 	else ret = false;
@@ -625,13 +621,13 @@ tBoolean SEM_EVENTO_finSIGUE_UNO(){
 
 tBoolean SEM_EVENTO_finSIGUEN_DOS(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea==2)){
-		g_timer0_expired = false;
-		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	if ((g_timer_finished)&&(g_linea==2)){
+		g_timer_finished = false;
+		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
 	}
 	else ret = false;
@@ -642,13 +638,13 @@ tBoolean SEM_EVENTO_finSIGUEN_DOS(){
 
 tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea==3)){
-		g_timer0_expired = false;
-		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	if ((g_timer_finished)&&(g_linea==3)){
+		g_timer_finished = false;
+		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
 	}
 	else ret = false;
@@ -659,13 +655,13 @@ tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
 tBoolean SEM_EVENTO_finESTA_UNO(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea==1)){
-		g_timer0_expired = false;
-		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	if ((g_timer_finished)&&(g_linea==1)){
+		g_timer_finished = false;
+		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
 	}
 	else ret = false;
@@ -676,13 +672,13 @@ tBoolean SEM_EVENTO_finESTA_UNO(){
 
 tBoolean SEM_EVENTO_finESTAN_DOS(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea==2)){
-		g_timer0_expired = false;
-		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	if ((g_timer_finished)&&(g_linea==2)){
+		g_timer_finished = false;
+		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
 	}
 	else ret = false;
@@ -693,13 +689,13 @@ tBoolean SEM_EVENTO_finESTAN_DOS(){
 
 tBoolean SEM_EVENTO_finESTAN_TRES(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea==3)){
-		g_timer0_expired = false;
-		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	if ((g_timer_finished)&&(g_linea==3)){
+		g_timer_finished = false;
+		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
 	}
 	else ret = false;
@@ -710,13 +706,13 @@ tBoolean SEM_EVENTO_finESTAN_TRES(){
 
 tBoolean SEM_EVENTO_finREALIZADA(){
 
-	enable_Timer_0();
+	TIMER_enable_timer0();
 
 	tBoolean ret;
 
-	if ((g_timer0_expired)&&(linea==0)){
-		g_timer0_expired = false;
-		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
+	if ((g_timer_finished)&&(g_linea==0)){
+		g_timer_finished = false;
+		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
 	}
 	else ret = false;
@@ -738,7 +734,7 @@ void SEM_ACCION_dpd_espera(){
 
 	FRAME_BUFFER_delete_row(50);
 
-	DPD_escoger_leds(0);
+	LEDS_escoger_leds(0);
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -754,17 +750,17 @@ void SEM_ACCION_una_linea(){
 
 	FRAME_BUFFER_delete_row(50);
 
-	DPD_escribir_en_pantalla(lineapedido_1.cantidad,50,30);
+	DISPLAY_escribir_en_pantalla(lineapedido_1.cantidad,50,30);
 
 	if(lineapedido_1.final==1){
 
 		str = "Ultima Operacion";
 
-		DPD_escribir_en_pantalla(str,15,50);
+		DISPLAY_escribir_en_pantalla(str,15,50);
 
 	}
 
-	DPD_escoger_leds(lineapedido_1.operario);
+	LEDS_escoger_leds(lineapedido_1.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -782,13 +778,13 @@ void SEM_ACCION_dos_lineas(){
 
 	str = "Varias Operaciones";
 
-	DPD_escribir_en_pantalla(str,10,30);
+	DISPLAY_escribir_en_pantalla(str,10,30);
 
 	str = "Dos Operarios";
 
-	DPD_escribir_en_pantalla(str,25,50);
+	DISPLAY_escribir_en_pantalla(str,25,50);
 
-	DPD_escoger_leds_dos_lineas();
+	LEDS_escoger_leds_dos_lineas();
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -805,13 +801,13 @@ void SEM_ACCION_tres_lineas(){
 
 	str = "Varias Operaciones";
 
-	DPD_escribir_en_pantalla(str,10,30);
+	DISPLAY_escribir_en_pantalla(str,10,30);
 
 	str = "Tres Operarios";
 
-	DPD_escribir_en_pantalla(str,25,50);
+	DISPLAY_escribir_en_pantalla(str,25,50);
 
-	DPD_escoger_leds_tres_lineas();
+	LEDS_escoger_leds_tres_lineas();
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -826,17 +822,17 @@ void SEM_ACCION_menu_primero(){
 
 	FRAME_BUFFER_delete_row(50);
 
-	DPD_escribir_en_pantalla(lineapedido_1.cantidad,50,30);
+	DISPLAY_escribir_en_pantalla(lineapedido_1.cantidad,50,30);
 
 	if(lineapedido_1.final==1){
 
 		str = "Ultima Operacion";
 
-		DPD_escribir_en_pantalla(str,15,50);
+		DISPLAY_escribir_en_pantalla(str,15,50);
 
 	}
 
-	DPD_escoger_leds(lineapedido_1.operario);
+	LEDS_escoger_leds(lineapedido_1.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -851,17 +847,17 @@ void SEM_ACCION_menu_segundo(){
 
 	FRAME_BUFFER_delete_row(50);
 
-	DPD_escribir_en_pantalla(lineapedido_2.cantidad,50,30);
+	DISPLAY_escribir_en_pantalla(lineapedido_2.cantidad,50,30);
 
 	if(lineapedido_2.final==1){
 
 		str = "Ultima Operacion";
 
-		DPD_escribir_en_pantalla(str,15,50);
+		DISPLAY_escribir_en_pantalla(str,15,50);
 
 	}
 
-	DPD_escoger_leds(lineapedido_2.operario);
+	LEDS_escoger_leds(lineapedido_2.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -876,17 +872,17 @@ void SEM_ACCION_menu_tercero(){
 
 	FRAME_BUFFER_delete_row(50);
 
-	DPD_escribir_en_pantalla(lineapedido_3.cantidad,50,30);
+	DISPLAY_escribir_en_pantalla(lineapedido_3.cantidad,50,30);
 
 	if(lineapedido_3.final==1){
 
 		str = "Ultima Operacion";
 
-		DPD_escribir_en_pantalla(str,15,50);
+		DISPLAY_escribir_en_pantalla(str,15,50);
 
 	}
 
-	DPD_escoger_leds(lineapedido_3.operario);
+	LEDS_escoger_leds(lineapedido_3.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -902,7 +898,7 @@ void SEM_ACCION_sensor(){
 
 	str = "Detectado";
 
-	DPD_escribir_en_pantalla(str,35,50);
+	DISPLAY_escribir_en_pantalla(str,35,50);
 
 	if((dpd.estadoActual == UNA_LINEA)|| (dpd.estadoActual == MENU_PRIMERO)){
 		g_estado_confirmado = 1;
@@ -926,13 +922,13 @@ void SEM_ACCION_incorrecto(){
 
 	str = "Operacion Incorrecta";
 
-	DPD_escribir_en_pantalla(str,5,30);
+	DISPLAY_escribir_en_pantalla(str,5,30);
 
 	if(dpd.estadoActual == SENSOR){
 
 		str = "Falta Confirmacion";
 
-		DPD_escribir_en_pantalla(str,10,50);
+		DISPLAY_escribir_en_pantalla(str,10,50);
 
 		lineapedido_1.confirmacion=2;
 	}
@@ -940,12 +936,12 @@ void SEM_ACCION_incorrecto(){
 
 		str = "Ubicacion Incorrecta";
 
-		DPD_escribir_en_pantalla(str,5,50);
+		DISPLAY_escribir_en_pantalla(str,5,50);
 
 		lineapedido_1.confirmacion=3;
 	}
 
-	emitir_sonido();
+	DPD_SENSOR_emitir_sonido();
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -962,24 +958,24 @@ void SEM_ACCION_correcto(){
 
 	str = "Operacion Realizada";
 
-	DPD_escribir_en_pantalla(str,5,30);
+	DISPLAY_escribir_en_pantalla(str,5,30);
 
 	switch(g_estado_confirmado){
-	case 1: 	pedido_finalizado(lineapedido_1.final);
+	case 1: 	DPD_SENSOR_pedido_finalizado(lineapedido_1.final);
 				lineapedido_1.confirmacion=1;
 				break;
-	case 2: 	pedido_finalizado(lineapedido_2.final);
+	case 2: 	DPD_SENSOR_pedido_finalizado(lineapedido_2.final);
 				lineapedido_2.confirmacion=1;
 				break;
-	case 3: 	pedido_finalizado(lineapedido_3.final);
+	case 3: 	DPD_SENSOR_pedido_finalizado(lineapedido_3.final);
 				lineapedido_3.confirmacion=1;
 				break;
 	default:	break;
 	}
 
-	linea--;
+	g_linea--;
 
-	DPD_modificar_posiciones();
+	RECEIVED_DATA_modificar_posiciones();
 
 
 	//Para saber en qué estado estamos en cada momento
@@ -989,23 +985,23 @@ void SEM_ACCION_correcto(){
 }
 
 
-void pedido_finalizado(final){
+void DPD_SENSOR_pedido_finalizado(int final){
 
 	if(final==1){
 
 		str = "Pedido Finalizado";
 
-		DPD_escribir_en_pantalla(str,10,50);
+		DISPLAY_escribir_en_pantalla(str,10,50);
 
-		emitir_sonido();
+		DPD_SENSOR_emitir_sonido();
 
 	}
 
 }
 
-void emitir_sonido(){
+void DPD_SENSOR_emitir_sonido(){
 
-	DPD_reproducir_nota(FRECUENCIA_DO);
+	SONIDO_reproducir_nota(FRECUENCIA_DO);
 
 }
 
