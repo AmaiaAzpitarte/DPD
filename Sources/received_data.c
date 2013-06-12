@@ -50,7 +50,15 @@ t_lineapedido lineapedido_1={1,1,"4",0,0};
 
 t_lineapedido lineapedido_2={2,2,"5",0,0};
 
-t_lineapedido lineapedido_3={3,3,"6",0,1};
+t_lineapedido lineapedido_3={3,3,"6",1,1};
+
+
+
+void DPD_modificar_posiciones(){
+
+
+
+}
 
 /*********************************************************************
 ** 																	**

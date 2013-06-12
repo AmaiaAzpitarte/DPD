@@ -99,9 +99,7 @@ int main(void){
 		DPD_elegir_tecla();
 
 		#ifdef DPD_SENSOR
-			//if((dpd.estadoActual=UNA_LINEA)||(dpd.estadoActual=MENU_PRIMERO)||(dpd.estadoActual=MENU_SEGUNDO)||(dpd.estadoActual=MENU_TERCERO)){
 				DPD_detectar_movimiento();
-			//}
 		#endif
 
 		EjecutaAutomata( (TS_AUTOMATA *) &dpd);

@@ -44,7 +44,7 @@
 void DPD_inicializacion(){
 
 	RIT128x96x4Init(1000000);
-	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
+	RIT128x96x4StringDraw("ESTADO - dpd espera",5,87,15);
 
 	//initSysTick();
 

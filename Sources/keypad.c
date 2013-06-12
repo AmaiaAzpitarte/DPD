@@ -59,6 +59,8 @@ char pulsada; /* Variable donde se guarda la tecla pulsada */
 
 unsigned long g_uc_changed_data;
 
+unsigned long g_uc_dato_anterior; //solo para este fichero
+
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
@@ -135,28 +137,34 @@ void DPD_leer_keypad(){
 
 void DPD_elegir_tecla(){
 
-	switch(g_ul_keypad_switches){
+	if(g_uc_changed_data != g_uc_dato_anterior){
 
-		case KEY_UP:	pulsada = UP;
-						break;
+		switch(g_ul_keypad_switches){
 
-		case KEY_DOWN: 	pulsada = DOWN;
-						break;
-
-		case KEY_LEFT: 	pulsada = LEFT;
-						break;
-
-		case KEY_RIGHT: pulsada = RIGHT;
-						break;
-
-		case KEY_SELECT: 	pulsada = SELECT;
+			case KEY_UP:	pulsada = UP;
 							break;
 
-		default: 	pulsada = NADA;
-					break;
+			case KEY_DOWN: 	pulsada = DOWN;
+							break;
+
+			case KEY_LEFT: 	pulsada = LEFT;
+							break;
+
+			case KEY_RIGHT: pulsada = RIGHT;
+							break;
+
+			case KEY_SELECT: 	pulsada = SELECT;
+								break;
+
+			default: 	pulsada = NADA;
+						break;
+
+		}
 
 	}
+	else pulsada = NADA;
 
+	g_uc_dato_anterior = g_uc_changed_data;
 }
 
 /*********************************************************************

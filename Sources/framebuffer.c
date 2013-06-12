@@ -336,7 +336,7 @@ void FRAME_BUFFER_delete_row(int y){
 
 	char str[150]; /* Array donde se va a guardar el string*/
 
-	for(index=0;index<20;index++){
+	for(index=0;index<80;index++){
 
 		str[index]= ' ';
 

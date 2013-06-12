@@ -97,7 +97,7 @@ void DPD_escribir_en_pantalla(unsigned char *puc, int x, int y){
 
 	FRAME_BUFFER_write_to_display(); /*Volcamos el buffer en la pantalla*/
 
-	FRAME_BUFFER_delete_element (identificador);
+	FRAME_BUFFER_delete_element(identificador);
 
 }
 /*********************************************************************

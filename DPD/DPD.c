@@ -35,7 +35,6 @@
 #include "inc/hw_types.h"
 #include "inc/hw_memmap.h"
 #include "driverlib/sysctl.h"
-//#include "driverlib/systick.h"
 #include <string.h>
 
 #include "Automata/Automata.h"
@@ -47,8 +46,6 @@
 
 #include "Headers/received_data.h"
 #include "Headers/data_structs.h"
-
-//#include "Headers/conf_systick.h"
 
 #include "Headers/sonido.h"
 
@@ -163,8 +160,6 @@ extern t_lineapedido lineapedido_3;
 
 extern int linea;
 
-//extern unsigned char g_ucCounter;
-
 extern tBoolean g_timer0_expired;
 
 /*
@@ -239,6 +234,7 @@ FIN_AUTOMATA(dpd,1,NULL)
 
 unsigned long g_ul_system_clock;
 
+char *str;
 /*********************************************************************
 ** 																	**
 ** EXPORTED FUNCTIONS 												**
@@ -297,10 +293,6 @@ tBoolean SEM_EVENTO_finCONFIRMACION(){
 		DPD_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
 	}
-
-	/*if((g_ucCounter== 5)&&(linea==0)){
-		ret=true;
-	}*/
 	else ret = false;
 
 	return ret;
@@ -555,32 +547,42 @@ tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
 void SEM_ACCION_dpd_espera(){
 
-	RIT128x96x4Clear();
+	FRAME_BUFFER_delete_row(30);
+
+	FRAME_BUFFER_delete_row(50);
 
 	DPD_escoger_leds(0);
 
 
 	//Para saber en qué estado estamos en cada momento
-	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
+	FRAME_BUFFER_delete_row(87);
+	RIT128x96x4StringDraw("ESTADO - dpd espera",5,87,15);
 
 }
 
 
 void SEM_ACCION_una_linea(){
 
-	RIT128x96x4Clear();
+	FRAME_BUFFER_delete_row(30);
 
-	DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
+	FRAME_BUFFER_delete_row(50);
 
-	if(lineapedido_1.final==1){
-		DISPLAY_GENERICO_dibuja_string("Ultima Operacion",15,40,15);
+	DPD_escribir_en_pantalla(lineapedido_1.cantidad,50,30);
+
+	if(lineapedido_1.final == 1){
+
+		str = "Ultima Operacion";
+
+		DPD_escribir_en_pantalla(str,15,50);
+
 	}
 
 	DPD_escoger_leds(lineapedido_1.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
-	RIT128x96x4StringDraw("ESTADO - una linea",5,80,15);
+	FRAME_BUFFER_delete_row(87);
+	RIT128x96x4StringDraw("ESTADO - una linea",5,87,15);
 
 }
 
@@ -590,9 +592,13 @@ void SEM_ACCION_una_linea(){
 //			las líneas recibidas estén siempre en orden 1, 2, 3.
 void SEM_ACCION_confirmacion(){
 
-	RIT128x96x4Clear();
+	FRAME_BUFFER_delete_row(30);
 
-	DISPLAY_GENERICO_dibuja_string("Operacion Realizada",5,30,15);
+	FRAME_BUFFER_delete_row(50);
+
+	str = "Operacion Realizada";
+
+	DPD_escribir_en_pantalla(str,5,30);
 
 	switch(dpd.estadoActual){
 	case UNA_LINEA: 	pedido_finalizado(lineapedido_1.final);
@@ -614,91 +620,129 @@ void SEM_ACCION_confirmacion(){
 
 
 	//Para saber en qué estado estamos en cada momento
-	RIT128x96x4StringDraw("ESTADO - confirmacion",5,80,15);
+	FRAME_BUFFER_delete_row(87);
+	RIT128x96x4StringDraw("ESTADO - confirmacion",5,87,15);
 
 }
 
 void SEM_ACCION_dos_lineas(){
 
-	RIT128x96x4Clear();
+	FRAME_BUFFER_delete_row(30);
 
-	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
-	DISPLAY_GENERICO_dibuja_string("Dos Operarios",25,45,15);
+	FRAME_BUFFER_delete_row(50);
+
+	str = "Varias Operaciones";
+
+	DPD_escribir_en_pantalla(str,10,30);
+
+	str = "Dos Operarios";
+
+	DPD_escribir_en_pantalla(str,25,50);
 
 	DPD_escoger_leds_dos_lineas();
 
 
 	//Para saber en qué estado estamos en cada momento
-	RIT128x96x4StringDraw("ESTADO - dos lineas",5,80,15);
+	FRAME_BUFFER_delete_row(87);
+	RIT128x96x4StringDraw("ESTADO - dos lineas",5,87,15);
 
 }
 
 void SEM_ACCION_tres_lineas(){
 
-	RIT128x96x4Clear();
+	FRAME_BUFFER_delete_row(30);
 
-	DISPLAY_GENERICO_dibuja_string("Varias Operaciones",10,30,15);
-	DISPLAY_GENERICO_dibuja_string("Tres Operarios",25,45,15);
+	FRAME_BUFFER_delete_row(50);
+
+	str = "Varias Operaciones";
+
+	DPD_escribir_en_pantalla(str,10,30);
+
+	str = "Tres Operarios";
+
+	DPD_escribir_en_pantalla(str,25,50);
 
 	DPD_escoger_leds_tres_lineas();
 
 
 	//Para saber en qué estado estamos en cada momento
-	RIT128x96x4StringDraw("ESTADO - tres lineas",5,80,15);
+	FRAME_BUFFER_delete_row(87);
+	RIT128x96x4StringDraw("ESTADO - tres lineas",5,87,15);
 
 }
 
 void SEM_ACCION_menu_primero(){
 
-	RIT128x96x4Clear();
+	FRAME_BUFFER_delete_row(30);
 
-	DISPLAY_GENERICO_dibuja_string(lineapedido_1.cantidad,50,20,15);
+	FRAME_BUFFER_delete_row(50);
+
+	DPD_escribir_en_pantalla(lineapedido_1.cantidad,50,30);
 
 	if(lineapedido_1.final==1){
-		DISPLAY_GENERICO_dibuja_string("Ultima Operacion",15,40,15);
+
+		str = "Ultima Operacion";
+
+		DPD_escribir_en_pantalla(str,15,50);
+
 	}
 
 	DPD_escoger_leds(lineapedido_1.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
-	RIT128x96x4StringDraw("ESTADO - menu primero",5,80,15);
+	FRAME_BUFFER_delete_row(87);
+	RIT128x96x4StringDraw("ESTADO - menu primero",5,87,15);
 
 }
 
 void SEM_ACCION_menu_segundo(){
 
-	RIT128x96x4Clear();
+	FRAME_BUFFER_delete_row(30);
 
-	DISPLAY_GENERICO_dibuja_string(lineapedido_2.cantidad,50,20,15);
+	FRAME_BUFFER_delete_row(50);
+
+	DPD_escribir_en_pantalla(lineapedido_2.cantidad,50,30);
 
 	if(lineapedido_2.final==1){
-		DISPLAY_GENERICO_dibuja_string("Ultima Operacion",15,40,15);
+
+		str = "Ultima Operacion";
+
+		DPD_escribir_en_pantalla(str,15,50);
+
 	}
 
 	DPD_escoger_leds(lineapedido_2.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
-	RIT128x96x4StringDraw("ESTADO - menu segundo",5,80,15);
+	FRAME_BUFFER_delete_row(87);
+	RIT128x96x4StringDraw("ESTADO - menu segundo",5,87,15);
 
 }
 
 void SEM_ACCION_menu_tercero(){
 
-	RIT128x96x4Clear();
+	FRAME_BUFFER_delete_row(30);
 
-	DISPLAY_GENERICO_dibuja_string(lineapedido_3.cantidad,50,20,15);
+	FRAME_BUFFER_delete_row(50);
+
+	DPD_escribir_en_pantalla(lineapedido_3.cantidad,50,30);
 
 	if(lineapedido_3.final==1){
-		DISPLAY_GENERICO_dibuja_string("Ultima Operacion",15,40,15);
+
+		str = "Ultima Operacion";
+
+		DPD_escribir_en_pantalla(str,15,50);
+
 	}
 
 	DPD_escoger_leds(lineapedido_3.operario);
 
 
 	//Para saber en qué estado estamos en cada momento
-	RIT128x96x4StringDraw("ESTADO - menu tercero",5,80,15);
+	FRAME_BUFFER_delete_row(87);
+	RIT128x96x4StringDraw("ESTADO - menu tercero",5,87,15);
 
 }
 
@@ -706,7 +750,9 @@ void pedido_finalizado(final){
 
 	if(final==1){
 
-		DISPLAY_GENERICO_dibuja_string("Pedido Finalizado",10,60,15);
+		str = "Pedido Finalizado";
+
+		DPD_escribir_en_pantalla(str,10,50);
 
 		emitir_sonido();
 	}
