@@ -42,7 +42,6 @@
 #include "Headers/keypad.h"
 
 #include "Utiles/rit128x96x4.h"
-
 #include "lm3slib/driverlib/gpio.h"
 
 #include "Headers/received_data.h"
@@ -183,7 +182,7 @@ void SEM_ACCION_correcto();
 ** 																	**
 *********************************************************************/
 
-extern char pulsada; /* Variable en la que se guarda la tecla pulsada */
+extern char g_pulsada; /* Variable en la que se guarda la tecla pulsada */
 
 extern t_lineapedido lineapedido_1;
 
@@ -297,6 +296,8 @@ unsigned long g_ul_system_clock;
 
 char *str;
 
+int g_estado_confirmado;
+
 /*********************************************************************
 ** 																	**
 ** EXPORTED FUNCTIONS 												**
@@ -337,7 +338,7 @@ tBoolean SEM_EVENTO_finPULSADA_INC(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
+	if (g_pulsada==SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -359,7 +360,7 @@ tBoolean SEM_EVENTO_finMENU(){
 
 	tBoolean ret;
 
-	if (pulsada==UP) ret=true;
+	if (g_pulsada==UP) ret=true;
 	else ret=false;
 
 	return ret;
@@ -381,7 +382,7 @@ tBoolean SEM_EVENTO_finMENU_DOS(){
 
 	tBoolean ret;
 
-	if (pulsada==UP) ret=true;
+	if (g_pulsada==UP) ret=true;
 	else ret=false;
 
 	return ret;
@@ -424,7 +425,7 @@ tBoolean SEM_EVENTO_finMENU_TRES(){
 
 	tBoolean ret;
 
-	if (pulsada==UP) ret=true;
+	if (g_pulsada==UP) ret=true;
 	else ret=false;
 
 	return ret;
@@ -446,7 +447,7 @@ tBoolean SEM_EVENTO_finPULSADA_PRIMERO(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
+	if (g_pulsada==SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -457,7 +458,7 @@ tBoolean SEM_EVENTO_finMENU_CUATRO(){
 
 	tBoolean ret;
 
-	if ((pulsada==UP)&&(linea==2)) ret=true;
+	if ((g_pulsada==UP)&&(linea==2)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -500,7 +501,7 @@ tBoolean SEM_EVENTO_finMENU_CINCO(){
 
 	tBoolean ret;
 
-	if ((pulsada==UP)&&(linea==3)) ret=true;
+	if ((g_pulsada==UP)&&(linea==3)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -522,7 +523,7 @@ tBoolean SEM_EVENTO_finPULSADA_SEGUNDO(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
+	if (g_pulsada==SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -533,7 +534,7 @@ tBoolean SEM_EVENTO_finMENU_SEIS(){
 
 	tBoolean ret;
 
-	if (pulsada==UP) ret=true;
+	if (g_pulsada==UP) ret=true;
 	else ret=false;
 
 	return ret;
@@ -571,7 +572,7 @@ tBoolean SEM_EVENTO_finPULSADA_TERCERO(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
+	if (g_pulsada==SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -582,7 +583,7 @@ tBoolean SEM_EVENTO_finPULSADA_COR(){
 
 	tBoolean ret;
 
-	if (pulsada==SELECT) ret=true;
+	if (g_pulsada==SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -903,6 +904,14 @@ void SEM_ACCION_sensor(){
 
 	DPD_escribir_en_pantalla(str,35,50);
 
+	if((dpd.estadoActual == UNA_LINEA)|| (dpd.estadoActual == MENU_PRIMERO)){
+		g_estado_confirmado = 1;
+	}
+	else if(dpd.estadoActual == MENU_SEGUNDO){
+		g_estado_confirmado = 2;
+	}
+	else
+		g_estado_confirmado = 3;
 
 	//Para saber en qué estado estamos en cada momento
 	FRAME_BUFFER_delete_row(87);
@@ -924,12 +933,16 @@ void SEM_ACCION_incorrecto(){
 		str = "Falta Confirmacion";
 
 		DPD_escribir_en_pantalla(str,10,50);
+
+		lineapedido_1.confirmacion=2;
 	}
 	else{
 
 		str = "Ubicacion Incorrecta";
 
 		DPD_escribir_en_pantalla(str,5,50);
+
+		lineapedido_1.confirmacion=3;
 	}
 
 	emitir_sonido();
@@ -951,20 +964,22 @@ void SEM_ACCION_correcto(){
 
 	DPD_escribir_en_pantalla(str,5,30);
 
-	switch(valor_leds){
+	switch(g_estado_confirmado){
 	case 1: 	pedido_finalizado(lineapedido_1.final);
 				lineapedido_1.confirmacion=1;
 				break;
 	case 2: 	pedido_finalizado(lineapedido_2.final);
 				lineapedido_2.confirmacion=1;
 				break;
-	case 4: 	pedido_finalizado(lineapedido_3.final);
+	case 3: 	pedido_finalizado(lineapedido_3.final);
 				lineapedido_3.confirmacion=1;
 				break;
 	default:	break;
 	}
 
 	linea--;
+
+	DPD_modificar_posiciones();
 
 
 	//Para saber en qué estado estamos en cada momento

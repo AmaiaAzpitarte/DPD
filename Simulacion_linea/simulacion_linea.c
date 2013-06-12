@@ -42,7 +42,7 @@
 ** 																	**
 **********************************************************************/
 
-extern char pulsada;
+extern char g_pulsada;
 
 extern int linea;
 
@@ -54,7 +54,7 @@ extern int linea;
 
 void cantidad_linea(){
 
-	switch(pulsada){
+	switch(g_pulsada){
 	case RIGHT: linea=1;
 				break;
 	case LEFT: 	linea=2;

@@ -33,6 +33,8 @@
 
 #include "Automata/Automata.h"
 
+#include "DPD_Config.h"
+
 #ifdef DPD_SENSOR
 	#include "DPD_sensor/DPD_sensor.h"
 #else
@@ -46,6 +48,10 @@
 *********************************************************************/
 
 extern TS_AUTOMATA dpd;
+
+#ifdef DPD_SENSOR
+	extern int g_estado_confirmado;
+#endif
 
 /*********************************************************************
 ** 																	**
@@ -68,6 +74,30 @@ t_lineapedido lineapedido_changed;
 
 void DPD_modificar_posiciones(){
 
+
+#ifdef DPD_SENSOR
+	if(g_estado_confirmado == 1){
+
+		lineapedido_changed = lineapedido_1;
+
+		lineapedido_1 = lineapedido_2;
+
+		lineapedido_2 = lineapedido_3;
+
+		lineapedido_3 = lineapedido_changed;
+
+	}
+	else if(g_estado_confirmado == 2){
+
+		lineapedido_changed = lineapedido_2;
+
+		lineapedido_2 = lineapedido_3;
+
+		lineapedido_3 = lineapedido_changed;
+
+	}
+
+#else
 	if((dpd.estadoActual == UNA_LINEA)||(dpd.estadoActual == MENU_PRIMERO)){
 
 		lineapedido_changed = lineapedido_1;
@@ -88,6 +118,7 @@ void DPD_modificar_posiciones(){
 		lineapedido_3 = lineapedido_changed;
 
 	}
+#endif
 
 }
 

@@ -55,7 +55,7 @@
 
 unsigned long g_ul_keypad_switches = 0x1f; /*Valor leído en los botones*/
 
-char pulsada; /* Variable donde se guarda la tecla pulsada */
+char g_pulsada; /* Variable donde se guarda la tecla pulsada */
 
 unsigned long g_uc_changed_data;
 
@@ -141,28 +141,28 @@ void DPD_elegir_tecla(){
 
 		switch(g_ul_keypad_switches){
 
-			case KEY_UP:	pulsada = UP;
+			case KEY_UP:	g_pulsada = UP;
 							break;
 
-			case KEY_DOWN: 	pulsada = DOWN;
+			case KEY_DOWN: 	g_pulsada = DOWN;
 							break;
 
-			case KEY_LEFT: 	pulsada = LEFT;
+			case KEY_LEFT: 	g_pulsada = LEFT;
 							break;
 
-			case KEY_RIGHT: pulsada = RIGHT;
+			case KEY_RIGHT: g_pulsada = RIGHT;
 							break;
 
-			case KEY_SELECT: 	pulsada = SELECT;
+			case KEY_SELECT: 	g_pulsada = SELECT;
 								break;
 
-			default: 	pulsada = NADA;
+			default: 	g_pulsada = NADA;
 						break;
 
 		}
 
 	}
-	else pulsada = NADA;
+	else g_pulsada = NADA;
 
 	g_uc_dato_anterior = g_uc_changed_data;
 }

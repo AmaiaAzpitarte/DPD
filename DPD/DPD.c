@@ -150,7 +150,7 @@ void SEM_ACCION_menu_tercero();
 ** 																	**
 *********************************************************************/
 
-extern char pulsada; /* Variable en la que se guarda la tecla pulsada */
+extern char g_pulsada; /* Variable en la que se guarda la tecla pulsada */
 
 extern t_lineapedido lineapedido_1;
 
@@ -264,7 +264,7 @@ tBoolean SEM_EVENTO_finPULSADA(){
 
 	tBoolean ret;
 
-	if (pulsada == SELECT) ret=true;
+	if (g_pulsada == SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -353,7 +353,7 @@ tBoolean SEM_EVENTO_finMENU(){
 
 	tBoolean ret;
 
-	if (pulsada == UP) ret=true;
+	if (g_pulsada == UP) ret=true;
 	else ret=false;
 
 	return ret;
@@ -375,7 +375,7 @@ tBoolean SEM_EVENTO_finTRES_LINEAS(){
 
 	tBoolean ret;
 
-	if (pulsada == UP) ret=true;
+	if (g_pulsada == UP) ret=true;
 	else ret=false;
 
 	return ret;
@@ -386,7 +386,7 @@ tBoolean SEM_EVENTO_finCONF_UNO(){
 
 	tBoolean ret;
 
-	if (pulsada == SELECT) ret=true;
+	if (g_pulsada == SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -429,7 +429,7 @@ tBoolean SEM_EVENTO_finMENU_DOS(){
 
 	tBoolean ret;
 
-	if (pulsada == UP) ret=true;
+	if (g_pulsada == UP) ret=true;
 	else ret=false;
 
 	return ret;
@@ -440,7 +440,7 @@ tBoolean SEM_EVENTO_finCONF_DOS(){
 
 	tBoolean ret;
 
-	if (pulsada == SELECT) ret=true;
+	if (g_pulsada == SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -483,7 +483,7 @@ tBoolean SEM_EVENTO_finHAY_DOS(){
 
 	tBoolean ret;
 
-	if ((pulsada == UP)&&(linea == 2)) ret=true;
+	if ((g_pulsada == UP)&&(linea == 2)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -494,7 +494,7 @@ tBoolean SEM_EVENTO_finHAY_TRES(){
 
 	tBoolean ret;
 
-	if ((pulsada == UP)&&(linea == 3)) ret=true;
+	if ((g_pulsada == UP)&&(linea == 3)) ret=true;
 	else ret=false;
 
 	return ret;
@@ -505,7 +505,7 @@ tBoolean SEM_EVENTO_finCONF_TRES(){
 
 	tBoolean ret;
 
-	if (pulsada == SELECT) ret=true;
+	if (g_pulsada == SELECT) ret=true;
 	else ret=false;
 
 	return ret;
@@ -516,7 +516,7 @@ tBoolean SEM_EVENTO_finMENU_UNO(){
 
 	tBoolean ret;
 
-	if (pulsada == UP) ret=true;
+	if (g_pulsada == UP) ret=true;
 	else ret=false;
 
 	return ret;
