@@ -31,11 +31,22 @@
 #include "Headers/data_structs.h"
 #include "Headers/received_data.h"
 
+#include "Automata/Automata.h"
+
+#ifdef DPD_SENSOR
+	#include "DPD_sensor/DPD_sensor.h"
+#else
+	#include "DPD/DPD.h"
+#endif
+
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
+
+extern TS_AUTOMATA dpd;
+
 /*********************************************************************
 ** 																	**
 ** GLOBAL VARIABLES 												**
@@ -52,11 +63,31 @@ t_lineapedido lineapedido_2={2,2,"5",0,0};
 
 t_lineapedido lineapedido_3={3,3,"6",1,1};
 
+t_lineapedido lineapedido_changed;
 
 
 void DPD_modificar_posiciones(){
 
+	if((dpd.estadoActual == UNA_LINEA)||(dpd.estadoActual == MENU_PRIMERO)){
 
+		lineapedido_changed = lineapedido_1;
+
+		lineapedido_1 = lineapedido_2;
+
+		lineapedido_2 = lineapedido_3;
+
+		lineapedido_3 = lineapedido_changed;
+
+	}
+	else if(dpd.estadoActual == DOS_LINEAS){
+
+		lineapedido_changed = lineapedido_2;
+
+		lineapedido_2 = lineapedido_3;
+
+		lineapedido_3 = lineapedido_changed;
+
+	}
 
 }
 

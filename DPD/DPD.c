@@ -618,6 +618,8 @@ void SEM_ACCION_confirmacion(){
 
 	linea--;
 
+	DPD_modificar_posiciones();
+
 
 	//Para saber en qué estado estamos en cada momento
 	FRAME_BUFFER_delete_row(87);
