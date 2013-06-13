@@ -1,24 +1,11 @@
-/*********************************************************************
-** 																	**
-** project : DPD				 									**
-** filename : simulacion_linea.c	 								**
-** version : 1 														**
-** date : June 6, 2013		 										**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013, 					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 6, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file    simulacion_linea.c
+ * @brief   Fichero donde se simula la cantidad de l&iacute;neas que hay en el DPD
+ * @par		L&oacute;gica
+ *			- Dado que todav&iacute;a no se dispone de la comunicaci&oacute;n, se ha realizado este fichero para poder simular la cantidad de l&iacute;neas que hay en el DPD
+ * @author  Amaia Azpitarte
+ * @date    2013-06-06
+ */
 
 #define SIMULACION_LINEA_C
 

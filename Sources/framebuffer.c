@@ -1,24 +1,15 @@
-/*********************************************************************
-** 																	**
-** project : DPD				 									**
-** filename : framebuffer.c		 									**
-** version : 1 														**
-** date : June 03, 2013		 										**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013, 					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 03, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file   	framebuffer.c
+ * @brief   Fichero donde se define el framebuffer para dibujar o escribir en display
+ * @par		L&oacute;gica
+ *			- Se inicializa el framebuffer
+ *			- Se definen distintos elementos para textos e im&aacute;genes
+ *			- Se dibujan esos elementos en el display
+ *			- Se eliminan esos elementos
+ *			- Se borran líneas del display
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
 
 #define CONSOLE_C
 

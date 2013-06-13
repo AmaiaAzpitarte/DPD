@@ -1,3 +1,14 @@
+/**
+ * @file   	conf_timer.c
+ * @brief   Se configura el timer del sistema
+ * @par		L&oacute;gica
+ *			- Se inicializa el timer_0
+ *			- Se habilita el timer_0
+ *			- Se define una funci&oacute;n para poder deshabilitar el timer_0 cuando se quiera
+ *			- Se controla el timer_0
+ * @author  Amaia Azpitarte
+ * @date    2013-06-11
+ */
 
 #include "Headers/conf_timer.h"
 #include "inc/hw_types.h"
@@ -65,15 +76,12 @@ void TIMER_disable_timer0(void) {
 //*****************************************************************************
 void TIMER_timer0_int_handler(void)
 {
-	//char str[1];
+
     //
     // Clear the timer interrupt.
     //
     TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
 
-    //
-    // Update the interrupt status on the display.
-    //
     IntDisable(INT_TIMER0A);
 
     g_timer_finished = true;

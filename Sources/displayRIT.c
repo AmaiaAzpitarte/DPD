@@ -1,24 +1,13 @@
-/*********************************************************************
-** 																	**
-** project : DPD				 									**
-** filename : displayRIT.c		 									**
-** version : 1 														**
-** date : June 03, 2013		 										**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013, 					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 03, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file   	displayRIT.c
+ * @brief   Fichero donde se recogen las funciones básicas del display de la Stellaris LM3S8962
+ * @par		L&oacute;gica
+ *			- Se inicializa el display
+ *			- Se escribe un texto en el display
+ *			- Se dibuja una imagen en el display
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
 
 #define DISPLAY_RIT_C
 

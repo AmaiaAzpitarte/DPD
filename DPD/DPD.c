@@ -1,24 +1,12 @@
-/*********************************************************************
-** 																	**
-** project : DPD				 									**
-** filename : DPD.c													**
-** version : 1 														**
-** date : June 3, 2013		 										**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013, 					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 3, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file    DPD.c
+ * @brief   Fichero donde se definen los estados y las transiciones de la m&aacute;quina de estados sin sensor
+ * @par		L&oacute;gica
+ *			- Se definen los estados de la m&aacute;quina de estados sin sensor
+ *			- Se definen las transiciones de la m&aacute;quina de estados sin sensor
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
 
 #include "DPD_Config.h"
 

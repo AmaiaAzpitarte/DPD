@@ -1,24 +1,12 @@
-/*********************************************************************
-** 																	**
-** project : DPD			 										**
-** filename : clock.c 												**
-** version : 1 														**
-** date : June 05, 2013 											**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013,		 										**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 05, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file   	clock.c
+ * @brief   Se define el clock al que funcionará el sistema
+ * @par		L&oacute;gica
+ *			- Se define el clock del sistema: 8MHz
+ * @author  Amaia Azpitarte
+ * @date    2013-06-05
+ */
+
 #define CLOCK_C
 /*********************************************************************
 **																	**

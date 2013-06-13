@@ -1,24 +1,13 @@
-/*********************************************************************
-** 																	**
-** project : DPD				 									**
-** filename : display.c		 										**
-** version : 1 														**
-** date : June 03, 2013		 										**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013, 					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 03, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file   	display.c
+ * @brief   Fichero donde se inicializa el display y se escribe en &eacute;l
+ * @par		L&oacute;gica
+ *			- Se inicializa el display
+ *			- Se escribe un texto en el display
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
+
 /*********************************************************************
 **																	**
 ** MODULES USED 													**

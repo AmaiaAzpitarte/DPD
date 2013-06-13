@@ -1,24 +1,18 @@
-/*********************************************************************
-** 																	**
-** project : DPD			 										**
-** filename : inicializacion.c 										**
-** version : 1 														**
-** date : June 07, 2013 											**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013,		 										**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 07, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file   	inicializacion.c
+ * @brief   Fichero donde se inicializan las funcionalidades que el sistema necesita
+ * @par		L&oacute;gica
+ *			- Se inicializa el display
+ *			- Se inicializa el altavoz
+ *			- Se inicializa el keypad
+ *			- Se inicializa el clock
+ *			- Se inicializan los leds
+ *			- Se inicializa el timer_0
+ *			- En caso de que el DPD contenga sensor, se inicializa el sensor.
+ * @author  Amaia Azpitarte
+ * @date    2013-06-07
+ */
+
 #define INICIALIZACION_C
 /*********************************************************************
 **																	**
@@ -61,7 +55,7 @@ void INICIALIZACION_init(){
 		SENSOR_init();
 	#endif
 
-	TIMER_init_timer0(5);
+	TIMER_init_timer0(TIMER_ESPERA);
 
 }
 

@@ -1,24 +1,22 @@
-/*****************************************************************************
-**											  								**
-** project :  DPD							 							  	**
-** filename : framebuffer.h  				  					    		**
-** version : 1 									  							**
-** date :  	2013-06-03		 		 									    **
-** 											  								**
-******************************************************************************
-** 											  								**
-**                      											  		**
-**  								  					                    **
-** 											  								**
-******************************************************************************
-**										        							**
-**VERSION HISTORY:									  						**
-**----------------									  						**
-**Version : 1										  						**
-**Date : 2013-06-03									 					    **
-**Revised by : Amaia Azpitarte	          									**
-**Description : Original version.							  				**
-*****************************************************************************/
+/**
+ * @file    framebuffer.h
+ * @brief   Cabecera del fichero framebuffer.c
+ * @par		Declaraciones:
+ *			- MAX_ELEMS	Indica la cantidad m&aacute;xima de elementos que puede haber
+ * 			- Tipo_DISPLAY_ELEMENT Se define la estructura de los elementos a dibujar en display, con los siguientes campos:
+ * 				- id				identificador del elemento
+ * 				- x					coordenada x nueva del display en el que debe dibujarse
+ * 				- y 				coordenada y nueva del display en el que debe dibujarse
+ * 				- xOld				coordenada x actual del display donde est&aacute; dibujado
+ * 				- yOld				coordenada y actual del display donde est&aacute; dibujado
+ * 				- width				anchura del tipo de letra
+ * 				- height			altura del tipo de letra
+ * 				- picture_or_text	el texto o el dibujo a mostrar en display
+ * 				- what				indica si el elemento es un texto o un dibujo
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
+
 /*****************************************************************************
 ** 																			**
 ** DEFINITIONS AND MACROS 													**

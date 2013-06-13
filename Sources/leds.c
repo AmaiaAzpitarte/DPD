@@ -1,24 +1,13 @@
-/*********************************************************************
-** 																	**
-** project : DPD			 										**
-** filename : leds.c 												**
-** version : 1 														**
-** date : June 06, 2013 											**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013,		 										**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 06, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file    leds.c
+ * @brief   Fichero donde se controlan los leds
+ * @par		L&oacute;gica
+ *			- Se inicializan y se habilitan el puerto y los pines donde se conectan los leds
+ *			- Se encienden y se apagan los leds
+ * @author  Amaia Azpitarte
+ * @date    2013-06-06
+ */
+
 #define LEDS_C
 /*********************************************************************
 **																	**

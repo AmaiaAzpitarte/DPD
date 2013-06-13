@@ -1,24 +1,11 @@
-/*****************************************************************************
-**											  								**
-** project :  DPD							 							  	**
-** filename : received_data.h  				  					    		**
-** version : 1 									  							**
-** date :  	2013-06-03		 		 									    **
-** 											  								**
-******************************************************************************
-** 											  								**
-**                      											  		**
-**  								  					                    **
-** 											  								**
-******************************************************************************
-**										        							**
-**VERSION HISTORY:									  						**
-**----------------									  						**
-**Version : 1										  						**
-**Date : 2013-06-03									 					    **
-**Revised by : Amaia Azpitarte	          									**
-**Description : Original version.							  				**
-*****************************************************************************/
+/**
+ * @file    received_data.h
+ * @brief   Cabecera del fichero received_data.c
+ * @par		Declaraciones
+ *			- BIZITZAK
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
 
 #define _RECEIVED_DATA_H
 

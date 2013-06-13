@@ -1,24 +1,13 @@
-/*********************************************************************
-** 																	**
-** project : DPD			 										**
-** filename : sonido.c 												**
-** version : 1 														**
-** date : June 05, 2013 											**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013,					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 05, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file    sonido.c
+ * @brief   Fichero donde se controla el altavoz
+ * @par		L&oacute;gica
+ *			- Se inicializa el PWM
+ *			- Se reproduce el sonido
+ * @author  Amaia Azpitarte
+ * @date    2013-06-05
+ */
+
 #define SONIDO_C
 /*********************************************************************
 **																	**

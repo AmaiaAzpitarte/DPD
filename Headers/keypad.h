@@ -1,24 +1,22 @@
-/*****************************************************************************
-**											  								**
-** project :  DPD							 							  	**
-** filename : keypad.h  					  					    		**
-** version : 1 									  							**
-** date :  	2013-06-05		 		 									    **
-** 											  								**
-******************************************************************************
-** 											  								**
-**                      											  		**
-**  								  					                    **
-** 											  								**
-******************************************************************************
-**										        							**
-**VERSION HISTORY:									  						**
-**----------------									  						**
-**Version : 1										  						**
-**Date : 2013-06-05									 					    **
-**Revised by : Amaia Azpitarte	          									**
-**Description : Original version.							  				**
-*****************************************************************************/
+/**
+ * @file    keypad.h
+ * @brief   Cabecera del fichero keypad.c
+ * @par		Declaraciones
+ *			- UP			Indica la tecla UP
+ *			- DOWN			Indica la tecla DOWN
+ *			- LEFT			Indica la tecla LEFT
+ *			- RIGHT			Indica la tecla RIGHT
+ *			- SELECT		Indica la tecla SELECT
+ *			- NADA			Indica que no se ha pulsado ninguna tecla
+ *			- KEY_UP		Indica que la tecla pulsada es UP
+ *			- KEY_DOWN		Indica que la tecla pulsada es DOWN
+ *			- KEY_LEFT		Indica que la tecla pulsada es LEFT
+ *			- KEY_RIGHT		Indica que la tecla pulsada es RIGHT
+ *			- KEY_SELECT	Indica que la tecla pulsada es SELECT
+ * @author  Amaia Azpitarte
+ * @date    2013-06-05
+ */
+
 /*****************************************************************************
 ** 																			**
 ** DEFINITIONS AND MACROS 													**

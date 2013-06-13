@@ -1,24 +1,20 @@
-/*****************************************************************************
-**											  								**
-** project :  DPD							 							  	**
-** filename : DPD_sensor.h  						  			    		**
-** version : 1 									  							**
-** date :  	2013-06-09		 		 									    **
-** 											  								**
-******************************************************************************
-** 											  								**
-**                      											  		**
-**  								  					                    **
-** 											  								**
-******************************************************************************
-**										        							**
-**VERSION HISTORY:									  						**
-**----------------									  						**
-**Version : 1										  						**
-**Date : 2013-06-09									 					    **
-**Revised by : Amaia Azpitarte	          									**
-**Description : Original version.							  				**
-*****************************************************************************/
+/**
+ * @file    DPD_sensor.h
+ * @brief   Cabecera del fichero DPD_sensor.c
+ * @enum	Declaraciones
+ *			- DPD_ESPERA	Estado DPD_ESPERA de la m&aacute;quina de estados
+ *			- UNA_LINEA		Estado UNA_LINEA de la m&aacute;quina de estados
+ *			- DOS_LINEAS	Estado DOS_LINEAS de la m&aacute;quina de estados
+ *			- TRES_LINEAS	Estado TRES_LINEAS de la m&aacute;quina de estados
+ *			- MENU_PRIMERO	Estado MENU_PRIMERO de la m&aacute;quina de estados
+ *			- MENU_SEGUNDO	Estado MENU_SEGUNDO de la m&aacute;quina de estados
+ *			- MENU_TERCERO	Estado MENU_TERCERO de la m&aacute;quina de estados
+ *			- SENSOR		Estado SENSOR de la m&aacute;quina de estados
+ *			- INCORRECTO	Estado INCORRECTO de la m&aacute;quina de estados
+ *			- CORRECTO		Estado CORRECTO de la m&aacute;quina de estados
+ * @author  Amaia Azpitarte
+ * @date    2013-06-09
+ */
 
 #include "DPD_Config.h"
 

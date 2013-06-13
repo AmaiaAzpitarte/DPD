@@ -1,24 +1,12 @@
-/*********************************************************************
-** 																	**
-** project : DPD				 									**
-** filename : Automata.c		 									**
-** version : 1 														**
-** date : June 3, 2013		 										**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013, 					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 3, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file    Automata.c
+ * @brief   Fichero donde se define la m&aacute;quina de estados o el aut&oacute;mata
+ * @par		L&oacute;gica
+ *			- Se ejecuta el aut&oacute;mata
+ *			- Se ejecutan los estados, transiciones y acciones del aut&oacute;mata
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
 
 #define _AUTOMATA_C
 

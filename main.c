@@ -1,24 +1,17 @@
-/*********************************************************************
-** 																	**
-** project : DPD				 									**
-** filename : main.c		 										**
-** version : 1 														**
-** date : May 28, 2013 												**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013, 					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : May 28, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file    main.c
+ * @brief   Fichero principal
+ * @par		L&oacute;gica
+ *			- Llama a la funci&oacute;n /a INICIALIZACION_init() para inicializar todas las funcionalidades que necesita el sistema
+ *			- En un bucle /a while, se realizan las siguientes funciones:
+ *				- Se detectan las teclas pulsadas
+ *				- Se ejecuta la m&aacute;quina de estados
+ *				- En el caso de que el DPD contenga sensor, se detecta si ha habido movimiento
+ * @author  Amaia Azpitarte
+ * @date    2013-05-28
+ */
+
+
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
@@ -54,13 +47,14 @@
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
+
+extern TS_AUTOMATA dpd;
+
 /*********************************************************************
 ** 																	**
 ** GLOBAL VARIABLES 												**
 ** 																	**
 **********************************************************************/
-
-extern TS_AUTOMATA dpd;
 
 int g_linea=0; //variable global que indica la cantidad de líneas a realizar en el DPD
 

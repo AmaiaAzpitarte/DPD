@@ -1,24 +1,21 @@
-/*****************************************************************************
-**											  								**
-** project :  DPD							 							  	**
-** filename : Automata.h  					  					    		**
-** version : 1 									  							**
-** date :  	2013-06-03		 		 									    **
-** 											  								**
-******************************************************************************
-** 											  								**
-**                      											  		**
-**  								  					                    **
-** 											  								**
-******************************************************************************
-**										        							**
-**VERSION HISTORY:									  						**
-**----------------									  						**
-**Version : 1										  						**
-**Date : 2013-06-03									 					    **
-**Revised by : Amaia Azpitarte	          									**
-**Description : Original version.							  				**
-*****************************************************************************/
+/**
+ * @file    Automata.h
+ * @brief   Cabecera del fichero Automata.c
+ * @par		Declaraciones
+ *			- BYTE
+ *			- NULL
+ *			- PRIVATE
+ *			- ITEM_EVAC
+ *			- ESTADO		Macro del estado del aut&oacute;mata
+ *			- FIN_ESTADO	Macro de fin de estado del aut&oacute;mata
+ *			- AUTOMATA		Macro del aut&oacute;mata
+ *			- FIN_AUTOMATA	Macro del fin del aut&oacute;mata
+ *			- TS_EVEACC		Estructura de las transiciones del aut&oacute;mata
+ *			- TS_ESTADO		Estructura de los estados del aut&oacute;mata
+ *			- TS_AUTOMATA	Estructura del aut&oacute;mata
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
 
 #define _AUTOMATA_H
 

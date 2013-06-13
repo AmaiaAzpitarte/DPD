@@ -1,24 +1,13 @@
-/*********************************************************************
-** 																	**
-** project : DPD				 									**
-** filename : keypad.c		 										**
-** version : 1 														**
-** date : June 3, 2013		 										**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013, 					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 3, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file    keypad.c
+ * @brief   Fichero donde se controla el keypad, detectando las teclas pulsadas
+ * @par		L&oacute;gica
+ *			- Se inicializa el keypad
+ *			- Se lee el valor del keypad
+ *			- Se detecta qu&eacute; tecla se ha pulsado
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
 
 #define KEYPAD_C
 
@@ -73,7 +62,6 @@ unsigned long g_dato_anterior; //solo para este fichero
  * @return      -
  *
 */
-
 void KEYPAD_init(){
 
 	//Activamos pines del puerto F (botón select)
@@ -110,7 +98,6 @@ void KEYPAD_init(){
  * @return     void
  *
 */
-
 void KEYPAD_leer_keypad(){
 
 		unsigned long dato_pulsado; //Guarda el valor de la tecla pulsada
@@ -134,10 +121,9 @@ void KEYPAD_leer_keypad(){
  * Se le asigna un valor a la variable pulsada según el botón que
  * se haya seleccionado.
 */
-
 void KEYPAD_elegir_tecla(){
 
-	if(g_dato_cambiado != g_dato_anterior){
+	if(g_dato_cambiado != g_dato_anterior){ //se evitan rebotes
 
 		switch(g_keypad){
 

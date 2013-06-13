@@ -1,24 +1,12 @@
-/*********************************************************************
-** 																	**
-** project : DPD				 									**
-** filename : received_data.c 										**
-** version : 1 														**
-** date : June 3, 2013		 										**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013, 					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 3, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file    received_data.c
+ * @brief   Fichero donde se guardan valores en las tres lineas de pedido del DPD
+ * @par		L&oacute;gica
+ *			- Se guardan los valores de las tres l&iacute;neas de pedido del DPD
+ *			- Se reordenan las l&iacute;neas una vez se han confirmado
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
 
 #define RECEIVED_DATA_C
 

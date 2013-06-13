@@ -1,24 +1,13 @@
-/*********************************************************************
-** 																	**
-** project : DPD			 										**
-** filename : sensor.c 												**
-** version : 1 														**
-** date : June 10, 2013 											**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013,					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 10, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/**
+ * @file    sensor.c
+ * @brief   Fichero donde se lee el sensor
+ * @par		L&oacute;gica
+ *			- Se inicializan y se habilitan el puerto y los pines donde se conecta el sensor
+ *			- Se lee el valor del sensor, para ver si ha habido movimiento
+ * @author  Amaia Azpitarte
+ * @date    2013-06-10
+ */
+
 #define SENSOR_C
 /*********************************************************************
 **																	**
