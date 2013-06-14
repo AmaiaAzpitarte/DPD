@@ -1,19 +1,18 @@
-/**
- * @file    leds.c
- * @brief   Fichero donde se controlan los leds
- * @par		L&oacute;gica
- *			- Se inicializan y se habilitan el puerto y los pines donde se conectan los leds
- *			- Se encienden y se apagan los leds
- * @author  Amaia Azpitarte
- * @date    2013-06-06
- */
+/*************************************************************************************************
+** @file    leds.c																				**
+** @brief   Fichero donde se controlan los leds													**
+** @par		L&oacute;gica																		**
+**			- Se inicializan y se habilitan el puerto y los pines donde se conectan los leds	**
+**			- Se encienden y se apagan los leds													**
+** @author  Amaia Azpitarte																		**
+** @date    2013-06-06																			**
+*************************************************************************************************/
 
-#define LEDS_C
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 #include "Headers/leds.h"
 
@@ -36,6 +35,12 @@
 
 #include "Headers/inicializacion.h"
 
+/*********************************************************************
+**																	**
+** DEFINITIONS AND MACROS											**
+** 																	**
+*********************************************************************/
+#define LEDS_C
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
@@ -62,7 +67,7 @@ int g_valor_leds;
 ** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 void LEDS_init(){
 
@@ -145,5 +150,5 @@ int LEDS_consultar_operarios(int operario){
 ** 																	**
 ** EOF 																**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 

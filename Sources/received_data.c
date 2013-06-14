@@ -1,12 +1,12 @@
-/**
- * @file    received_data.c
- * @brief   Fichero donde se guardan valores en las tres lineas de pedido del DPD
- * @par		L&oacute;gica
- *			- Se guardan los valores de las tres l&iacute;neas de pedido del DPD
- *			- Se reordenan las l&iacute;neas una vez se han confirmado
- * @author  Amaia Azpitarte
- * @date    2013-06-03
- */
+/*************************************************************************************
+** @file    received_data.c															**
+** @brief   Fichero donde se guardan valores en las tres lineas de pedido del DPD	**
+** @par		L&oacute;gica:															**
+**			- Se guardan los valores de las tres l&iacute;neas de pedido del DPD	**
+**			- Se reordenan las l&iacute;neas una vez se han confirmado				**
+** @author  Amaia Azpitarte															**
+** @date    2013-06-03																**
+*************************************************************************************/
 
 #define RECEIVED_DATA_C
 
@@ -14,7 +14,7 @@
 **																	**
 ** MODULES USED 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 #include "Headers/data_structs.h"
 #include "Headers/received_data.h"
@@ -30,6 +30,16 @@
 #endif
 
 /*********************************************************************
+**																	**
+** DEFINITIONS AND MACROS											**
+** 																	**
+*********************************************************************/
+/*********************************************************************
+**																	**
+** TYPEDEFS AND STRUCTURES 											**
+** 																	**
+*********************************************************************/
+/*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
 ** 																	**
@@ -40,12 +50,11 @@ extern TS_AUTOMATA dpd;
 #ifdef DPD_SENSOR
 	extern int g_estado_confirmado;
 #endif
-
 /*********************************************************************
 ** 																	**
 ** GLOBAL VARIABLES 												**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 
 //@todo 	Estos en realidad no deben estar creados así. Se les da
@@ -61,7 +70,7 @@ t_lineapedido lineapedido_3={3,3,"6",1,1};
 ** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 void RECEIVED_DATA_modificar_posiciones(){
 
@@ -119,5 +128,5 @@ void RECEIVED_DATA_modificar_posiciones(){
 ** 																	**
 ** EOF 																**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 

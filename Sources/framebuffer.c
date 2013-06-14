@@ -1,23 +1,21 @@
-/**
- * @file   	framebuffer.c
- * @brief   Fichero donde se define el framebuffer para dibujar o escribir en display
- * @par		L&oacute;gica
- *			- Se inicializa el framebuffer
- *			- Se definen distintos elementos para textos e im&aacute;genes
- *			- Se dibujan esos elementos en el display
- *			- Se eliminan esos elementos
- *			- Se borran líneas del display
- * @author  Amaia Azpitarte
- * @date    2013-06-03
- */
-
-#define CONSOLE_C
+/*****************************************************************************************
+** @file   	framebuffer.c																**
+** @brief   Fichero donde se define el framebuffer para dibujar o escribir en display	**
+** @par		L&oacute;gica																**
+**			- Se inicializa el framebuffer												**
+**			- Se definen distintos elementos para textos e im&aacute;genes				**
+**			- Se dibujan esos elementos en el display									**
+**			- Se eliminan esos elementos												**
+**			- Se borran líneas del display												**
+** @author  Amaia Azpitarte																**
+** @date    2013-06-03																	**
+*****************************************************************************************/
 
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 #include <stdio.h>
 #include <string.h>
@@ -30,12 +28,25 @@
 ** 																	**
 ** DEFINITIONS AND MACROS 											**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
+
+#define CONSOLE_C
+
+/*********************************************************************
+** 																	**
+** TYPEDEFS AND STRUCTURES 											**
+** 																	**
+*********************************************************************/
+/*********************************************************************
+** 																	**
+** EXPORTED VARIABLES	 											**
+** 																	**
+*********************************************************************/
 /*********************************************************************
 ** 																	**
 ** GLOBAL VARIABLES 												**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 DISPLAY_ELEMENT g_display_elements[MAX_ELEMS];
 
@@ -58,7 +69,7 @@ const unsigned char g_puc_nada[32]  =  {
 ** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 /**
  * @brief  Inicialización de la pantalla y el buffer.
@@ -68,7 +79,6 @@ const unsigned char g_puc_nada[32]  =  {
  * Se inicializa la pantalla y se crea el buffer para un número de
  * elementos definido en MAX_ELEMS
 */
-
 void FRAME_BUFFER_init(){
 
 	int i = 0;
@@ -107,7 +117,6 @@ void FRAME_BUFFER_init(){
  * tiene. Se devuelve el número de elementos que hay en el buffer después de
  * haber añadido ésta imagen.
 */
-
 int FRAME_BUFFER_insert_image(unsigned char *puc, int x, int y, int w, int h){
 
 	if(g_display_element_kop < MAX_ELEMS){
@@ -141,7 +150,6 @@ int FRAME_BUFFER_insert_image(unsigned char *puc, int x, int y, int w, int h){
  * serán nulas. Se devuelve el número de elementos que hay en el buffer
  * después de haber añadido éste texto.
 */
-
 int FRAME_BUFFER_insert_text(char *texto, int x, int y){
 
 	if(g_display_element_kop < MAX_ELEMS){
@@ -173,7 +181,6 @@ int FRAME_BUFFER_insert_text(char *texto, int x, int y){
  * Se guardan las coordenadas anteriores en xOld e yOld, y se guardan las nuevas
  * coordenadas en su sitio.
 */
-
 void FRAME_BUFFER_actualiza_posicion_elemento(int id, int x, int y){
 
 	int x_actual; /*Posición actual en el eje x*/
@@ -208,7 +215,6 @@ void FRAME_BUFFER_actualiza_posicion_elemento(int id, int x, int y){
  * a la posición anterior del buffer. Reduce una vez el número de elementos del
  * buffer y lo devuelve.
 */
-
 int FRAME_BUFFER_delete_element(int id){
 
 	int x_actual; /*Posición del elemento en el eje x*/
@@ -260,7 +266,6 @@ int FRAME_BUFFER_delete_element(int id){
  * funciones para cada uno de los casos para borrar lo innecesario y para
  * mostrar los elementos necesarios.
 */
-
 void FRAME_BUFFER_write_to_display(void){
 
 	int i=0;
@@ -320,7 +325,6 @@ void FRAME_BUFFER_write_to_display(void){
  * CAJA_escribir_en_pantalla() para volcarlo al display
  *
 */
-
 void FRAME_BUFFER_delete_row(int y){
 
 	int index =0; /* Índice de posición en el array str*/
@@ -341,4 +345,4 @@ void FRAME_BUFFER_delete_row(int y){
 ** 																	**
 ** EOF 																**
 ** 																	**
-**********************************************************************/
+*********************************************************************/

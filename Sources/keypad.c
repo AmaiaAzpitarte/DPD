@@ -1,21 +1,19 @@
-/**
- * @file    keypad.c
- * @brief   Fichero donde se controla el keypad, detectando las teclas pulsadas
- * @par		L&oacute;gica
- *			- Se inicializa el keypad
- *			- Se lee el valor del keypad
- *			- Se detecta qu&eacute; tecla se ha pulsado
- * @author  Amaia Azpitarte
- * @date    2013-06-03
- */
-
-#define KEYPAD_C
+/*********************************************************************************
+** @file    keypad.c															**
+** @brief   Fichero donde se controla el keypad, detectando las teclas pulsadas	**
+** @par		L&oacute;gica														**
+**			- Se inicializa el keypad											**
+**			- Se lee el valor del keypad										**
+**			- Se detecta qu&eacute; tecla se ha pulsado							**
+** @author  Amaia Azpitarte														**
+** @date    2013-06-03															**
+*********************************************************************************/
 
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 #include "hw_types.h"
 #include "hw_memmap.h"
@@ -25,12 +23,24 @@
 
 #include "DPD_Config.h"
 
+/*********************************************************************
+** 																	**
+** DEFINITIONS AND MACROS 											**
+** 																	**
+*********************************************************************/
+#define KEYPAD_C
+
 #ifdef DPD_SENSOR
 	#include "DPD_sensor/DPD_sensor.h"
 #else
 	#include "DPD/DPD.h"
 #endif
 
+/*********************************************************************
+** 																	**
+** TYPEDEFS AND STRUCTURES 											**
+** 																	**
+*********************************************************************/
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
@@ -40,7 +50,7 @@
 ** 																	**
 ** GLOBAL VARIABLES 												**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 unsigned long g_keypad = 0x1f; /*Valor leído en los botones*/
 
@@ -54,7 +64,7 @@ unsigned long g_dato_anterior; //solo para este fichero
 ** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 /**
  * @brief  Inicializamos el teclado (los botones).
@@ -157,5 +167,5 @@ void KEYPAD_elegir_tecla(){
 ** 																	**
 ** EOF 																**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 

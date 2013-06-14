@@ -1,27 +1,27 @@
-/**
- * @file    keypad.h
- * @brief   Cabecera del fichero keypad.c
- * @par		Declaraciones
- *			- UP			Indica la tecla UP
- *			- DOWN			Indica la tecla DOWN
- *			- LEFT			Indica la tecla LEFT
- *			- RIGHT			Indica la tecla RIGHT
- *			- SELECT		Indica la tecla SELECT
- *			- NADA			Indica que no se ha pulsado ninguna tecla
- *			- KEY_UP		Indica que la tecla pulsada es UP
- *			- KEY_DOWN		Indica que la tecla pulsada es DOWN
- *			- KEY_LEFT		Indica que la tecla pulsada es LEFT
- *			- KEY_RIGHT		Indica que la tecla pulsada es RIGHT
- *			- KEY_SELECT	Indica que la tecla pulsada es SELECT
- * @author  Amaia Azpitarte
- * @date    2013-06-05
- */
+/*****************************************************************************
+** @file    keypad.h														**
+** @brief   Cabecera del fichero keypad.c									**
+** @par		Declaraciones													**
+**			- UP			Indica la tecla UP								**
+**			- DOWN			Indica la tecla DOWN							**
+**			- LEFT			Indica la tecla LEFT							**
+**			- RIGHT			Indica la tecla RIGHT							**
+**			- SELECT		Indica la tecla SELECT							**
+**			- NADA			Indica que no se ha pulsado ninguna tecla		**
+**			- KEY_UP		Indica que la tecla pulsada es UP				**
+**			- KEY_DOWN		Indica que la tecla pulsada es DOWN				**
+**			- KEY_LEFT		Indica que la tecla pulsada es LEFT				**
+**			- KEY_RIGHT		Indica que la tecla pulsada es RIGHT			**
+**			- KEY_SELECT	Indica que la tecla pulsada es SELECT			**
+** @author  Amaia Azpitarte													**
+** @date    2013-06-05														**
+*****************************************************************************/
 
 /*****************************************************************************
 ** 																			**
 ** DEFINITIONS AND MACROS 													**
 ** 																			**
-******************************************************************************/
+*****************************************************************************/
 
 #ifndef KEYPAD_H
 #define KEYPAD_H
@@ -45,7 +45,7 @@
 ** 																			**
 ** PROTOTYPES OF GLOBAL FUNCTIONS											**
 ** 																			**
-******************************************************************************/
+*****************************************************************************/
 
 void KEYPAD_init();
 
@@ -69,5 +69,5 @@ void KEYPAD_elegir_tecla();
 ** 																			**
 ** EOF 																		**
 ** 																			**
-******************************************************************************/
+*****************************************************************************/
 #endif

@@ -1,31 +1,54 @@
-/**
- * @file   	conf_timer.c
- * @brief   Se configura el timer del sistema
- * @par		L&oacute;gica
- *			- Se inicializa el timer_0
- *			- Se habilita el timer_0
- *			- Se define una funci&oacute;n para poder deshabilitar el timer_0 cuando se quiera
- *			- Se controla el timer_0
- * @author  Amaia Azpitarte
- * @date    2013-06-11
- */
+/*************************************************************************************************
+** @file   	conf_timer.c																		**
+** @brief   Se configura el timer del sistema													**
+** @par		L&oacute;gica																		**
+**			- Se inicializa el timer_0															**
+**			- Se habilita el timer_0															**
+**			- Se define una funci&oacute;n para poder deshabilitar el timer_0 cuando se quiera	**
+**			- Se controla el timer_0															**
+** @author  Amaia Azpitarte																		**
+** @date    2013-06-11																			**
+*************************************************************************************************/
 
+/*********************************************************************
+** 																	**
+** MODULES USED		 												**
+** 																	**
+*********************************************************************/
 #include "Headers/conf_timer.h"
 #include "inc/hw_types.h"
 #include "inc/hw_memmap.h"
 
 #include "DPD_Config.h"
 
-
+/*********************************************************************
+** 																	**
+** DEFINITIONS AND MACROS 											**
+** 																	**
+*********************************************************************/
 #ifdef DPD_SENSOR
 	#include "DPD_sensor/DPD_sensor.h"
 #else
 	#include "DPD/DPD.h"
 #endif
-
+/*********************************************************************
+** 																	**
+** EXPORTED VARIABLES 												**
+** 																	**
+*********************************************************************/
+/*********************************************************************
+** 																	**
+** GLOBAL VARIABLES 												**
+** 																	**
+*********************************************************************/
 
 tBoolean g_timer_finished = false;
 
+/*********************************************************************
+** 																	**
+** LOCAL FUNCTIONS 													**
+** 																	**
+*********************************************************************/
 
 void TIMER_init_timer0(int factor){ //factor= multiplica 1 segundo para conseguir el tiempo que queremos
 
@@ -69,11 +92,11 @@ void TIMER_disable_timer0(void) {
 
 }
 
-//*****************************************************************************
+//********************************************************************
 //
 // The interrupt handler for the first timer interrupt.
 //
-//*****************************************************************************
+//********************************************************************
 void TIMER_timer0_int_handler(void)
 {
 
@@ -88,3 +111,9 @@ void TIMER_timer0_int_handler(void)
 
     IntEnable(INT_TIMER0A);
 }
+
+/*********************************************************************
+** 																	**
+** EOF				 												**
+** 																	**
+*********************************************************************/
