@@ -1,49 +1,32 @@
-/*****************************************************************************
-**											  								**
-** project :  DPD							 							  	**
-** filename : sonido.h  					  					    		**
-** version : 1 									  							**
-** date :  	2013-06-05		 		 									    **
-** 											  								**
-******************************************************************************
-** 											  								**
-** 							                            			  		**
-**  								  					                    **
-** 											  								**
-******************************************************************************
-**										        							**
-**VERSION HISTORY:									  						**
-**----------------									  						**
-**Version : 1										  						**
-**Date : 2012-06-05									 					    **
-**Revised by : Amaia Azpitarte					  							**
-**Description : Original version.							  				**
-*****************************************************************************/
+/*************************************************************************************
+** @file    sonido.h																**
+** @brief   Cabecera del fichero sonido.c											**
+** @par		Declaraciones															**
+**			- FRECUENCIA_SILENCIO	Indica la frecuencia de silencio del sonido		**
+**			- FRECUENCIA_DO			Indica la frecuencia de sonido de la nota do	**
+** @author  Amaia Azpitarte															**
+** @date    2013-06-05																**
+*************************************************************************************/
+
 /*****************************************************************************
 ** 																			**
 ** DEFINITIONS AND MACROS 													**
 ** 																			**
-******************************************************************************/
-
+*****************************************************************************/
 #ifndef SONIDO_H
 #define SONIDO_H
 
-#define FRECUENCIA_SILENCIO 40000
-#define FRECUENCIA_DO 262
-#define FRECUENCIA_RE 294
-#define FRECUENCIA_MI 330
-#define FRECUENCIA_FA 349
-#define FRECUENCIA_SOL 392
-
+#define FRECUENCIA_SILENCIO 40000 // frecuencia de silencio
+#define FRECUENCIA_DO 262 // frecuencia de la nota do
 /*****************************************************************************
 ** 																			**
 ** PROTOTYPES OF GLOBAL FUNCTIONS											**
 ** 																			**
-******************************************************************************/
+*****************************************************************************/
 
-void DPD_inicializacion_pwm();
+void SONIDO_init();
 
-void DPD_reproducir_nota();
+void SONIDO_reproducir_nota();
 
 /*****************************************************************************
 **	 																		**
@@ -59,5 +42,5 @@ void DPD_reproducir_nota();
 ** 																			**
 ** EOF 																		**
 ** 																			**
-******************************************************************************/
+*****************************************************************************/
 #endif

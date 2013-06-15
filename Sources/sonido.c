@@ -1,30 +1,18 @@
 /*********************************************************************
-** 																	**
-** project : DPD			 										**
-** filename : sonido.c 												**
-** version : 1 														**
-** date : June 05, 2013 											**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013,					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 05, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
+** @file    sonido.c												**
+** @brief   Fichero donde se controla el altavoz					**
+** @par		L&oacute;gica											**
+**			- Se inicializa el PWM									**
+**			- Se reproduce el sonido								**
+** @author  Amaia Azpitarte											**
+** @date    2013-06-05												**
 *********************************************************************/
-#define SONIDO_C
+
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 #include "hw_types.h"
 #include "hw_pwm.h"
 #include "hw_memmap.h"
@@ -32,17 +20,34 @@
 #include "driverlib/gpio.h"
 #include "driverlib/pwm.h"
 #include "Headers/sonido.h"
+
+/*********************************************************************
+**																	**
+** DEFINITIONS AND MACROS											**
+** 																	**
+*********************************************************************/
+#define SONIDO_C
+/*********************************************************************
+**																	**
+** TYPEDEFS AND STRUCTURES											**
+** 																	**
+*********************************************************************/
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
-extern unsigned long g_ul_system_clock; /*Frecuencia del clock*/
+extern unsigned long g_system_clock; /*Frecuencia del clock*/
+/*********************************************************************
+**																	**
+** GLOBAL VARIABLES													**
+** 																	**
+*********************************************************************/
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 /**
  * @brief  Inicializacaión del PWM.
@@ -53,7 +58,7 @@ extern unsigned long g_ul_system_clock; /*Frecuencia del clock*/
  * Se apaga el generador para configurar su contador, y se vuelve a encender.
  * Se especifica el volumen y se activa la salida del PWM.
 */
-void DPD_inicializacion_pwm(){
+void SONIDO_init(){
 
 	//clock pwm
 	SysCtlPWMClockSet(SYSCTL_PWMDIV_8);
@@ -90,8 +95,8 @@ void DPD_inicializacion_pwm(){
  *
  * Se activa el PWM con la frecuencia seleccionada.
 */
-void DPD_reproducir_nota(g_us_note_frecuency){
-	PWMGenPeriodSet(PWM_BASE, PWM_GEN_0,(g_ul_system_clock /(g_us_note_frecuency * 8)));
+void SONIDO_reproducir_nota(note_frecuency){
+	PWMGenPeriodSet(PWM_BASE, PWM_GEN_0,(g_system_clock /(note_frecuency * 8)));
 	PWMSyncUpdate(PWM_BASE, PWM_GEN_0_BIT);
 }
 
@@ -99,4 +104,4 @@ void DPD_reproducir_nota(g_us_note_frecuency){
 ** 																	**
 ** EOF 																**
 ** 																	**
-**********************************************************************/
+*********************************************************************/

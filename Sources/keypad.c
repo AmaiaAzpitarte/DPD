@@ -1,32 +1,19 @@
-/*********************************************************************
-** 																	**
-** project : DPD				 									**
-** filename : keypad.c		 										**
-** version : 1 														**
-** date : June 3, 2013		 										**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013, 					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 3, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
-
-#define KEYPAD_C
+/*********************************************************************************
+** @file    keypad.c															**
+** @brief   Fichero donde se controla el keypad, detectando las teclas pulsadas	**
+** @par		L&oacute;gica														**
+**			- Se inicializa el keypad											**
+**			- Se lee el valor del keypad										**
+**			- Se detecta qu&eacute; tecla se ha pulsado							**
+** @author  Amaia Azpitarte														**
+** @date    2013-06-03															**
+*********************************************************************************/
 
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 #include "hw_types.h"
 #include "hw_memmap.h"
@@ -36,12 +23,24 @@
 
 #include "DPD_Config.h"
 
+/*********************************************************************
+** 																	**
+** DEFINITIONS AND MACROS 											**
+** 																	**
+*********************************************************************/
+#define KEYPAD_C
+
 #ifdef DPD_SENSOR
 	#include "DPD_sensor/DPD_sensor.h"
 #else
 	#include "DPD/DPD.h"
 #endif
 
+/*********************************************************************
+** 																	**
+** TYPEDEFS AND STRUCTURES 											**
+** 																	**
+*********************************************************************/
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
@@ -51,19 +50,21 @@
 ** 																	**
 ** GLOBAL VARIABLES 												**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
-unsigned long g_ul_keypad_switches = 0x1f; /*Valor leído en los botones*/
+unsigned long g_keypad = 0x1f; /*Valor leído en los botones*/
 
-char pulsada; /* Variable donde se guarda la tecla pulsada */
+char g_pulsada; /* Variable donde se guarda la tecla pulsada */
 
-unsigned long g_uc_changed_data;
+unsigned long g_dato_cambiado;
+
+unsigned long g_dato_anterior; //solo para este fichero
 
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 /**
  * @brief  Inicializamos el teclado (los botones).
@@ -71,8 +72,7 @@ unsigned long g_uc_changed_data;
  * @return      -
  *
 */
-
-void DPD_inicializacion_keypad(){
+void KEYPAD_init(){
 
 	//Activamos pines del puerto F (botón select)
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
@@ -108,19 +108,18 @@ void DPD_inicializacion_keypad(){
  * @return     void
  *
 */
+void KEYPAD_leer_keypad(){
 
-void DPD_leer_keypad(){
+		unsigned long dato_pulsado; //Guarda el valor de la tecla pulsada
 
-		unsigned long ul_pressed_data; //Guarda el valor de la tecla pulsada
-
-		ul_pressed_data = (GPIOPinRead( GPIO_PORTE_BASE , (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3) )|
+		dato_pulsado = (GPIOPinRead( GPIO_PORTE_BASE , (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3) )|
 					    	(GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_1) << 3));
 
-		g_uc_changed_data = g_ul_keypad_switches ^ ul_pressed_data; //para evitar los rebotes
+		g_dato_cambiado = g_keypad ^ dato_pulsado; //para evitar los rebotes
 
-		g_ul_keypad_switches = ul_pressed_data;
+		g_keypad = dato_pulsado;
 
-		g_ul_keypad_switches = g_ul_keypad_switches & 0x1f;
+		g_keypad = g_keypad & 0x1f;
 
 }
 
@@ -132,36 +131,41 @@ void DPD_leer_keypad(){
  * Se le asigna un valor a la variable pulsada según el botón que
  * se haya seleccionado.
 */
+void KEYPAD_elegir_tecla(){
 
-void DPD_elegir_tecla(){
+	if(g_dato_cambiado != g_dato_anterior){ //se evitan rebotes
 
-	switch(g_ul_keypad_switches){
+		switch(g_keypad){
 
-		case KEY_UP:	pulsada = UP;
-						break;
-
-		case KEY_DOWN: 	pulsada = DOWN;
-						break;
-
-		case KEY_LEFT: 	pulsada = LEFT;
-						break;
-
-		case KEY_RIGHT: pulsada = RIGHT;
-						break;
-
-		case KEY_SELECT: 	pulsada = SELECT;
+			case KEY_UP:	g_pulsada = UP;
 							break;
 
-		default: 	pulsada = NADA;
-					break;
+			case KEY_DOWN: 	g_pulsada = DOWN;
+							break;
+
+			case KEY_LEFT: 	g_pulsada = LEFT;
+							break;
+
+			case KEY_RIGHT: g_pulsada = RIGHT;
+							break;
+
+			case KEY_SELECT: 	g_pulsada = SELECT;
+								break;
+
+			default: 	g_pulsada = NADA;
+						break;
+
+		}
 
 	}
+	else g_pulsada = NADA;
 
+	g_dato_anterior = g_dato_cambiado;
 }
 
 /*********************************************************************
 ** 																	**
 ** EOF 																**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 

@@ -95,6 +95,7 @@ typedef struct {
 	  BYTE			estadoActual;	/* Indica el estado actual del autómata */
 } TS_AUTOMATA;
 
+
 /*****************************************************************************
 **                                                                          **
 ** EXPORTED VARIABLES                                                       **
@@ -105,6 +106,7 @@ typedef struct {
 ** EXPORTED FUNCTIONS                                                       **
 **                                                                          **
 *****************************************************************************/
+
 /**
  * @brief  Ejecuta el autómata
  *

@@ -17,6 +17,7 @@
 #include "inc/hw_types.h"
 #include "inc/hw_memmap.h"
 #include "driverlib/sysctl.h"
+
 #include <string.h>
 
 #include "Automata/Automata.h"
@@ -44,10 +45,7 @@
 ** 																	**
 ** DEFINITIONS AND MACROS 											**
 ** 																	**
-**********************************************************************/
-
-
-
+*********************************************************************/
 /*********************************************************************
 ** 																	**
 ** TYPEDEFS AND STRUCTURES 											**
@@ -132,8 +130,6 @@ void SEM_ACCION_menu_segundo();
 
 void SEM_ACCION_menu_tercero();
 
-
-
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
@@ -215,7 +211,6 @@ AUTOMATA(dpd)
 	&menu_tercero
 FIN_AUTOMATA(dpd,1,NULL)
 
-
 /*********************************************************************
 ** 																	**
 ** GLOBAL VARIABLES 												**
@@ -293,9 +288,11 @@ tBoolean SEM_EVENTO_finQUEDA_UNA(){
 	tBoolean ret;
 
 	if ((g_timer_finished)&&(g_linea == 1)) {
+
 		g_timer_finished = false;
 		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
+
 	}
 
 	return ret;
@@ -313,6 +310,7 @@ tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 		g_timer_finished = false;
 		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
+		
 	}
 	else ret = false;
 
@@ -331,6 +329,7 @@ tBoolean SEM_EVENTO_finQUEDAN_TRES(){
 		g_timer_finished = false;
 		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
+
 	}
 	else ret = false;
 
@@ -392,6 +391,7 @@ tBoolean SEM_EVENTO_finDOS(){
 
 		g_timer_finished = false;
 		ret = true;
+	
 	}
 	else ret = false;
 
@@ -409,6 +409,7 @@ tBoolean SEM_EVENTO_finTRES(){
 
 		g_timer_finished = false;
 		ret = true;
+
 	}
 	else ret = false;
 
@@ -448,6 +449,7 @@ tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
 		g_timer_finished = false;
 		ret = true;
+
 	}
 	else ret = false;
 
@@ -465,6 +467,7 @@ tBoolean SEM_EVENTO_finEXISTEN_TRES(){
 
 		g_timer_finished = false;
 		ret = true;
+		
 	}
 	else ret = false;
 
@@ -526,6 +529,7 @@ tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
 		g_timer_finished = false;
 		ret = true;
+
 	}
 	else ret = false;
 
@@ -753,6 +757,7 @@ void DPD_pedido_finalizado(int final){
 	}
 
 }
+
 
 void DPD_emitir_sonido(){
 

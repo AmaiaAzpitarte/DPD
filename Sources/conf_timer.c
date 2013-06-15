@@ -73,6 +73,7 @@ void TIMER_init_timer0(int factor){ //factor= multiplica 1 segundo para consegui
 
 }
 
+
 void TIMER_enable_timer0(void) {
 	//
 	// Setup the interrupts for the timer timeouts.
@@ -95,6 +96,7 @@ void TIMER_disable_timer0(void) {
 	IntDisable(INT_TIMER0A);
 
 }
+
 
 // The interrupt handler for the first timer interrupt.
 void TIMER_timer0_int_handler(void)

@@ -1,30 +1,23 @@
-/*********************************************************************
-** 																	**
-** project : DPD			 										**
-** filename : inicializacion.c 										**
-** version : 1 														**
-** date : June 07, 2013 											**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013,		 										**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : June 07, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
-#define INICIALIZACION_C
+/*****************************************************************************************
+** @file   	inicializacion.c															**
+** @brief   Fichero donde se inicializan las funcionalidades que el sistema necesita	**
+** @par		L&oacute;gica																**
+**			- Se inicializa el display													**
+**			- Se inicializa el altavoz													**
+**			- Se inicializa el keypad													**
+*			- Se inicializa el clock													**
+**			- Se inicializan los leds													**
+**			- Se inicializa el timer_0													**
+**			- En caso de que el DPD contenga sensor, se inicializa el sensor			**
+** @author  Amaia Azpitarte																**
+** @date    2013-06-07																	**
+*****************************************************************************************/
+
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 #include "Headers/inicializacion.h"
 
@@ -32,35 +25,52 @@
 
 /*********************************************************************
 ** 																	**
+** DEFINITIONS AND MACROS 											**
+** 																	**
+*********************************************************************/
+#define INICIALIZACION_C
+/*********************************************************************
+** 																	**
+** TYPEDEFS AND STRUCTURES											**
+** 																	**
+*********************************************************************/
+/*********************************************************************
+** 																	**
 ** EXPORTED VARIABLES 												**
+** 																	**
+*********************************************************************/
+/*********************************************************************
+** 																	**
+** GLOBAL VARIABLES		 											**
 ** 																	**
 *********************************************************************/
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
-void DPD_inicializacion(){
+void INICIALIZACION_init(){
 
-	RIT128x96x4Init(1000000);
-	RIT128x96x4StringDraw("ESTADO - dpd espera",5,80,15);
+	DISPLAY_inicializacion_display();
 
-	//initSysTick();
+	//Las siguientes dos lineas tengo que quitarlas
+	char* str = "Estado - dpd espera";
+	DISPLAY_escribir_en_pantalla(str,5,87);
 
-	DPD_inicializacion_pwm();
+	SONIDO_init();
 
-	DPD_inicializacion_keypad();
+	KEYPAD_init();
 
-	DPD_inicializacion_clock();
+	CLOCK_inicializacion_clock();
 
-	DPD_inicializacion_leds();
+	LEDS_init();
 
 	#ifdef DPD_SENSOR
-		DPD_inicializacion_sensor();
+		SENSOR_init();
 	#endif
 
-	init_Timer0(5);
+	TIMER_init_timer0(TIMER_ESPERA);
 
 }
 
@@ -68,5 +78,5 @@ void DPD_inicializacion(){
 ** 																	**
 ** EOF 																**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
