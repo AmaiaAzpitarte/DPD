@@ -1,24 +1,17 @@
-/*********************************************************************
-** 																	**
-** project : DPD				 									**
-** filename : main.c		 										**
-** version : 1 														**
-** date : May 28, 2013 												**
-** 																	**
-**********************************************************************
-** 																	**
-** Copyright (c) 2013, 					 							**
-** All rights reserved. 											**
-** 																	**
-**********************************************************************
-**																	**
-**VERSION HISTORY:													**
-**----------------													**
-**Version : 1														**
-**Date : May 28, 2013												**
-**Revised by : Amaia Azpitarte										**
-**Description : Original version. 									**
-*********************************************************************/
+/*************************************************************************************************************************************
+** @file    main.c																													**
+** @brief   Fichero principal																										**
+** @par		L&oacute;gica																											**
+**			- Llama a la funci&oacute;n /a INICIALIZACION_init() para inicializar todas las funcionalidades que necesita el sistema	**
+**			- En un bucle /a while, se realizan las siguientes funciones:															**
+**				- Se detectan las teclas pulsadas																					**
+**				- Se ejecuta la m&aacute;quina de estados																			**
+**				- En el caso de que el DPD contenga sensor, se detecta si ha habido movimiento										**
+** @author  Amaia Azpitarte																											**
+** @date    2013-05-28																												**
+** @todo	Falta por implementar la comunicaci&oacute;n con el Controlador															**
+*************************************************************************************************************************************/
+
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
@@ -38,15 +31,10 @@
 ** 																	**
 ** DEFINITIONS AND MACROS 											**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 /*********************************************************************
 ** 																	**
 ** TYPEDEFS AND STRUCTURES 											**
-** 																	**
-**********************************************************************/
-/*********************************************************************
-** 																	**
-** PROTOTYPES OF LOCAL FUNCTIONS 									**
 ** 																	**
 *********************************************************************/
 /*********************************************************************
@@ -54,59 +42,53 @@
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
+
+extern TS_AUTOMATA dpd;
+
 /*********************************************************************
 ** 																	**
 ** GLOBAL VARIABLES 												**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
-extern TS_AUTOMATA dpd;
+int g_linea=0; //variable global que indica la cantidad de líneas a realizar en el DPD
 
-int linea=0; //variable global que indica la cantidad de líneas a realizar en el DPD
-
-/*********************************************************************
-** 																	**
-** EXPORTED FUNCTIONS 												**
-** 																	**
-**********************************************************************/
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 /**
-* @brief  Punto de entrada y SuperLoop de la aplicación
-*
+* @brief  	Punto de entrada y SuperLoop de la aplicación
+* @par		L&oacute;gica:
+* 			- Llama a la funci&oacute;n /a INICIALIZACION_init() para inicializar todos los elementos del sistema
+*			- En un bucle infinito, se realizan las siguientes funciones:
+*				- Se ejecuta la m&aacute;quina de estados
+*				- Se detectan las teclas pulsadas
+*				- En el caso de que el DPD contenga sensor, se detecta si ha habido movimiento o no
 * @return La función nunca finaliza su ejecución
-*
-* Inicializa todos los elementos del sistema y ejecuta las tareas de
-* la máquina de estado constantemente en un bucle infinito
-*
 */
-
 int main(void){
 
-	DPD_inicializacion();
+	INICIALIZACION_init();
 
 	dpd.estadoActual = DPD_ESPERA; /* El primer estado es DPD_ESPERA */
 
-	/* Se ejecutará la máquina de estado de forma continua */
+	/* Se ejecutará la máquina de estados de forma continua */
 	while(1){
 
-		DPD_leer_keypad();
+		KEYPAD_leer_keypad();
 
-		DPD_elegir_tecla();
+		KEYPAD_elegir_tecla();
 
 		#ifdef DPD_SENSOR
-			//if((dpd.estadoActual=UNA_LINEA)||(dpd.estadoActual=MENU_PRIMERO)||(dpd.estadoActual=MENU_SEGUNDO)||(dpd.estadoActual=MENU_TERCERO)){
-				DPD_detectar_movimiento();
-			//}
+				SENSOR_detectar_movimiento();
 		#endif
 
-		EjecutaAutomata( (TS_AUTOMATA *) &dpd);
+		AUTOMATA_ejecuta_automata( (TS_AUTOMATA *) &dpd);
 
-		cantidad_linea(); //solo para el testeo del DPD
+		SIMULACION_cantidad_linea(); //solo para el testeo del DPD, para la simulación de la cantidad de líneas por realizar que hay en el DPD
 
 	}
 }
@@ -115,4 +97,4 @@ int main(void){
 ** 																	**
 ** EOF 																**
 ** 																	**
-**********************************************************************/
+*********************************************************************/

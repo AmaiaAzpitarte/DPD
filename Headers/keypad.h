@@ -1,32 +1,30 @@
 /*****************************************************************************
-**											  								**
-** project :  DPD							 							  	**
-** filename : keypad.h  					  					    		**
-** version : 1 									  							**
-** date :  	2013-06-05		 		 									    **
-** 											  								**
-******************************************************************************
-** 											  								**
-**                      											  		**
-**  								  					                    **
-** 											  								**
-******************************************************************************
-**										        							**
-**VERSION HISTORY:									  						**
-**----------------									  						**
-**Version : 1										  						**
-**Date : 2013-06-05									 					    **
-**Revised by : Amaia Azpitarte	          									**
-**Description : Original version.							  				**
+** @file    keypad.h														**
+** @brief   Cabecera del fichero keypad.c									**
+** @par		Declaraciones													**
+**			- UP			Indica la tecla UP								**
+**			- DOWN			Indica la tecla DOWN							**
+**			- LEFT			Indica la tecla LEFT							**
+**			- RIGHT			Indica la tecla RIGHT							**
+**			- SELECT		Indica la tecla SELECT							**
+**			- NADA			Indica que no se ha pulsado ninguna tecla		**
+**			- KEY_UP		Indica que la tecla pulsada es UP				**
+**			- KEY_DOWN		Indica que la tecla pulsada es DOWN				**
+**			- KEY_LEFT		Indica que la tecla pulsada es LEFT				**
+**			- KEY_RIGHT		Indica que la tecla pulsada es RIGHT			**
+**			- KEY_SELECT	Indica que la tecla pulsada es SELECT			**
+** @author  Amaia Azpitarte													**
+** @date    2013-06-05														**
 *****************************************************************************/
+
+#ifndef _KEYPAD_H
+#define _KEYPAD_H
+
 /*****************************************************************************
 ** 																			**
 ** DEFINITIONS AND MACROS 													**
 ** 																			**
-******************************************************************************/
-
-#ifndef KEYPAD_H
-#define KEYPAD_H
+*****************************************************************************/
 
 // Definición de las teclas para la varibale pulsada
 #define UP 1
@@ -47,13 +45,13 @@
 ** 																			**
 ** PROTOTYPES OF GLOBAL FUNCTIONS											**
 ** 																			**
-******************************************************************************/
+*****************************************************************************/
 
-void DPD_inicializacion_keypad();
+void KEYPAD_init();
 
-void DPD_leer_keypad();
+void KEYPAD_leer_keypad();
 
-void DPD_elegir_tecla();
+void KEYPAD_elegir_tecla();
 
 /*****************************************************************************
 **	 																		**
@@ -61,15 +59,15 @@ void DPD_elegir_tecla();
 ** 																			**
 *****************************************************************************/
 
-#ifndef KEYPAD_C
-#define PUB_KEYPAD extern
+#ifndef _KEYPAD_C
+#define _PUB_KEYPAD extern
 #else
-#define PUB_KEYPAD
+#define _PUB_KEYPAD
 #endif
 
 /*****************************************************************************
 ** 																			**
 ** EOF 																		**
 ** 																			**
-******************************************************************************/
+*****************************************************************************/
 #endif

@@ -1,24 +1,21 @@
-/*****************************************************************************
-**											  								**
-** project :  DPD							 							  	**
-** filename : Automata.h  					  					    		**
-** version : 1 									  							**
-** date :  	2013-06-03		 		 									    **
-** 											  								**
-******************************************************************************
-** 											  								**
-**                      											  		**
-**  								  					                    **
-** 											  								**
-******************************************************************************
-**										        							**
-**VERSION HISTORY:									  						**
-**----------------									  						**
-**Version : 1										  						**
-**Date : 2013-06-03									 					    **
-**Revised by : Amaia Azpitarte	          									**
-**Description : Original version.							  				**
-*****************************************************************************/
+/*********************************************************************************
+** @file    Automata.h															**
+** @brief   Cabecera del fichero Automata.c										**
+** @par		Declaraciones														**
+**			- BYTE																**
+**			- NULL																**
+**			- PRIVATE															**
+**			- ITEM_EVAC															**
+**			- ESTADO		Macro del estado del aut&oacute;mata				**
+**			- FIN_ESTADO	Macro de fin de estado del aut&oacute;mata			**
+**			- AUTOMATA		Macro del aut&oacute;mata							**
+**			- FIN_AUTOMATA	Macro del fin del aut&oacute;mata					**
+**			- TS_EVEACC		Estructura de las transiciones del aut&oacute;mata	**
+**			- TS_ESTADO		Estructura de los estados del aut&oacute;mata		**
+**			- TS_AUTOMATA	Estructura del aut&oacute;mata						**
+** @author  Amaia Azpitarte														**
+** @date    2013-06-03															**
+*********************************************************************************/
 
 #define _AUTOMATA_H
 
@@ -26,6 +23,7 @@
 **                                                                          **
 ** MODULES USED                                                             **
 **                                                                          **
+*****************************************************************************/
 ****************************************************************************/
 
 #include "inc/hw_types.h"
@@ -34,7 +32,7 @@
 **                                                                          **
 ** DEFINITIONS AND MACROS                                                   **
 **                                                                          **
-******************************************************************************/
+*****************************************************************************/
 
 #define BYTE unsigned char
 #define NULL 0
@@ -43,8 +41,7 @@
 /**
  * @brief Macros para la definición del autómata y sus elementos
  */
-
-#define ITEM_EVAC( nombre , evento , accion ) { nombre , #nombre , evento, accion}
+#define ITEM_EVAC(nombre, evento, accion) {nombre, #nombre, evento, accion}
 
 #define ESTADO(nombre)\
         PRIVATE const TS_EVEACC x##nombre[] = {
@@ -99,7 +96,6 @@ typedef struct {
 	  BYTE			estadoActual;	/* Indica el estado actual del autómata */
 } TS_AUTOMATA;
 
-
 /*****************************************************************************
 **                                                                          **
 ** EXPORTED VARIABLES                                                       **
@@ -109,8 +105,7 @@ typedef struct {
 **                                                                          **
 ** EXPORTED FUNCTIONS                                                       **
 **                                                                          **
-******************************************************************************/
-
+*****************************************************************************/
 /**
  * @brief  Ejecuta el autómata
  *
@@ -118,8 +113,8 @@ typedef struct {
  *
  * @return void
  */
+void AUTOMATA_ejecuta_automata( TS_AUTOMATA *elAutomata);
 
-void EjecutaAutomata( TS_AUTOMATA *elAutomata);
 
 /**
  * @brief  Ejecuta el estado
@@ -129,11 +124,10 @@ void EjecutaAutomata( TS_AUTOMATA *elAutomata);
  *
  * @return void
  */
-
 void EjecutaEstado  ( TS_ESTADO *elEstado, TS_AUTOMATA *elAutomata);
 
 /*****************************************************************************
 **                                                                          **
 ** EOF                                                                      **
 **                                                                          **
-******************************************************************************/
+*****************************************************************************/
