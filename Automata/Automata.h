@@ -24,7 +24,6 @@
 ** MODULES USED                                                             **
 **                                                                          **
 *****************************************************************************/
-****************************************************************************/
 
 #include "inc/hw_types.h"
 
@@ -114,17 +113,6 @@ typedef struct {
  * @return void
  */
 void AUTOMATA_ejecuta_automata( TS_AUTOMATA *elAutomata);
-
-
-/**
- * @brief  Ejecuta el estado
- *
- * @param elEstado Puntero al estado
- * @param elAutomata Puntero al automata
- *
- * @return void
- */
-void EjecutaEstado  ( TS_ESTADO *elEstado, TS_AUTOMATA *elAutomata);
 
 /*****************************************************************************
 **                                                                          **
