@@ -16,9 +16,8 @@
 ** @author  Amaia Azpitarte														**
 ** @date    2013-06-03															**
 *********************************************************************************/
-
+#ifndef _AUTOMATA_H
 #define _AUTOMATA_H
-
 /*****************************************************************************
 **                                                                          **
 ** MODULES USED                                                             **
@@ -57,7 +56,11 @@
 		,NULL };\
 		TS_AUTOMATA nombre =\
 		{ident, #nombre, StopC, (TS_ESTADO **) x##nombre};
-
+/*****************************************************************************
+**                                                                          **
+** EXPORTED VARIABLES                                                       **
+**                                                                          **
+*****************************************************************************/
 /*****************************************************************************
 **                                                                          **
 ** TYPEDEFS AND STRUCTURES                                                  **
@@ -95,29 +98,23 @@ typedef struct {
 	  BYTE			estadoActual;	/* Indica el estado actual del autómata */
 } TS_AUTOMATA;
 
-
 /*****************************************************************************
 **                                                                          **
-** EXPORTED VARIABLES                                                       **
-**                                                                          **
-*****************************************************************************/
-/*****************************************************************************
-**                                                                          **
-** EXPORTED FUNCTIONS                                                       **
+** PROTOTYPES OF GLOBAL FUNCTIONS                                           **
 **                                                                          **
 *****************************************************************************/
 
-/**
- * @brief  Ejecuta el autómata
- *
- * @param elAutomata Puntero al autómata
- *
- * @return void
- */
-void AUTOMATA_ejecuta_automata( TS_AUTOMATA *elAutomata);
+void AUTOMATA_ejecuta_automata(TS_AUTOMATA *elAutomata);
 
+
+#ifndef _AUTOMATA_C
+#define _PUB_AUTOMATA extern
+#else
+#define _PUB_AUTOMATA
+#endif
 /*****************************************************************************
 **                                                                          **
 ** EOF                                                                      **
 **                                                                          **
 *****************************************************************************/
+#endif

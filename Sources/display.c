@@ -7,13 +7,12 @@
 ** @author  Amaia Azpitarte														**
 ** @date    2013-06-03															**
 *********************************************************************************/
-
+#define _DISPLAY_C
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
 *********************************************************************/
-
 #include "Utiles/rit128x96x4.h"
 
 #include "Headers/display.h"
@@ -21,23 +20,18 @@
 #include "Headers/framebuffer.h"
 
 #include "DPD_Config.h"
-
-#include "Headers/inicializacion.h"
-
-/*********************************************************************
-** 																	**
-** DEFINITIONS AND MACROS 											**
-** 																	**
-*********************************************************************/
-
 #ifdef DPD_SENSOR
 	#include "DPD_sensor/DPD_sensor.h"
 #else
 	#include "DPD/DPD.h"
 #endif
 
-#define DISPLAY_C
-
+#include "Headers/inicializacion.h"
+/*********************************************************************
+** 																	**
+** DEFINITIONS AND MACROS 											**
+** 																	**
+*********************************************************************/
 /*********************************************************************
 ** 																	**
 ** TYPEDEFS AND STRUCTURES 											**
@@ -93,7 +87,6 @@ void DISPLAY_escribir_en_pantalla(unsigned char *puc, int x, int y){
 	FRAME_BUFFER_delete_element(identificador);
 
 }
-
 /*********************************************************************
 ** 																	**
 ** EOF 																**

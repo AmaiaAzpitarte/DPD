@@ -7,28 +7,23 @@
 ** @author  Amaia Azpitarte															**
 ** @date    2013-06-03																**
 *************************************************************************************/
-
-#define RECEIVED_DATA_C
-
+#define _RECEIVED_DATA_C
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
 *********************************************************************/
-
 #include "Headers/data_structs.h"
 #include "Headers/received_data.h"
 
 #include "Automata/Automata.h"
 
 #include "DPD_Config.h"
-
 #ifdef DPD_SENSOR
 	#include "DPD_sensor/DPD_sensor.h"
 #else
 	#include "DPD/DPD.h"
 #endif
-
 /*********************************************************************
 **																	**
 ** DEFINITIONS AND MACROS											**
@@ -44,7 +39,6 @@
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
-
 extern TS_AUTOMATA dpd;
 
 #ifdef DPD_SENSOR
@@ -55,7 +49,6 @@ extern TS_AUTOMATA dpd;
 ** GLOBAL VARIABLES 												**
 ** 																	**
 *********************************************************************/
-
 
 //@todo 	Estos en realidad no deben estar creados así. Se les da
 //			valores a los elementos cuando el DPD recibe una línea de
@@ -123,7 +116,6 @@ void RECEIVED_DATA_modificar_posiciones(){
 #endif
 
 }
-
 /*********************************************************************
 ** 																	**
 ** EOF 																**

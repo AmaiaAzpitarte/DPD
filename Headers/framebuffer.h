@@ -16,15 +16,19 @@
 ** @author  Amaia Azpitarte																										**
 ** @date    2013-06-03																											**
 *********************************************************************************************************************************/
-
+#ifndef _FRAMEBUFFER_H
+#define _FRAMEBUFFER_H
+/*****************************************************************************
+** 																			**
+** MODULES USED																**
+** 																			**
+*****************************************************************************/
 /*****************************************************************************
 ** 																			**
 ** DEFINITIONS AND MACROS 													**
 ** 																			**
 *****************************************************************************/
 
-#ifndef _CONSOLE_H
-#define _CONSOLE_H
 #define MAX_ELEMS 10
 
 /*****************************************************************************
@@ -47,6 +51,11 @@ void FRAME_BUFFER_write_to_display(void);
 
 void FRAME_BUFFER_delete_row(int y);
 
+/*****************************************************************************
+** 																			**
+** EXPORTED VARIABLES	 													**
+** 																			**
+*****************************************************************************/
 /*****************************************************************************
 **	 																		**
 ** TYPEDEFS AND STRUCTURES 													**
@@ -71,10 +80,10 @@ struct Tipo_DISPLAY_ELEMENT{
 /*Creamos un buffer: DISPLAY_ELEMENT*/
 typedef struct Tipo_DISPLAY_ELEMENT DISPLAY_ELEMENT;
 
-#ifndef CONSOLE_C
-#define PUB_CONSOLE extern
+#ifndef _FRAMEBUFFER_C
+#define _PUB_FRAMEBUFFER extern
 #else
-#define PUB_CONSOLE
+#define _PUB_FRAMEBUFFER
 #endif
 
 /*****************************************************************************
@@ -82,5 +91,4 @@ typedef struct Tipo_DISPLAY_ELEMENT DISPLAY_ELEMENT;
 ** EOF 																		**
 ** 																			**
 *****************************************************************************/
-
 #endif

@@ -8,13 +8,12 @@
 ** @author  Amaia Azpitarte														**
 ** @date    2013-06-03															**
 *********************************************************************************/
-
+#define _KEYPAD_C
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
 *********************************************************************/
-
 #include "hw_types.h"
 #include "hw_memmap.h"
 #include "driverlib/sysctl.h"
@@ -22,20 +21,16 @@
 #include "Headers/keypad.h"
 
 #include "DPD_Config.h"
-
-/*********************************************************************
-** 																	**
-** DEFINITIONS AND MACROS 											**
-** 																	**
-*********************************************************************/
-#define KEYPAD_C
-
 #ifdef DPD_SENSOR
 	#include "DPD_sensor/DPD_sensor.h"
 #else
 	#include "DPD/DPD.h"
 #endif
-
+/*********************************************************************
+** 																	**
+** DEFINITIONS AND MACROS 											**
+** 																	**
+*********************************************************************/
 /*********************************************************************
 ** 																	**
 ** TYPEDEFS AND STRUCTURES 											**
@@ -51,7 +46,6 @@
 ** GLOBAL VARIABLES 												**
 ** 																	**
 *********************************************************************/
-
 unsigned long g_keypad = 0x1f; /*Valor leído en los botones*/
 
 char g_pulsada; /* Variable donde se guarda la tecla pulsada */
@@ -59,7 +53,6 @@ char g_pulsada; /* Variable donde se guarda la tecla pulsada */
 unsigned long g_dato_cambiado;
 
 unsigned long g_dato_anterior; //solo para este fichero
-
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
@@ -162,7 +155,6 @@ void KEYPAD_elegir_tecla(){
 
 	g_dato_anterior = g_dato_cambiado;
 }
-
 /*********************************************************************
 ** 																	**
 ** EOF 																**

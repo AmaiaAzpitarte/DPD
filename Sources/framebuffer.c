@@ -10,28 +10,23 @@
 ** @author  Amaia Azpitarte																**
 ** @date    2013-06-03																	**
 *****************************************************************************************/
-
+#define _FRAMEBUFFER_C
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
 *********************************************************************/
-
 #include <stdio.h>
 #include <string.h>
 #include "Utiles/rit128x96x4.h"
 
 #include "Headers/displayGenerico.h"
 #include "Headers/framebuffer.h"
-
 /*********************************************************************
 ** 																	**
 ** DEFINITIONS AND MACROS 											**
 ** 																	**
 *********************************************************************/
-
-#define CONSOLE_C
-
 /*********************************************************************
 ** 																	**
 ** TYPEDEFS AND STRUCTURES 											**
@@ -47,7 +42,6 @@
 ** GLOBAL VARIABLES 												**
 ** 																	**
 *********************************************************************/
-
 DISPLAY_ELEMENT g_display_elements[MAX_ELEMS];
 
 int g_display_element_kop = 0; /*Num. de elementos que hay en el buffer*/
@@ -64,7 +58,6 @@ const unsigned char g_puc_nada[32]  =  {
         0x00, 0x00, 0x00, 0x00
 
 };
-
 /*********************************************************************
 ** 																	**
 ** LOCAL FUNCTIONS 													**
@@ -340,7 +333,6 @@ void FRAME_BUFFER_delete_row(int y){
 	DISPLAY_escribir_en_pantalla(str, 0, y);
 
 }
-
 /*********************************************************************
 ** 																	**
 ** EOF 																**

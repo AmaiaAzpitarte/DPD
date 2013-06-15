@@ -6,7 +6,7 @@
 ** @author  Amaia Azpitarte											**
 ** @date    2013-06-05												**
 *********************************************************************/
-
+#define _CLOCK_C
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
@@ -20,7 +20,6 @@
 ** DEFINITION AND MACROS 											**
 ** 																	**
 *********************************************************************/
-#define CLOCK_C
 /*********************************************************************
 ** 																	**
 ** TYPEDEFS AND STRUCTURES 											**
@@ -31,9 +30,7 @@
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
-
 extern unsigned long g_system_clock; /*Frecuencia del clock*/
-
 /*********************************************************************
 ** 																	**
 ** GLOBAL VARIABLES					 								**
@@ -57,7 +54,6 @@ void CLOCK_inicializacion_clock(){
 	SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |SYSCTL_XTAL_8MHZ);
 	g_system_clock = SysCtlClockGet();
 }
-
 /*********************************************************************
 ** 																	**
 ** EOF 																**
