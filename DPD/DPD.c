@@ -17,6 +17,7 @@
 #include "inc/hw_types.h"
 #include "inc/hw_memmap.h"
 #include "driverlib/sysctl.h"
+
 #include <string.h>
 
 #include "Automata/Automata.h"
@@ -36,7 +37,6 @@
 #include "Headers/conf_timer.h"
 
 #include "DPD_Config.h"
-
 #ifndef DPD_SENSOR
 
 #define _DPD_C
@@ -46,14 +46,90 @@
 ** DEFINITIONS AND MACROS 											**
 ** 																	**
 *********************************************************************/
-
-// Local functions
-tboolean SEM_EVENTO_finDPD_ESPERA();
 /*********************************************************************
 ** 																	**
 ** TYPEDEFS AND STRUCTURES 											**
 ** 																	**
+**********************************************************************/
+/*********************************************************************
+** 																	**
+** PROTOTYPES OF LOCAL FUNCTIONS 									**
+** 																	**
 *********************************************************************/
+
+
+//Transiciones desde el estado DPD_ESPERA
+tBoolean SEM_EVENTO_finDPD_ESPERA();
+
+//Transiciones desde el estado UNA_LINEA
+tBoolean SEM_EVENTO_finPULSADA();
+
+tBoolean SEM_EVENTO_finUNA_LINEA();
+
+//Transiciones desde el estado CONFIRMACION
+tBoolean SEM_EVENTO_finCONFIRMACION();
+
+tBoolean SEM_EVENTO_finQUEDA_UNA();
+
+tBoolean SEM_EVENTO_finQUEDAN_DOS();
+
+tBoolean SEM_EVENTO_finQUEDAN_TRES();
+
+//Transiciones desde el estado DOS_LINEAS
+tBoolean SEM_EVENTO_finMENU();
+
+tBoolean SEM_EVENTO_finTERCERA();
+
+//Transicion desde el estado TRES_LINEAS
+tBoolean SEM_EVENTO_finTRES_LINEAS();
+
+//Transiciones desde el estado MENU_PRIMERO
+tBoolean SEM_EVENTO_finCONF_UNO();
+
+tBoolean SEM_EVENTO_finDOS();
+
+tBoolean SEM_EVENTO_finTRES();
+
+tBoolean SEM_EVENTO_finMENU_DOS();
+
+//Transiciones desde el estado MENUN_SEGUNDO
+tBoolean SEM_EVENTO_finCONF_DOS();
+
+tBoolean SEM_EVENTO_finEXISTEN_DOS();
+
+tBoolean SEM_EVENTO_finEXISTEN_TRES();
+
+tBoolean SEM_EVENTO_finHAY_DOS();
+
+tBoolean SEM_EVENTO_finHAY_TRES();
+
+//Transiciones desde el estado MENU_TERCERO
+tBoolean SEM_EVENTO_finCONF_TRES();
+
+tBoolean SEM_EVENTO_finMENU_UNO();
+
+tBoolean SEM_EVENTO_finSIGUEN_TRES();
+
+
+
+//Acciones que realizar en los estados
+
+void SEM_ACCION_dpd_espera();
+
+void SEM_ACCION_una_linea();
+
+void SEM_ACCION_confirmacion();
+
+void SEM_ACCION_dos_lineas();
+
+void SEM_ACCION_tres_lineas();
+
+void SEM_ACCION_menu_primero();
+
+void SEM_ACCION_menu_segundo();
+
+void SEM_ACCION_menu_tercero();
+
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
@@ -151,7 +227,6 @@ char *str;
 ** 																	**
 *********************************************************************/
 
-
 //TRANSICIONES DESDE LOS ESTADOS
 
 tBoolean SEM_EVENTO_finDPD_ESPERA(){
@@ -194,9 +269,11 @@ tBoolean SEM_EVENTO_finCONFIRMACION(){
 	tBoolean ret;
 
 	if ((g_timer_finished)&&(g_linea == 0)){
+
 		g_timer_finished = false;
 		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
+
 	}
 	else ret = false;
 
@@ -211,9 +288,11 @@ tBoolean SEM_EVENTO_finQUEDA_UNA(){
 	tBoolean ret;
 
 	if ((g_timer_finished)&&(g_linea == 1)) {
+
 		g_timer_finished = false;
 		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
+
 	}
 
 	return ret;
@@ -227,9 +306,11 @@ tBoolean SEM_EVENTO_finQUEDAN_DOS(){
 	tBoolean ret;
 
 	if ((g_timer_finished)&&(g_linea == 2)) {
+
 		g_timer_finished = false;
 		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
+		
 	}
 	else ret = false;
 
@@ -244,9 +325,11 @@ tBoolean SEM_EVENTO_finQUEDAN_TRES(){
 	tBoolean ret;
 
 	if ((g_timer_finished)&&(g_linea == 3)){
+
 		g_timer_finished = false;
 		SONIDO_reproducir_nota(FRECUENCIA_SILENCIO);
 		ret = true;
+
 	}
 	else ret = false;
 
@@ -304,9 +387,11 @@ tBoolean SEM_EVENTO_finDOS(){
 
 	tBoolean ret;
 
-	if ((g_timer_finished)&&(g_linea == 2)) {
+	if ((g_timer_finished)&&(g_linea == 2)){
+
 		g_timer_finished = false;
 		ret = true;
+	
 	}
 	else ret = false;
 
@@ -321,8 +406,10 @@ tBoolean SEM_EVENTO_finTRES(){
 	tBoolean ret;
 
 	if ((g_timer_finished)&&(g_linea == 3)){
+
 		g_timer_finished = false;
 		ret = true;
+
 	}
 	else ret = false;
 
@@ -358,9 +445,11 @@ tBoolean SEM_EVENTO_finEXISTEN_DOS(){
 
 	tBoolean ret;
 
-	if ((g_timer_finished)&&(g_linea == 2)) {
+	if ((g_timer_finished)&&(g_linea == 2)){
+
 		g_timer_finished = false;
 		ret = true;
+
 	}
 	else ret = false;
 
@@ -375,8 +464,10 @@ tBoolean SEM_EVENTO_finEXISTEN_TRES(){
 	tBoolean ret;
 
 	if ((g_timer_finished)&&(g_linea == 3)){
+
 		g_timer_finished = false;
 		ret = true;
+		
 	}
 	else ret = false;
 
@@ -434,9 +525,11 @@ tBoolean SEM_EVENTO_finSIGUEN_TRES(){
 
 	tBoolean ret;
 
-	if (g_timer_finished) {
+	if (g_timer_finished){
+
 		g_timer_finished = false;
 		ret = true;
+
 	}
 	else ret = false;
 
@@ -479,7 +572,6 @@ void SEM_ACCION_una_linea(){
 		str = "Ultima Operacion";
 
 		DISPLAY_escribir_en_pantalla(str,15,50);
-
 	}
 
 	LEDS_escoger_leds(lineapedido_1.operario);
@@ -591,7 +683,6 @@ void SEM_ACCION_menu_primero(){
 		str = "Ultima Operacion";
 
 		DISPLAY_escribir_en_pantalla(str,15,50);
-
 	}
 
 	LEDS_escoger_leds(lineapedido_1.operario);
@@ -662,12 +753,16 @@ void DPD_pedido_finalizado(int final){
 		DISPLAY_escribir_en_pantalla(str,10,50);
 
 		DPD_emitir_sonido();
+
 	}
 
 }
 
+
 void DPD_emitir_sonido(){
+
 	SONIDO_reproducir_nota(FRECUENCIA_DO);
+
 }
 
 /*********************************************************************

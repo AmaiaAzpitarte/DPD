@@ -95,12 +95,25 @@ typedef struct {
 	  BYTE			estadoActual;	/* Indica el estado actual del autómata */
 } TS_AUTOMATA;
 
+
+/*****************************************************************************
+**                                                                          **
+** EXPORTED VARIABLES                                                       **
+**                                                                          **
+*****************************************************************************/
 /*****************************************************************************
 **                                                                          **
 ** EXPORTED FUNCTIONS                                                       **
 **                                                                          **
 *****************************************************************************/
 
+/**
+ * @brief  Ejecuta el autómata
+ *
+ * @param elAutomata Puntero al autómata
+ *
+ * @return void
+ */
 void AUTOMATA_ejecuta_automata( TS_AUTOMATA *elAutomata);
 
 /*****************************************************************************
