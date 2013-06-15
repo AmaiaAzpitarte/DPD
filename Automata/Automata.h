@@ -40,7 +40,7 @@
 /**
  * @brief Macros para la definición del autómata y sus elementos
  */
-#define ITEM_EVAC( nombre , evento , accion ) { nombre , #nombre , evento, accion}
+#define ITEM_EVAC(nombre, evento, accion) {nombre, #nombre, evento, accion}
 
 #define ESTADO(nombre)\
         PRIVATE const TS_EVEACC x##nombre[] = {

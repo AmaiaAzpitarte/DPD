@@ -17,14 +17,14 @@
 ** @date    2013-06-05														**
 *****************************************************************************/
 
+#ifndef _KEYPAD_H
+#define _KEYPAD_H
+
 /*****************************************************************************
 ** 																			**
 ** DEFINITIONS AND MACROS 													**
 ** 																			**
 *****************************************************************************/
-
-#ifndef KEYPAD_H
-#define KEYPAD_H
 
 // Definición de las teclas para la varibale pulsada
 #define UP 1
@@ -59,10 +59,10 @@ void KEYPAD_elegir_tecla();
 ** 																			**
 *****************************************************************************/
 
-#ifndef KEYPAD_C
-#define PUB_KEYPAD extern
+#ifndef _KEYPAD_C
+#define _PUB_KEYPAD extern
 #else
-#define PUB_KEYPAD
+#define _PUB_KEYPAD
 #endif
 
 /*****************************************************************************

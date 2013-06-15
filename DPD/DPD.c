@@ -46,6 +46,9 @@
 ** DEFINITIONS AND MACROS 											**
 ** 																	**
 *********************************************************************/
+
+// Local functions
+tboolean SEM_EVENTO_finDPD_ESPERA();
 /*********************************************************************
 ** 																	**
 ** TYPEDEFS AND STRUCTURES 											**
