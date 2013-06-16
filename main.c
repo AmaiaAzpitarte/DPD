@@ -1,22 +1,22 @@
-/*************************************************************************************************************************************
-** @file    main.c																													**
-** @brief   Fichero principal																										**
-** @par		L&oacute;gica																											**
-**			- Llama a la funci&oacute;n /a INICIALIZACION_init() para inicializar todas las funcionalidades que necesita el sistema	**
-**			- En un bucle /a while, se realizan las siguientes funciones:															**
-**				- Se detectan las teclas pulsadas																					**
-**				- Se ejecuta la m&aacute;quina de estados																			**
-**				- En el caso de que el DPD contenga sensor, se detecta si ha habido movimiento										**
-** @author  Amaia Azpitarte																											**
-** @date    2013-05-28																												**
-** @todo	Falta por implementar la comunicaci&oacute;n con el Controlador															**
-*************************************************************************************************************************************/
+/**
+ * @file    main.c
+ * @brief   Fichero principal
+ * @par		L&oacute;gica
+ *			- Llama a la funci&oacute;n \e INICIALIZACION_init() para inicializar todas las funcionalidades que necesita el sistema
+ *			- En un bucle \e while, se realizan las siguientes funciones:
+ *				- Se detectan las teclas pulsadas
+ *				- Se ejecuta la m&aacute;quina de estados
+ *				- En el caso de que el DPD contenga sensor, se detecta si ha habido movimiento
+ * @author  Amaia Azpitarte
+ * @date    2013-05-28
+ * @todo	Falta por implementar la comunicaci&oacute;n con el Controlador
+ */
 
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
-**********************************************************************/
+*********************************************************************/
 
 #include "Automata/Automata.h"
 #include "DPD_Config.h"
@@ -43,6 +43,7 @@
 ** 																	**
 *********************************************************************/
 
+// Estructura donde se guardan los parámetros de la máquina de estados
 extern TS_AUTOMATA dpd;
 
 /*********************************************************************
@@ -51,7 +52,8 @@ extern TS_AUTOMATA dpd;
 ** 																	**
 *********************************************************************/
 
-int g_linea=0; //variable global que indica la cantidad de líneas a realizar en el DPD
+// Variable global que indica la cantidad de líneas a realizar en el DPD
+int g_linea=0;
 
 /*********************************************************************
 ** 																	**
@@ -60,22 +62,22 @@ int g_linea=0; //variable global que indica la cantidad de líneas a realizar en 
 *********************************************************************/
 
 /**
-* @brief  	Punto de entrada y SuperLoop de la aplicación
-* @par		L&oacute;gica:
-* 			- Llama a la funci&oacute;n /a INICIALIZACION_init() para inicializar todos los elementos del sistema
-*			- En un bucle infinito, se realizan las siguientes funciones:
-*				- Se ejecuta la m&aacute;quina de estados
-*				- Se detectan las teclas pulsadas
-*				- En el caso de que el DPD contenga sensor, se detecta si ha habido movimiento o no
-* @return La función nunca finaliza su ejecución
-*/
+ * @brief  	Punto de entrada y SuperLoop de la aplicaci&oacute;n
+ * @par		L&oacute;gica:
+ * 			- Llama a la funci&oacute;n \e INICIALIZACION_init() para inicializar todos los elementos del sistema
+ *			- En un bucle infinito, se realizan las siguientes funciones:
+ *				- Se ejecuta la m&aacute;quina de estados
+ * 				- Se detectan las teclas pulsadas
+ *				- En el caso de que el DPD contenga sensor, se detecta si ha habido movimiento o no
+ * @return 	La funci&oacute;n nunca finaliza su ejecuci&oacute;n
+ */
 int main(void){
 
 	INICIALIZACION_init();
 
-	dpd.estadoActual = DPD_ESPERA; /* El primer estado es DPD_ESPERA */
+	dpd.estadoActual = DPD_ESPERA; // El primer estado es DPD_ESPERA
 
-	/* Se ejecutará la máquina de estados de forma continua */
+	// Se ejecutará la máquina de estados de forma continua
 	while(1){
 
 		KEYPAD_leer_keypad();
@@ -88,7 +90,7 @@ int main(void){
 
 		AUTOMATA_ejecuta_automata( (TS_AUTOMATA *) &dpd);
 
-		SIMULACION_cantidad_linea(); //solo para el testeo del DPD, para la simulación de la cantidad de líneas por realizar que hay en el DPD
+		SIMULACION_cantidad_linea(); // Solo para el testeo del DPD, para la simulación de la cantidad de líneas por realizar que hay en el DPD
 
 	}
 }

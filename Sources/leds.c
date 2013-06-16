@@ -1,12 +1,14 @@
-/*************************************************************************************************
-** @file    leds.c																				**
-** @brief   Fichero donde se controlan los leds													**
-** @par		L&oacute;gica																		**
-**			- Se inicializan y se habilitan el puerto y los pines donde se conectan los leds	**
-**			- Se encienden y se apagan los leds													**
-** @author  Amaia Azpitarte																		**
-** @date    2013-06-06																			**
-*************************************************************************************************/
+/**
+ * @file    leds.c
+ * @brief   Fichero donde se controlan los leds
+ * @par		L&oacute;gica
+ *			- Se inicializan y se habilitan el puerto y los pines donde se conectan los leds
+ *			- Se encienden y se apagan los leds
+ * @author  Amaia Azpitarte
+ * @date    2013-06-06
+ */
+
+#define _LEDS_C
 
 /*********************************************************************
 **																	**
@@ -40,19 +42,22 @@
 ** DEFINITIONS AND MACROS											**
 ** 																	**
 *********************************************************************/
-#define LEDS_C
 /*********************************************************************
 ** 																	**
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
 
+// Variable que indica la cantidad de líneas por realizar que hay en el DPD
 extern int g_linea;
 
+// Estructura donde se guardan los parámetros de la línea de pedido 1
 extern t_lineapedido lineapedido_1;
 
+// Estructura donde se guardan los parámetros de la línea de pedido 2
 extern t_lineapedido lineapedido_2;
 
+// Estructura donde se guardan los parámetros de la línea de pedido 3
 extern t_lineapedido lineapedido_3;
 
 /*********************************************************************
@@ -61,6 +66,7 @@ extern t_lineapedido lineapedido_3;
 ** 																	**
 *********************************************************************/
 
+// Variable donde se guarda el valor de los leds
 int g_valor_leds;
 
 /*********************************************************************
@@ -69,33 +75,47 @@ int g_valor_leds;
 ** 																	**
 *********************************************************************/
 
+/**
+ * @brief  	Inicializaci&oacute;n de los leds
+ * @par		L&oacute;gica:
+ * 			- Inicializa el puerto B
+ *			- Inicializa los pines donde se conectan los leds, configur&aacute;ndolos como output
+ *			- Apaga los leds
+ * @return 	void
+ */
 void LEDS_init(){
 
-	//
-	// Enable the GPIO port B that is used for the LEDS.
-	//
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
 
-	//
-	// Enable the GPIO pins 0, 1 and 2 for the LEDS.  Set the direction as output, and
-	// enable the GPIO pins for digital function.
-	//
 	GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
 
 	// Apagar los leds desde el principio
 	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, 0x00000000);
+
 }
 
+/**
+ * @brief  	Escribe el valor de los leds, encendiendo o apagando estos
+ * @par		L&oacute;gica:
+ * 			- Escribe el valor de los leds en los pines correspondientes, para encender o apagar los leds
+ * @param	leds	valor que define qu&eacute; leds se deben apagar y cu&aacute;les se deben encender
+ * @return 	void
+ */
 void LEDS_controlar_leds(int leds){
 
-	//
-	// Output leds' values
-	//
 	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, leds);
 
 }
 
-
+/**
+ * @brief  	Define el valor que deben tener los leds para el caso en el que solo se deba encender uno de los leds (estados: UNA_LINEA, MENU_PRIMERO, MENU_SEGUNDO_ MENNU_TERCERO)
+ * @par		L&oacute;gica:
+ * 			- Si no hay ninguna l&iacute;nea por realizar en el DPD, apaga todos los leds (\b g_valor_leds=0x00)
+ * 			- Si hay una l&iacute;nea por realizar, consulta el operario de esa l&iacute;nea y cambia el valor de la variable \b g_valor_leds al correspondiente a ese operario
+ * 			- Escribe el valor definido para g_valor_leds en los leds
+ * @param	operario	Define el operario que debe realizar la l&iacute;nea de pedido
+ * @return 	void
+ */
 void LEDS_escoger_leds(int operario){
 
 	g_valor_leds = 0x00;
@@ -107,6 +127,14 @@ void LEDS_escoger_leds(int operario){
 
 }
 
+/**
+ * @brief  	Define el valor que deben tener los leds para el caso en el que se deben encender dos leds (estado: DOS_LINEAS)
+ * @par		L&oacute;gica:
+ * 			- Consulta los operarios de las dos l&iacute;neas que hay en el DPD
+ * 			- Cambia el valor de la variable \b g_valor_leds al correspondiente a esos operarios
+ * 			- Escribe el valor definido para g_valor_leds en los leds
+ * @return 	void
+ */
 void LEDS_escoger_leds_dos_lineas(){ // DOS_LINEAS
 
 	g_valor_leds = 0x00;
@@ -122,12 +150,29 @@ void LEDS_escoger_leds_dos_lineas(){ // DOS_LINEAS
 
 }
 
+/**
+ * @brief  	Define el valor que deben tener los leds para el caso en el que se deben encender tres leds (estado: TRES_LINEAS)
+ * @par		L&oacute;gica:
+ * 			- Cambia el valor de la variable \b g_valor_leds para encender los tres leds
+ * 			- Escribe el valor definido para g_valor_leds en los leds
+ * @return 	void
+ */
 void LEDS_escoger_leds_tres_lineas(){ // TRES_LINEAS
 
 	LEDS_controlar_leds(0x07);
 
 }
 
+/**
+ * @brief  	Dependiendo del valor de la variable \e operario, devuelve un valor distinto para los leds
+ * @par		L&oacute;gica:
+ * 			- Dependiendo del valor de la variable \e operario, devuelve un valor distinto para los leds:
+ * 				- Si es el \e operario_1, devuelve \e 0x01
+ * 				- Si es el \e operario_2, devuelve \e 0x02
+ * 				- Si es el \e operario_3, devuelve \e 0x04
+ * @param	operario	Define el operario que debe realizar la l&iacute;nea de pedido
+ * @return 	void
+ */
 int LEDS_consultar_operarios(int operario){
 
 	int ret = 0x00;

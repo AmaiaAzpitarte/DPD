@@ -1,25 +1,30 @@
-/*****************************************************************************
-** @file    keypad.h														**
-** @brief   Cabecera del fichero keypad.c									**
-** @par		Declaraciones													**
-**			- UP			Indica la tecla UP								**
-**			- DOWN			Indica la tecla DOWN							**
-**			- LEFT			Indica la tecla LEFT							**
-**			- RIGHT			Indica la tecla RIGHT							**
-**			- SELECT		Indica la tecla SELECT							**
-**			- NADA			Indica que no se ha pulsado ninguna tecla		**
-**			- KEY_UP		Indica que la tecla pulsada es UP				**
-**			- KEY_DOWN		Indica que la tecla pulsada es DOWN				**
-**			- KEY_LEFT		Indica que la tecla pulsada es LEFT				**
-**			- KEY_RIGHT		Indica que la tecla pulsada es RIGHT			**
-**			- KEY_SELECT	Indica que la tecla pulsada es SELECT			**
-** @author  Amaia Azpitarte													**
-** @date    2013-06-05														**
-*****************************************************************************/
+/**
+ * @file    keypad.h
+ * @brief   Cabecera del fichero keypad.c
+ * @par		Declaraciones
+ *			- \b UP			Indica la tecla UP
+ *			- \b DOWN			Indica la tecla DOWN
+ *			- \b LEFT			Indica la tecla LEFT
+ *			- \b RIGHT			Indica la tecla RIGHT
+ *			- \b SELECT		Indica la tecla SELECT
+ *			- \b NADA			Indica que no se ha pulsado ninguna tecla
+ *			- \b KEY_UP		Indica que la tecla pulsada es UP
+ *			- \b KEY_DOWN		Indica que la tecla pulsada es DOWN
+ *			- \b KEY_LEFT		Indica que la tecla pulsada es LEFT
+ *			- \b KEY_RIGHT		Indica que la tecla pulsada es RIGHT
+ *			- \b KEY_SELECT	Indica que la tecla pulsada es SELECT
+ * @author  Amaia Azpitarte
+ * @date    2013-06-05
+ */
 
 #ifndef _KEYPAD_H
 #define _KEYPAD_H
 
+/*****************************************************************************
+** 																			**
+** MODULES USED			 													**
+** 																			**
+*****************************************************************************/
 /*****************************************************************************
 ** 																			**
 ** DEFINITIONS AND MACROS 													**
@@ -54,6 +59,11 @@ void KEYPAD_leer_keypad();
 void KEYPAD_elegir_tecla();
 
 /*****************************************************************************
+** 																			**
+** EXPORTED FUNCTIONS	 													**
+** 																			**
+*****************************************************************************/
+/*****************************************************************************
 **	 																		**
 ** TYPEDEFS AND STRUCTURES 													**
 ** 																			**
@@ -70,4 +80,5 @@ void KEYPAD_elegir_tecla();
 ** EOF 																		**
 ** 																			**
 *****************************************************************************/
+
 #endif

@@ -1,22 +1,23 @@
-/*********************************************************************************
-** @file    Automata.h															**
-** @brief   Cabecera del fichero Automata.c										**
-** @par		Declaraciones														**
-**			- BYTE																**
-**			- NULL																**
-**			- PRIVATE															**
-**			- ITEM_EVAC															**
-**			- ESTADO		Macro del estado del aut&oacute;mata				**
-**			- FIN_ESTADO	Macro de fin de estado del aut&oacute;mata			**
-**			- AUTOMATA		Macro del aut&oacute;mata							**
-**			- FIN_AUTOMATA	Macro del fin del aut&oacute;mata					**
-**			- TS_EVEACC		Estructura de las transiciones del aut&oacute;mata	**
-**			- TS_ESTADO		Estructura de los estados del aut&oacute;mata		**
-**			- TS_AUTOMATA	Estructura del aut&oacute;mata						**
-** @author  Amaia Azpitarte														**
-** @date    2013-06-03															**
-*********************************************************************************/
+/**
+ * @file    Automata.h
+ * @brief   Cabecera del fichero Automata.c
+ * @par		Declaraciones
+ *			- \b BYTE
+ *			- \b NULL
+ *			- \b PRIVATE
+ *			- \b ITEM_EVAC
+ *			- \b ESTADO		Macro del estado del aut&oacute;mata
+ *			- \b FIN_ESTADO	Macro de fin de estado del aut&oacute;mata
+ *			- \b AUTOMATA		Macro del aut&oacute;mata
+ *			- \b FIN_AUTOMATA	Macro del fin del aut&oacute;mata
+ *			- \b TS_EVEACC		Estructura de las transiciones del aut&oacute;mata
+ *			- \b TS_ESTADO		Estructura de los estados del aut&oacute;mata
+ *			- \b TS_AUTOMATA	Estructura del aut&oacute;mata
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
 
+#ifndef _AUTOMATA_H
 #define _AUTOMATA_H
 
 /*****************************************************************************
@@ -38,7 +39,7 @@
 #define PRIVATE static
 
 /**
- * @brief Macros para la definición del autómata y sus elementos
+ * @brief Macros para la definici&oacute;n del aut&oacute;mata y sus elementos
  */
 #define ITEM_EVAC(nombre, evento, accion) {nombre, #nombre, evento, accion}
 
@@ -60,6 +61,11 @@
 
 /*****************************************************************************
 **                                                                          **
+** EXPORTED VARIABLES                                                       **
+**                                                                          **
+*****************************************************************************/
+/*****************************************************************************
+**                                                                          **
 ** TYPEDEFS AND STRUCTURES                                                  **
 **                                                                          **
 *****************************************************************************/
@@ -67,7 +73,7 @@
 typedef void (*TPFN_ACC)(void); 	/* Puntero a una función acción */
 typedef tBoolean (*TPFN_EVE)(void); /* Puntero a una función evento */
 
-// Transición
+// TRANSICIÓN
 
 typedef struct {
 	  BYTE          id;             /* Identificador del estado destino */
@@ -76,7 +82,7 @@ typedef struct {
 	  TPFN_ACC      accion;         /* Puntero a la función acción */
 } TS_EVEACC;
 
-//Estado
+// ESTADO
 
 typedef struct {
 	  BYTE          id;             /* Identificador del estado */
@@ -85,7 +91,7 @@ typedef struct {
 	  TS_EVEACC   * funcion;        /* Punteros a las funciones del estado */
 } TS_ESTADO;
 
-// Automata
+// AUTÓMATA
 
 typedef struct {
 	  BYTE          id;             /* Identificador del autómata */
@@ -95,29 +101,25 @@ typedef struct {
 	  BYTE			estadoActual;	/* Indica el estado actual del autómata */
 } TS_AUTOMATA;
 
-
 /*****************************************************************************
 **                                                                          **
-** EXPORTED VARIABLES                                                       **
-**                                                                          **
-*****************************************************************************/
-/*****************************************************************************
-**                                                                          **
-** EXPORTED FUNCTIONS                                                       **
+** PROTOTYPES OF GLOBAL FUNCTIONS                                           **
 **                                                                          **
 *****************************************************************************/
 
-/**
- * @brief  Ejecuta el autómata
- *
- * @param elAutomata Puntero al autómata
- *
- * @return void
- */
-void AUTOMATA_ejecuta_automata( TS_AUTOMATA *elAutomata);
+void AUTOMATA_ejecuta_automata(TS_AUTOMATA *elAutomata);
+
+
+#ifndef _AUTOMATA_C
+#define _PUB_AUTOMATA extern
+#else
+#define _PUB_AUTOMATA
+#endif
 
 /*****************************************************************************
 **                                                                          **
 ** EOF                                                                      **
 **                                                                          **
 *****************************************************************************/
+
+#endif

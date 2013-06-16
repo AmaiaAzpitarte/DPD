@@ -1,17 +1,23 @@
-/*****************************************************************************
-** @file    displayGenerico.h												**
-** @brief   Cabecera del fichero displayRIT.c								**
-** @author  Amaia Azpitarte													**
-** @date    2013-06-03														**
-*****************************************************************************/
+/**
+ * @file    displayGenerico.h
+ * @brief   Cabecera del fichero displayRIT.c
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
 
+#ifndef _DISPLAY_GENERICO_H
+#define _DISPLAY_GENERICO_H
+
+/*****************************************************************************
+** 																			**
+** MODULES USED			 													**
+** 																			**
+*****************************************************************************/
 /*****************************************************************************
 ** 																			**
 ** DEFINITIONS AND MACROS 													**
 ** 																			**
 *****************************************************************************/
-#ifndef _DISPLAY_GENERICO_H
-#define _DISPLAY_GENERICO_H
 /*****************************************************************************
 ** 																			**
 ** PROTOTYPES OF GLOBAL FUNCTIONS											**
@@ -27,15 +33,20 @@ void DISPLAY_GENERICO_dibuja_imagen(unsigned char *pucImage, int ulX,
 void DISPLAY_GENERICO_init();
 
 /*****************************************************************************
+** 																			**
+** EXPORTED VARIABLES	 													**
+** 																			**
+*****************************************************************************/
+/*****************************************************************************
 **	 																		**
 ** TYPEDEFS AND STRUCTURES 													**
 ** 																			**
 *****************************************************************************/
 
-#ifndef DISPLAY_RIT_C
-#define PUB_DISPLAY_RIT extern
+#ifndef _DISPLAY_RIT_C
+#define _PUB_DISPLAY_RIT extern
 #else
-#define PUB_DISPLAY_RIT
+#define _PUB_DISPLAY_RIT
 #endif
 
 /*****************************************************************************
@@ -43,4 +54,5 @@ void DISPLAY_GENERICO_init();
 ** EOF 																		**
 ** 																			**
 *****************************************************************************/
+
 #endif
