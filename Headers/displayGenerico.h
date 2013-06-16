@@ -1,11 +1,13 @@
-/*****************************************************************************
-** @file    displayGenerico.h												**
-** @brief   Cabecera del fichero displayRIT.c								**
-** @author  Amaia Azpitarte													**
-** @date    2013-06-03														**
-*****************************************************************************/
+/**
+ * @file    displayGenerico.h
+ * @brief   Cabecera del fichero displayRIT.c
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
+
 #ifndef _DISPLAY_GENERICO_H
 #define _DISPLAY_GENERICO_H
+
 /*****************************************************************************
 ** 																			**
 ** MODULES USED			 													**
@@ -52,4 +54,5 @@ void DISPLAY_GENERICO_init();
 ** EOF 																		**
 ** 																			**
 *****************************************************************************/
+
 #endif

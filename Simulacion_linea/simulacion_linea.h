@@ -1,11 +1,13 @@
-/*****************************************************************************
-** @file    simulacion_linea.h												**
-** @brief   Cabecera del fichero simulacion_linea.c							**
-** @author  Amaia Azpitarte													**
-** @date    2013-06-05														**
-*****************************************************************************/
+/*
+ * @file    simulacion_linea.h
+ * @brief   Cabecera del fichero simulacion_linea.c
+ * @author  Amaia Azpitarte
+ * @date    2013-06-05
+ */
+
 #ifndef _SIMULACION_LINEA_H
 #define _SIMULACION_LINEA_H
+
 /*****************************************************************************
 **	 																		**
 ** MODULES USED																**
@@ -34,14 +36,17 @@ void SIMULACION_cantidad_linea();
 ** TYPEDEFS AND STRUCTURES 													**
 ** 																			**
 *****************************************************************************/
+
 #ifndef _SIMULACION_LINEA_C
 #define _PUB_SIMULACION_LINEA extern
 #else
 #define _PUB_SIMULACION_LINEA
 #endif
+
 /*****************************************************************************
 ** 																			**
 ** EOF 																		**
 ** 																			**
 *****************************************************************************/
+
 #endif

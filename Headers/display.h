@@ -1,11 +1,13 @@
-/*****************************************************************************
-** @file    display.h														**
-** @brief   Cabecera del fichero display.c									**
-** @author  Amaia Azpitarte													**
-** @date    2013-06-03														**
-*****************************************************************************/
+/**
+ * @file    display.h
+ * @brief   Cabecera del fichero display.c
+ * @author  Amaia Azpitarte
+ * @date    2013-06-03
+ */
+
 #ifndef _DISPLAY_H
 #define _DISPLAY_H
+
 /*****************************************************************************
 ** 																			**
 ** MODULES USED																**
@@ -36,14 +38,17 @@ void DISPLAY_escribir_en_pantalla(unsigned char *puc, int x, int y);
 ** TYPEDEFS AND STRUCTURES 													**
 ** 																			**
 *****************************************************************************/
+
 #ifndef _DISPLAY_C
 #define _PUB_DISPLAY extern
 #else
 #define _PUB_DISPLAY
 #endif
+
 /*****************************************************************************
 ** 																			**
 ** EOF 																		**
 ** 																			**
 *****************************************************************************/
+
 #endif

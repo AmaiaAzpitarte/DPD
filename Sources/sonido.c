@@ -1,18 +1,21 @@
-/*********************************************************************
-** @file    sonido.c												**
-** @brief   Fichero donde se controla el altavoz					**
-** @par		L&oacute;gica											**
-**			- Se inicializa el PWM									**
-**			- Se reproduce el sonido								**
-** @author  Amaia Azpitarte											**
-** @date    2013-06-05												**
-*********************************************************************/
+/**
+ * @file    sonido.c
+ * @brief   Fichero donde se controla el altavoz
+ * @par		L&oacute;gica
+ *			- Se inicializa el PWM
+ *			- Se reproduce el sonido
+ * @author  Amaia Azpitarte
+ * @date    2013-06-05
+ */
+
 #define _SONIDO_C
+
 /*********************************************************************
 **																	**
 ** MODULES USED 													**
 ** 																	**
 *********************************************************************/
+
 #include "hw_types.h"
 #include "hw_pwm.h"
 #include "hw_memmap.h"
@@ -20,6 +23,7 @@
 #include "driverlib/gpio.h"
 #include "driverlib/pwm.h"
 #include "Headers/sonido.h"
+
 /*********************************************************************
 **																	**
 ** DEFINITIONS AND MACROS											**
@@ -35,7 +39,10 @@
 ** EXPORTED VARIABLES 												**
 ** 																	**
 *********************************************************************/
-extern unsigned long g_system_clock; /*Frecuencia del clock*/
+
+// Frecuencia del clock
+extern unsigned long g_system_clock;
+
 /*********************************************************************
 **																	**
 ** GLOBAL VARIABLES													**
@@ -48,14 +55,13 @@ extern unsigned long g_system_clock; /*Frecuencia del clock*/
 *********************************************************************/
 
 /**
- * @brief  Inicializacaión del PWM.
- *
- * @return     -
- *
- * Se inicializa el clock del PWM, y luego los pines correspondientes.
- * Se apaga el generador para configurar su contador, y se vuelve a encender.
- * Se especifica el volumen y se activa la salida del PWM.
-*/
+ * @brief  	Inicializacai&oacute;n del PWM.
+ * @par		L&oacute;gica:
+ * 			- Se inicializa el clock del PWM, y luego los pines correspondientes
+ * 			- Se apaga el generador para configurar su contador, y se vuelve a encender
+ * 			- Se especifica el volumen y se activa la salida del PWM
+ * @return  void
+ */
 void SONIDO_init(){
 
 	//clock pwm
@@ -84,18 +90,20 @@ void SONIDO_init(){
 
 	//Activamos la salida del pwm
 	PWMOutputState(PWM_BASE, PWM_OUT_1_BIT, true);
+
 }
 
 /**
- * @brief  Reproducir una nota con el PWM.
- *
- * @return     -
- *
- * Se activa el PWM con la frecuencia seleccionada.
+ * @brief  	Reproducir una nota con el PWM.
+ * @par		L&oacute;gica:
+ * 			- Se activa el PWM con la frecuencia seleccionada
+ * @return  void
 */
 void SONIDO_reproducir_nota(note_frecuency){
+
 	PWMGenPeriodSet(PWM_BASE, PWM_GEN_0,(g_system_clock /(note_frecuency * 8)));
 	PWMSyncUpdate(PWM_BASE, PWM_GEN_0_BIT);
+
 }
 
 /*********************************************************************

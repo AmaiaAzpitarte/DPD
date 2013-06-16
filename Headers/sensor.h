@@ -1,11 +1,13 @@
-/*****************************************************************************
-** @file    sensor.h														**
-** @brief   Cabecera del fichero sensor.c									**
-** @author  Amaia Azpitarte													**
-** @date    2013-06-10														**
-*****************************************************************************/
+/**
+ * @file    sensor.h
+ * @brief   Cabecera del fichero sensor.c
+ * @author  Amaia Azpitarte
+ * @date    2013-06-10
+ */
+
 #ifndef _SENSOR_H
 #define _SENSOR_H
+
 /*****************************************************************************
 ** 																			**
 ** MODULES USED			 													**
@@ -36,14 +38,17 @@ void SENSOR_detectar_movimiento();
 ** TYPEDEFS AND STRUCTURES 													**
 ** 																			**
 *****************************************************************************/
+
 #ifndef _SENSOR_C
 #define _PUB_SENSOR extern
 #else
 #define _PUB_SENSOR
 #endif
+
 /*****************************************************************************
 ** 																			**
 ** EOF 																		**
 ** 																			**
 *****************************************************************************/
+
 #endif

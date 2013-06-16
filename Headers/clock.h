@@ -1,11 +1,13 @@
-/*****************************************************************************
-** @file    clock.h															**
-** @brief   Cabecera del fichero clock.c									**
-** @author  Amaia Azpitarte													**
-** @date    2013-06-05														**
-*****************************************************************************/
+/**
+ * @file    clock.h
+ * @brief   Cabecera del fichero clock.c
+ * @author  Amaia Azpitarte
+ * @date    2013-06-05
+ */
+
 #ifndef CLOCK_H
 #define CLOCK_
+
 /*****************************************************************************
 ** 																			**
 ** MODULES USED			 													**
@@ -34,14 +36,17 @@ void CLOCK_inicializacion_clock();
 ** TYPEDEFS AND STRUCTURES 													**
 ** 																			**
 *****************************************************************************/
+
 #ifndef _CLOCK_C
 #define _PUB_CLOCK extern
 #else
 #define _PUB_CLOCK
 #endif
+
 /*****************************************************************************
 ** 																			**
 ** EOF 																		**
 ** 																			**
 *****************************************************************************/
+
 #endif
