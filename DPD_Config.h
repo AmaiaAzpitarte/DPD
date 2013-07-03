@@ -24,10 +24,10 @@
 
 // Para ejecutar DPD SIN SENSOR, comentar la siguiente linea
 // Para ejecutar DPD CON SENSOR, utilizar la siguiente linea
-//#define	DPD_SENSOR	1
+#define	DPD_SENSOR	1
 
 // Indica que el timer esperará 5 segundos
-#define TIMER_ESPERA  5
+#define TIMER_ESPERA  10
 
 /*****************************************************************************
 **	 																		**
